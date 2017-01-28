@@ -1,3 +1,3 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+tm_core:
+    resource: "@TMCoreBundle/Resources/config/routing.yml"
+    prefix:   /

@@ -1,0 +1,7 @@
+tm_platform_homepage:
+    path:     /
+    defaults: { _controller: TMPlatformBundle:Trip:index }
+
+tm_platform_add:
+    path:     /add
+    defaults: { _controller: TMPlatformBundle:Trip:index }

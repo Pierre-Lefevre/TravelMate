@@ -1,0 +1,11 @@
+tm_core_homepage:
+    path: /
+    defaults: { _controller: TMCoreBundle:Core:index }
+
+tm_core_contact:
+    path: /contact
+    defaults: { _controller: TMCoreBundle:Core:contact }
+
+tm_platform:
+    resource: "@TMPlatformBundle/Resources/config/routing.yml"
+    prefix:   /trip

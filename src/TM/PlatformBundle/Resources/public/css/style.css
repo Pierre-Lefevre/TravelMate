@@ -1,0 +1,8 @@
+* {
+	box-sizing: border-box;
+}
+
+figure {
+	margin: 0;
+	padding: 5px;
+}
