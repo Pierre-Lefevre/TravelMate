@@ -1,7 +1,32 @@
 tm_platform_homepage:
-    path:     /
-    defaults: { _controller: TMPlatformBundle:Trip:index }
+    path:      /page/{page}
+    defaults:
+        _controller: TMPlatformBundle:Travel:index
+        page:        1
+    requirements:
+        page: \d*
+
+tm_platform_view:
+    path:      /travel/{id}
+    defaults:
+        _controller: TMPlatformBundle:Travel:view
+    requirements:
+        id: \d+
 
 tm_platform_add:
     path:     /add
-    defaults: { _controller: TMPlatformBundle:Trip:index }
+    defaults: { _controller: TMPlatformBundle:Travel:add }
+
+tm_platform_edit:
+    path:      /edit/{id}
+    defaults:
+        _controller: TMPlatformBundle:Travel:edit
+    requirements:
+        id: \d+
+
+tm_platform_delete:
+    path:      /delete/{id}
+    defaults:
+        _controller: TMPlatformBundle:Travel:delete
+    requirements:
+        id: \d+

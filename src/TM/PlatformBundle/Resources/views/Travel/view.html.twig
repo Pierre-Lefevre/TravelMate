@@ -1,0 +1,42 @@
+{% extends "TMPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+	Lecture d'une annonce - {{ parent() }}
+{% endblock %}
+
+{% block tmplatform_body %}
+
+	<div>
+		{# On affiche tous les messages flash dont le nom est « info » #}
+		{% for message in app.session.flashbag.get('info') %}
+			<p>Message flash : {{ message }}</p>
+		{% endfor %}
+	</div>
+
+	<h2>{{ travel.title }}</h2>
+
+
+	<div class="well">
+		{{ travel.content }}
+	</div>
+
+
+
+	<p>
+		<a href="{{ path('tm_platform_homepage') }}" class="btn btn-default">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+			Retour à la liste
+		</a>
+		<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="btn 
+		btn-default">
+			<i class="glyphicon glyphicon-edit"></i>
+			Modifier
+		</a>
+		<a href="{{ path('tm_platform_delete', {'id': travel.id}) }}" class="btn 
+		btn-danger">
+			<i class="glyphicon glyphicon-trash"></i>
+			Supprimer
+		</a>
+	</p>
+
+{% endblock %}

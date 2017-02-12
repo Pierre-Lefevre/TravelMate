@@ -1,17 +1,10 @@
 {% extends "TMCoreBundle::layout.html.twig" %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	{% stylesheets filter='cssrewrite, scssphp' 'bundles/tmplatform/css/*' %}
-		<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-	{% endstylesheets %}
-{% endblock %}
-
 {% block title %}
 	Annonces - {{ parent() }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
 
 	{# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
 	<h1>Annonces</h1>
@@ -19,14 +12,7 @@
 	<hr>
 
 	{# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
-	{% block ocplatform_body %}
+	{% block tmplatform_body %}
 	{% endblock %}
 
-{% endblock %}
-
-{% block javascripts %}
-	{{ parent() }}
-	{% javascripts filter='jsqueeze' 'bundles/tmplatform/js/*' %}
-		<script type="text/javascript" src="{{ asset_url }}"></script>
-	{% endjavascripts %}
 {% endblock %}

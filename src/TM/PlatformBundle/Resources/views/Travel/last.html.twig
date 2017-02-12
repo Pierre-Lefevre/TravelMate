@@ -1,0 +1,14 @@
+<ul id="last-travel">
+	{% for travel in travels %}
+		<li>
+			<a href="{{ path('tm_platform_view', {'id': travel.id}) }}">
+				<figure>
+					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
+				</figure>
+				<div>
+					{{ travel.title }}
+				</div>
+			</a>
+		</li>
+	{% endfor %}
+</ul>

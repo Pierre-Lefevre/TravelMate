@@ -1,27 +1,19 @@
 {% extends "TMCoreBundle::layout.html.twig" %}
 
 {% block title %}
-	Page d'accueil - {{ parent() }}
+	Accueil - {{ parent() }}
 {% endblock %}
 
-{% block body %}
+{% block main %}
 
-	<h2>Page d'accueil de notre site</h2>
-
-	{# On affiche tous les messages flash dont le nom est « info » #}
 	{% for message in app.session.flashbag.get('info') %}
 		<div class="alert alert-info">Message flash : {{ message }}</div>
 	{% endfor %}
 
-	{# Pour afficher les dernières annonces, on réutilise le contrôleur menu du PlatformBundle #}
-	<h3>Dernières annonces</h3>
-	{#{{ render(controller("TMPlatformBundle:Advert:menu", {'limit': 3})) }}#}
-
-	<h3>Derniers messages sur le forum (hypothétique)</h3>
-	<p>
-		{# Ici, on devrait utiliser un contrôleur d'un éventuel ForumBundle pour afficher les derniers posts sur le forum,
-		   ce n'est pas le sujet ici #}
-		Bla bla bla...
-	</p>
+	<div id="home-img">
+		<h2>Trouver un compagnon de voyage<br>n'a jamais été aussi simple.</h2>
+	</div>
+	<h3 class="home-h3">Derniers voyages ajoutés</h3>
+	{{ render(controller("TMPlatformBundle:Travel:last", {'limit': 9})) }}
 
 {% endblock %}

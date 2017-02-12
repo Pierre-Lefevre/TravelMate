@@ -1,0 +1,1 @@
+;document.addEventListener('DOMContentLoaded',function(){var o=document.querySelector('body > header'),t=document.querySelector('body > nav'),e=document.querySelector('#home-img');e.style.height='calc(100vh - '+(o.offsetHeight+t.offsetHeight)+'px)'});
