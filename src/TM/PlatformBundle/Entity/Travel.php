@@ -2,13 +2,16 @@
 
 namespace TM\PlatformBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Travel
  *
  * @ORM\Table(name="travel")
  * @ORM\Entity(repositoryClass="TM\PlatformBundle\Repository\TravelRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Travel
 {
@@ -25,6 +28,8 @@ class Travel
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
      */
     private $title;
 
@@ -32,6 +37,8 @@ class Travel
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
      */
     private $content;
 
@@ -39,6 +46,8 @@ class Travel
      * @var int
      *
      * @ORM\Column(name="nb_mate", type="integer")
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 1)
      */
     private $nbMate;
 
@@ -46,6 +55,8 @@ class Travel
      * @var int
      *
      * @ORM\Column(name="cost", type="integer")
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 1, max = 5)
      */
     private $cost;
 
@@ -53,20 +64,35 @@ class Travel
      * @var \DateTime
      *
      * @ORM\Column(name="start_date", type="date")
+     * @Assert\Date()
+     * @Assert\Range(min = "now")
      */
     private $startDate;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="nb_duration", type="integer")
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 1)
+     */
+    private $nbDuration;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="duration", type="string", length=255)
+     * @ORM\Column(name="type_duration", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Type(type="string")
+     * @Assert\Choice(choices = {"day", "week", "month", "year"})
      */
-    private $duration;
+    private $typeDuration;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime")
+     * @Assert\DateTime()
      */
     private $creationDate;
 
@@ -74,18 +100,53 @@ class Travel
      * @var \DateTime
      *
      * @ORM\Column(name="update_date", type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $updateDate;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="countries", type="simple_array", length=255)
+     * @Assert\All({
+     *     @Assert\Country()
+     * })
+     * @Assert\Count(min = 1)
+     */
+    private $countries;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TM\PlatformBundle\Entity\Category",
+     *     cascade={"persist"})
+     * @Assert\Count(min = 1)
+     */
+    private $categories;
+
     public function __construct()
     {
-        $this->creationDate         = new \Datetime();
+        $this->categories = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function creationDate()
+    {
+        $this->setCreationDate(new \Datetime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setUpdateDate(new \Datetime());
     }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -157,7 +218,7 @@ class Travel
     /**
      * Get nbMate
      *
-     * @return int
+     * @return integer
      */
     public function getNbMate()
     {
@@ -181,7 +242,7 @@ class Travel
     /**
      * Get cost
      *
-     * @return int
+     * @return integer
      */
     public function getCost()
     {
@@ -213,27 +274,51 @@ class Travel
     }
 
     /**
-     * Set duration
+     * Set nbDuration
      *
-     * @param string $duration
+     * @param integer $nbDuration
      *
      * @return Travel
      */
-    public function setDuration($duration)
+    public function setNbDuration($nbDuration)
     {
-        $this->duration = $duration;
+        $this->nbDuration = $nbDuration;
 
         return $this;
     }
 
     /**
-     * Get duration
+     * Get nbDuration
+     *
+     * @return integer
+     */
+    public function getNbDuration()
+    {
+        return $this->nbDuration;
+    }
+
+    /**
+     * Set typeDuration
+     *
+     * @param string $typeDuration
+     *
+     * @return Travel
+     */
+    public function setTypeDuration($typeDuration)
+    {
+        $this->typeDuration = $typeDuration;
+
+        return $this;
+    }
+
+    /**
+     * Get typeDuration
      *
      * @return string
      */
-    public function getDuration()
+    public function getTypeDuration()
     {
-        return $this->duration;
+        return $this->typeDuration;
     }
 
     /**
@@ -243,7 +328,7 @@ class Travel
      *
      * @return Travel
      */
-    public function setCreationDate($creationDate)
+    public function setCreationDate(\Datetime $creationDate = null)
     {
         $this->creationDate = $creationDate;
 
@@ -267,7 +352,7 @@ class Travel
      *
      * @return Travel
      */
-    public function setUpdateDate($updateDate)
+    public function setUpdateDate(\Datetime $updateDate = null)
     {
         $this->updateDate = $updateDate;
 
@@ -282,5 +367,63 @@ class Travel
     public function getUpdateDate()
     {
         return $this->updateDate;
+    }
+
+    /**
+     * Set countries
+     *
+     * @param array $countries
+     *
+     * @return Travel
+     */
+    public function setCountries($countries)
+    {
+        $this->countries = $countries;
+
+        return $this;
+    }
+
+    /**
+     * Get countries
+     *
+     * @return array
+     */
+    public function getCountries()
+    {
+        return $this->countries;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \TM\PlatformBundle\Entity\Category $category
+     *
+     * @return Travel
+     */
+    public function addCategory(\TM\PlatformBundle\Entity\Category $category)
+    {
+        $this->categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \TM\PlatformBundle\Entity\Category $category
+     */
+    public function removeCategory(\TM\PlatformBundle\Entity\Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

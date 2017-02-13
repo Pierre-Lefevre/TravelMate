@@ -17,3 +17,10 @@
 	{{ render(controller("TMPlatformBundle:Travel:last", {'limit': 9})) }}
 
 {% endblock %}
+
+{% block javascripts %}
+{% javascripts filter='jsqueeze' output="js/script.js"
+'bundles/tmcore/js/*' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
