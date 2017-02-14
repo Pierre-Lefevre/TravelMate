@@ -13,14 +13,84 @@
 	<div id="home-img">
 		<h2>Trouver un compagnon de voyage<br>n'a jamais été aussi simple.</h2>
 	</div>
+
+	<h3 class="home-h3">Rechercher un voyage</h3>
+
+	{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	{{ form_errors(form) }}
+
+	{{ form_errors(form.countries) }}
+	{{ form_widget(form.countries, {'attr': {'class': 'select'}}) }}
+
+	{{ form_label(form.begin, null, {'label_attr': {'class': ''}}) }}
+	{{ form_errors(form.begin) }}
+	{{ form_widget(form.begin) }}
+
+	{{ form_label(form.end, null, {'label_attr': {'class': ''}}) }}
+	{{ form_errors(form.end) }}
+	{{ form_widget(form.end, {'attr': {'class': ''}}) }}
+
+	{{ form_errors(form.nbDuration) }}
+	{{ form_widget(form.nbDuration, {'attr': {'class': ''}}) }}
+
+	{{ form_errors(form.typeDuration) }}
+	{{ form_widget(form.typeDuration, {'attr': {'class': 'select'}}) }}
+
+	{{ form_errors(form.categories) }}
+	{{ form_widget(form.categories, {'attr': {'class': 'select'}}) }}
+
+	{{ form_errors(form.cost) }}
+	{{ form_widget(form.cost, {'attr': {'class': 'select'}}) }}
+
+	{{ form_widget(form.submit) }}
+	{{ form_rest(form) }}
+	{{ form_end(form) }}
+
 	<h3 class="home-h3">Derniers voyages ajoutés</h3>
 	{{ render(controller("TMPlatformBundle:Travel:last", {'limit': 9})) }}
 
 {% endblock %}
 
 {% block javascripts %}
+	{{ parent() }}
 {% javascripts filter='jsqueeze' output="js/script.js"
 'bundles/tmcore/js/*' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
+	<script>
+		$(document).ready(function() {
+			$('.js-datepicker').datepicker({
+				format: 'dd/mm/yyyy',
+				language: 'fr'
+			});
+		});
+
+		document.addEventListener("DOMContentLoaded", function () {
+			var options = document.querySelectorAll
+			("#tm_platformbundle_travel_countries option");
+			for (var i = 0; i < options.length; i++){
+				var div = document.createElement("div");
+				div.classList.add("flag");
+				div.classList.add("flag-" + options[i].value.toLowerCase());
+				options[i].insertBefore(div, options[i].firstChild);
+			}
+		});
+
+		document.addEventListener("DOMContentLoaded", function () {
+			var select = document.querySelectorAll(".select");
+			for(var i=0; i<select.length;i++){
+				select[i].style.color = 'gray';
+				select[i].addEventListener("change",function () {
+					if (this.value != '') {
+						this.style.color = 'black';
+					} else {
+						this.style.color = 'gray';
+					}
+				})
+			}
+		});
+
+
+	</script>
+
 {% endblock %}

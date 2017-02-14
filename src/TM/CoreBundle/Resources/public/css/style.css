@@ -25,16 +25,15 @@ a, a:hover {
 
 body > header {
     color: #FFFFFF;
-    background: #222222;
     padding: 10px 10px 0 10px;
+    background-color: #FF690F;
 }
 
 /* NAV */
 
 nav {
-    background-color: #222222;
+    background-color: #FF690F;
     width: 100%;
-    border-bottom: 5px solid #25cabf;
 }
 
 nav ul {
@@ -45,6 +44,7 @@ nav a {
     padding: 10px 0 10px 10px;
     display: block;
     color: #FFFFFF;
+
 }
 
 nav li:last-child a {
@@ -52,7 +52,11 @@ nav li:last-child a {
 }
 
 nav a:hover {
-    color: #25cabf;
+    color: #000000;
+}
+
+main {
+    background-color: #F1F1F1;
 }
 
 /* HOME */
@@ -63,13 +67,14 @@ nav a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-bottom: 5px solid #25cabf;
+    border-bottom: 5px solid #FF690F;
 }
 
 #home-img h2 {
     color: #FFFFFF;
+    text-shadow: -1px 0 #FF690F, 0 1px #FF690F, 1px 0 #FF690F, 0 -1px #FF690F;
     width: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.4);
     height: 100%;
     display: flex;
     justify-content: center;
@@ -80,7 +85,7 @@ nav a:hover {
 
 .home-h3 {
     text-align: center;
-    color: #222222;
+    color: #000000;
     margin: 20px 0;
 }
 
@@ -100,10 +105,10 @@ nav a:hover {
 }
 
 #last-travel a {
-    border: 2px solid #25cabf;
-    color: #FFFFFF;
+    border: 2px solid #FF690F;
+    color: #000000;
     border-radius: 100px 0 0 100px;
-    background-color: #222222;
+    background-color: #FFFFFF;
     padding: 10px;
     display: flex;
 }
@@ -115,13 +120,25 @@ nav a:hover {
 #last-travel img {
     height: 100%;
     border-radius: 100px;
+    border: 2px solid #FF690F;
 }
 
 /* FOOTER */
 
 body > footer {
     color: #FFFFFF;
-    background: #222222;
+    background: #FF690F;
     padding: 5px;
-    border-top: 2px solid #25cabf;
+}
+
+/* FORM */
+
+form[name="travel_search"] input, form[name="travel_search"] select {
+    border: 1px solid #C6C6C6;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.d {
+    color: gray;
 }
