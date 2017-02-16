@@ -1,0 +1,8 @@
+body > header {
+    color: #FFFFFF;
+    padding: 10px;
+    background-color: #FF690F;
+    min-height: 50px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+    position: relative;
+}

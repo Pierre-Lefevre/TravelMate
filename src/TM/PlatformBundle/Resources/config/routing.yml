@@ -1,4 +1,4 @@
-tm_platform_homepage:
+tm_platform_home:
     path:      /page/{page}
     defaults:
         _controller: TMPlatformBundle:Travel:index

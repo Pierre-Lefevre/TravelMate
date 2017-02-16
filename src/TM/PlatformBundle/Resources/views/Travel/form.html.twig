@@ -3,7 +3,7 @@
 
 <script>
 	$(document).ready(function() {
-		$('.js-datepicker').datepicker({
+		$('.date').datepicker({
 			format: 'dd/mm/yyyy',
 			language: 'fr'
 		});
@@ -11,7 +11,7 @@
 
 	document.addEventListener("DOMContentLoaded", function () {
 		var options = document.querySelectorAll
-		("#tm_platformbundle_travel_countries option");
+		("#travel_countries option");
 		for (var i = 0; i < options.length; i++){
 			var div = document.createElement("div");
 			div.classList.add("flag");

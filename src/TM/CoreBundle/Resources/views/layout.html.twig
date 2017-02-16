@@ -5,36 +5,41 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>{% block title %}Travel Mate{% endblock %}</title>
 		{% block stylesheets %}
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
 			{% stylesheets filter='cssrewrite, scssphp' output="css/style.css"
 			'bundles/tmcore/css/*'
 			'bundles/tmplatform/css/*' %}
-			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+				<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 			{% endstylesheets %}
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
-		{% endblock %}
-		{% block javascripts %}
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.fr.min.js"></script>
 		{% endblock %}
 	</head>
 	<body>
+		{% set flashbag = app.session.flashbag.all %}
+		{% if flashbag is not empty %}
+			<div class="flashbag-container">
+				{% for type, messages in flashbag %}
+					{% for message in messages %}
+						<div class="flashbag flashbag-{{ type }}">{{ message }}</div>
+					{% endfor %}
+				{% endfor %}
+			</div>
+		{% endif %}
 		<header>
-			<h1><a href="{{ path('tm_core_homepage') }}">Travel Mate</a></h1>
+			<h1><a href="{{ path('tm_core_home') }}">Travel Mate</a></h1>
 		</header>
-		<nav>
+		<nav {% if app.request.get('_route') == 'tm_core_home'
+			 %}class="background"{% endif
+		%}>
 			<ul>
-				<li>
-					<a href="{{ path('tm_core_homepage') }}">Accueil</a>
+				<li {% if app.request.get('_route') == 'tm_core_home' %}class="active"{% endif %}>
+					<a href="{{ path('tm_core_home') }}">Accueil</a>
 				</li>
-				<li>
-					<a href="{{ path('tm_platform_homepage') }}">Liste des
+				<li {% if app.request.get('_route') == 'tm_platform_home' %}class="active"{% endif %}>
+					<a href="{{ path('tm_platform_home') }}">Liste des
 						voyages</a>
 				</li>
-				<li>
+				<li {% if app.request.get('_route') == 'tm_platform_add' %}class="active"{% endif %}>
 					<a href="{{ path('tm_platform_add') }}">Ajouter un voyage</a>
 				</li>
 			</ul>
@@ -46,5 +51,15 @@
 		<footer>
 			<p>© {{ 'now'|date('Y') }} P. Lefèvre - Tout droit réservé</p>
 		</footer>
+		{% block javascripts %}
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.fr.min.js"></script>
+			{% javascripts filter='jsqueeze' output="js/script.js"
+			'bundles/tmplatform/js/*' %}
+				<script type="text/javascript" src="{{ asset_url }}"></script>
+			{% endjavascripts %}
+		{% endblock %}
 	</body>
 </html>

@@ -1,4 +1,4 @@
-tm_core_homepage:
+tm_core_home:
     path: /
     defaults: { _controller: TMCoreBundle:Core:index }
 

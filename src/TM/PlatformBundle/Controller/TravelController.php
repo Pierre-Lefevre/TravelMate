@@ -7,35 +7,39 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use TM\PlatformBundle\Entity\Travel;
 use TM\PlatformBundle\Form\TravelEditType;
+use TM\PlatformBundle\Form\TravelSearchType;
 use TM\PlatformBundle\Form\TravelType;
 
 class TravelController extends Controller
 {
-    public function indexAction($page)
+    public function indexAction(Request $request, $page)
     {
         if ($page < 1) {
-            throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
+            throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
         }
-        // Ici je fixe le nombre d'annonces par page à 3
-        // Mais bien sûr il faudrait utiliser un paramètre, et y accéder via $this->container->getParameter('nb_per_page')
-        $nbPerPage = 10;
-        // On récupère notre objet Paginator
-        $travels = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('TMPlatformBundle:Travel')
-            ->getTravels($page, $nbPerPage)
-        ;
-        // On calcule le nombre total de pages grâce au count($listAdverts) qui retourne le nombre total d'annonces
+
+        $form = $this->createForm(TravelSearchType::class);
+
+        if ($request->getMethod() == 'POST' && $form->handleRequest($request)->isValid()) {
+            $request->getSession()->set("form_search_data", $request->request->get($form->getName()));
+        }
+        $nbResults = 0;
+        $nbPerPage = 1;
+        $parameters = $request->getSession()->has("form_search_data") ? $request->getSession()->get("form_search_data") : array();
+        $travels    = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getTravelsByParameters($parameters,
+                $page, $nbPerPage, $nbResults);
         $nbPages = ceil(count($travels) / $nbPerPage);
-        // Si la page n'existe pas, on retourne une 404
+
         if ($page > $nbPages) {
-            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+            throw $this->createNotFoundException("La page " . $page . " n'existe pas.");
         }
-        // On donne toutes les informations nécessaires à la vue
+
         return $this->render('TMPlatformBundle:Travel:index.html.twig', array(
+            'form' => $form->createView(),
+            'nbResults' => $nbResults,
             'travels' => $travels,
-            'nbPages'     => $nbPages,
-            'page'        => $page,
+            'nbPages' => $nbPages,
+            'page'    => $page,
         ));
     }
 
@@ -44,7 +48,7 @@ class TravelController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('TMPlatformBundle:Travel:view.html.twig', array(
-            'travel'           => $travel
+            'travel' => $travel
         ));
     }
 
@@ -58,7 +62,8 @@ class TravelController extends Controller
             $em->persist($travel);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Voyage bien enregistrée.');
+            $request->getSession()->getFlashBag()->add('info',
+                'Voyage bien enregistrée.');
 
             return $this->redirectToRoute('tm_platform_view', array(
                 'id' => $travel->getId()
@@ -74,14 +79,16 @@ class TravelController extends Controller
 
     public function editAction(Travel $travel, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em   = $this->getDoctrine()->getManager();
         $form = $this->get('form.factory')->create(TravelEditType::class, $travel);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->flush();
-            $request->getSession()->getFlashBag()->add('notice', 'Voyage bien modifiée.');
-            return $this->redirectToRoute('tm_platform_view', array('id' =>
-                                                                       $travel->getId()));
+            $request->getSession()->getFlashBag()->add('notice',
+                'Voyage bien modifiée.');
+            return $this->redirectToRoute('tm_platform_view', array(
+                'id' => $travel->getId()
+            ));
         }
 
         return $this->render('TMPlatformBundle:Travel:edit.html.twig', array(
@@ -102,7 +109,8 @@ class TravelController extends Controller
             $em->remove($travel);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', "Le voyage a bien été supprimée.");
+            $request->getSession()->getFlashBag()->add('info',
+                "Le voyage a bien été supprimée.");
 
             return $this->redirectToRoute('tm_platform_homepage');
         }
@@ -115,14 +123,10 @@ class TravelController extends Controller
 
     public function lastAction($limit)
     {
-        $em = $this->getDoctrine()->getManager();
-        $travels = $em->getRepository('TMPlatformBundle:Travel')->findBy(
-            array(),
-            array('creationDate' => 'desc'),
-            $limit,
-            0
-        );
-        return $this->render('TMPlatformBundle:Travel:last.html.twig', array(
+        $em      = $this->getDoctrine()->getManager();
+        $travels = $em->getRepository('TMPlatformBundle:Travel')->findBy(array(),
+            array('creationDate' => 'desc'), $limit, 0);
+        return $this->render('TMPlatformBundle:Travel:list.html.twig', array(
             'travels' => $travels
         ));
     }

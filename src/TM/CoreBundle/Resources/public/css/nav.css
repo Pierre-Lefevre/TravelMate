@@ -1,0 +1,41 @@
+nav {
+    width: 100%;
+    min-height: 40px;
+    color: #FFFFFF;
+}
+
+nav.background {
+    background: url("../img/home.jpg") no-repeat fixed center;
+    background-size: cover;
+}
+
+nav:not(.background) {
+    background-color: #F1F1F1;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav.background ul {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+nav li {
+    margin-left: 10px;
+}
+
+nav a {
+    padding: 10px 10px 10px 10px;
+    display: block;
+    background-color: #FF690F;
+    border-radius: 0 0 4px 4px;
+}
+
+nav li:not(.active) a:hover {
+    background-color: #FF4900;
+}
+
+nav li.active a {
+    background-color: #FF4900;
+}

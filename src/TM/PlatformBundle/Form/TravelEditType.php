@@ -1,6 +1,4 @@
 <?php
-// src/OC/PlatformBundle/Form/AdvertEditType.php
-
 namespace TM\PlatformBundle\Form;
 
 use Symfony\Component\Form\AbstractType;

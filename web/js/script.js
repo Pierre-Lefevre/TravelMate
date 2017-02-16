@@ -1,1 +1,4 @@
-;document.addEventListener('DOMContentLoaded',function(){var o=document.querySelector('body > header'),t=document.querySelector('body > nav'),e=document.querySelector('#home-img');e.style.height='calc(100vh - '+(o.offsetHeight+t.offsetHeight)+'px)'});
+;document.addEventListener('DOMContentLoaded',function(){var t=document.querySelectorAll('#travel_countries option');for(var e=0;e<t.length;e++){var a=document.createElement('div');a.classList.add('flag');a.classList.add('flag-'+t[e].value.toLowerCase());t[e].insertBefore(a,t[e].firstChild)}});
+;$(document).ready(function(){$('.date').datepicker({format:'dd/mm/yyyy',language:'fr'})});
+;document.addEventListener('DOMContentLoaded',function(){var t=document.querySelectorAll('.form-search select');for(var e=0;e<t.length;e++){if(t[e].value===''){t[e].style.color='grey'};t[e].addEventListener('change',function(){if(this.value!==''){this.style.color='black'}
+else{this.style.color='gray'}})}});

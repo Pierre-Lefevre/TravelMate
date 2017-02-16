@@ -1,0 +1,35 @@
+.paging {
+    display: flex;
+    justify-content: center;
+    margin: 0 20px 20px 20px;
+}
+
+.paging a {
+    display: block;
+    padding: 5px 10px;
+    color: #FF690F;
+    border-top: 1px solid #C6C6C6;
+    border-bottom: 1px solid #C6C6C6;
+    border-left: 1px solid #C6C6C6;
+}
+
+.paging a:hover {
+    background-color: #FF690F;
+    border-color: #FF690F;
+    color: #FFFFFF;
+}
+
+.paging > li:first-child > a {
+    border-radius: 4px 0 0 4px;
+}
+
+.paging > li:last-child > a {
+    border-radius: 0 4px 4px 0;
+    border-right: 1px solid #C6C6C6;
+}
+
+.paging > .active > a {
+    background-color: #FF690F;
+    border-color: #FF690F;
+    color: #FFFFFF;
+}

@@ -3,30 +3,16 @@
 	Accueil - {{ parent() }}
 {% endblock %}
 {% block tmplatform_body %}
-
-	<h2>Liste des annonces, {{ 'tm.platform.travel.nombre'|transchoice
-		(travels|length) }}</h2>
-
-	<ul>
-		{% for travel in travels %}
-			<li>
-				<a href="{{ path('tm_platform_view', {'id': travel.id}) }}">
-					{{ travel.title }}
-				</a>
-				le {{ travel.creationDate|date('d/m/Y') }}
-			</li>
-		{% else %}
-			<li>Pas (encore !) d'annonces</li>
-		{% endfor %}
-	</ul>
-
-	<ul class="pagination">
+	{{ include("TMPlatformBundle:Travel:form_search.html.twig") }}
+	<p class="nb-results">{{ nbResults }} voyages correspondent à votre recherche
+		.</p>
+	{{ include("TMPlatformBundle:Travel:list.html.twig") }}
+	<ul class="paging">
 		{# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
 		{% for p in range(1, nbPages) %}
 			<li{% if p == page %} class="active"{% endif %}>
-				<a href="{{ path('tm_platform_homepage', {'page': p}) }}">{{ p }}</a>
+				<a href="{{ path('tm_platform_home', {'page': p}) }}">{{ p }}</a>
 			</li>
 		{% endfor %}
 	</ul>
-
 {% endblock %}

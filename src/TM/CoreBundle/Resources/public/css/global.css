@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    font-family: "Calibri", sans-serif;
+}
+
+h1, h2, p, ul {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+a, a:link, a:visited, a:hover, a:active, a:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
+main {
+    overflow: auto;
+    background-color: #F1F1F1;
+}

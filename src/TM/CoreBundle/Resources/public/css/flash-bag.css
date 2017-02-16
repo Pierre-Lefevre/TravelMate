@@ -1,0 +1,55 @@
+.flashbag-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: seconds 7s forwards;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+    z-index: 1;
+}
+
+.flashbag {
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+@keyframes seconds {
+    0% {
+        opacity: 0;
+    }
+    20%, 80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.flashbag-success {
+    color: #3C763D;
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+}
+
+.flashbag-info {
+    color: #31708F;
+    background-color: #D9EDF7;
+    border-color: #BCE8F1;
+}
+
+.flashbag-warning {
+    color: #8A6D3B;
+    background-color: #FCF8E3;
+    border-color: #FaEBCC;
+}
+
+.flashbag-danger {
+    color: #A94442;
+    background-color: #F2DEDE;
+    border-color: #EBCCD1;
+}

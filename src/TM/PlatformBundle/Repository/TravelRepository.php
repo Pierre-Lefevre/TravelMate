@@ -17,24 +17,14 @@ class TravelRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->createQueryBuilder('t')
             ->orderBy('t.creationDate', 'DESC')
-            ->getQuery()
-        ;
-        $query
-            // On définit l'annonce à partir de laquelle commencer la liste
-            ->setFirstResult(($page-1) * $nbPerPage)
-            // Ainsi que le nombre d'annonce à afficher sur une page
+            ->setFirstResult(($page - 1) * $nbPerPage)
             ->setMaxResults($nbPerPage)
-        ;
-        // Enfin, on retourne l'objet Paginator correspondant à la requête construite
-        // (n'oubliez pas le use correspondant en début de fichier)
+            ->getQuery();
         return new Paginator($query, true);
     }
 
-    public function findTravelByParametres($data)
+    public function getTravelsByParameters($data, $page, $nbPerPage, &$nbResults)
     {
-       // var_dump($data);
-       // var_dump($data);
-
         $query = $this->createQueryBuilder('t');
         $query->select('t');
 
@@ -84,32 +74,12 @@ class TravelRepository extends \Doctrine\ORM\EntityRepository
                 ->setParameter('cost', $data['cost']);
         }
 
+        $nbResults = count($query->getQuery()->getResult());
 
+        $query->setFirstResult(($page - 1) * $nbPerPage)
+            ->setMaxResults($nbPerPage)
+            ->getQuery();
 
-
-       // var_dump($query->getQuery()->getResult());
-        //die();
-/*
-        $subquery = $this->createQueryBuilder('t1');
-        $subquery->select('t1.id')
-            ->join('t1.categories', 'c')
-            ->andWhere("c.id IN(:ids)")
-            ->groupBy('t1.id')
-            ->having('COUNT(t1.id) = 2');
-
-        //var_dump($subquery->getDQL());
-
-        $query = $this->createQueryBuilder('t');
-        $query->select('t')
-            ->where('t.cost = :cost')
-            ->setParameter('cost', $data['cost'])
-            ->andWhere($query->expr()->in('t.id', $subquery->getDQL()))
-            ->setParameter('ids', $data['categories']);
-
-        //var_dump($query->getDQL());
-*/
-        //var_dump($query->getQuery()->getResult());
-        //die();
-        return $query->getQuery()->getResult();
+        return new Paginator($query, true);
     }
 }

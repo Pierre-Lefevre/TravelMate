@@ -1,0 +1,18 @@
+label {
+    margin: 0;
+}
+
+input, select, textarea {
+    border: 1px solid #C6C6C6;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+input.date {
+    width: 86px;
+}
+
+button[type="submit"] {
+    border: 0;
+    border-radius: 4px;
+}
