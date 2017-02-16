@@ -20,4 +20,5 @@ a, a:link, a:visited, a:hover, a:active, a:focus {
 main {
     overflow: auto;
     background-color: #F1F1F1;
+    min-height: calc(100vh - 130px);
 }
