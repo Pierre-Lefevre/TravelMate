@@ -7,6 +7,10 @@
     height: 32px;
 }
 
+.form-search input.date {
+    width: 86px;
+}
+
 .form-search, .form-search .input-part > * {
     display: flex;
 }

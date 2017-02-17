@@ -1,0 +1,66 @@
+{{ form_start(form, {'attr': {'class': 'form-add-edit'}}) }}
+{{ form_errors(form) }}
+<div>
+	<div class="input-part">
+		<div class="first-column">
+			{{ form_label(form.title) }}
+			{{ form_errors(form.title) }}
+			{{ form_widget(form.title) }}
+			{{ form_label(form.content) }}
+			{{ form_errors(form.content) }}
+			{{ form_widget(form.content) }}
+			<div class="first-line">
+				<div>
+					{{ form_label(form.startDate) }}
+					{{ form_errors(form.startDate) }}
+					{{ form_widget(form.startDate) }}
+				</div>
+				<div>
+					{{ form_label(form.nbDuration) }}
+					{{ form_errors(form.nbDuration) }}
+					{{ form_errors(form.typeDuration) }}
+					<div>
+						{{ form_widget(form.nbDuration) }}
+						{{ form_widget(form.typeDuration) }}
+					</div>
+				</div>
+			</div>
+			<div class="second-line">
+				<div>
+					{{ form_label(form.nbMate) }}
+					{{ form_errors(form.nbMate) }}
+					{{ form_widget(form.nbMate) }}
+				</div>
+				<div>
+					{{ form_label(form.cost) }}
+					{{ form_errors(form.cost) }}
+					{{ form_widget(form.cost) }}
+				</div>
+			</div>
+		</div>
+		<div class="second-column">
+			{{ form_label(form.categories) }}
+			{{ form_errors(form.categories) }}
+			{{ form_widget(form.categories) }}
+			{{ form_label(form.countries) }}
+			{{ form_errors(form.countries) }}
+			{{ form_widget(form.countries)  }}
+		</div>
+	</div>
+	<div class="submit-part">
+		{% if app.request.get('_route') == 'tm_platform_add' %}
+			{% set submit_label = 'Publier mon annonce' %}
+		{% elseif app.request.get('_route') == 'tm_platform_edit' %}
+			{% set submit_label = 'Modifier mon annonce' %}
+		{% endif %}
+		{{ form_widget(form.submit, {'label': submit_label }) }}
+		{% if app.request.get('_route') == 'tm_platform_edit' %}
+			<a href="{{ path('tm_platform_view', {'id': travel.id}) }}"
+			   class="button neutral">
+				Retour
+			</a>
+		{% endif %}
+	</div>
+</div>
+{{ form_rest(form) }}
+{{ form_end(form) }}

@@ -1,0 +1,72 @@
+.form-add-edit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-add-edit .input-part {
+    display: flex;
+}
+
+.form-add-edit .first-line, .form-add-edit .second-line {
+    display: flex;
+}
+
+.form-add-edit .first-column, .form-add-edit .second-column, .form-add-edit .first-line > div, .form-add-edit .second-line > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-add-edit .input-part {
+    margin-bottom: 10px;
+}
+
+.form-add-edit .first-column, .form-add-edit .first-line > div:nth-of-type(1), .form-add-edit .second-line > div:nth-of-type(1) {
+    margin-right: 10px;
+}
+
+.form-add-edit label {
+    margin-top: 10px;
+}
+
+.form-add-edit .first-column > label:nth-of-type(1),
+.form-add-edit .second-column > label:nth-of-type(1){
+    margin: 0;
+}
+
+.form-add-edit .second-column select:nth-of-type(2) {
+    flex: 1;
+}
+
+.form-add-edit textarea {
+    height: 300px;
+}
+
+.form-add-edit .first-line > div, .form-add-edit .second-line > div {
+    flex: 1;
+}
+
+.form-add-edit .first-line > div:last-child div {
+    display: flex;
+}
+
+.form-add-edit .first-line > div:last-child input,
+.form-add-edit .first-line > div:last-child select{
+    width: 50%;
+}
+
+.form-add-edit .second-line input[type="number"] {
+    width: 100%;
+}
+
+.form-add-edit > div {
+    margin: 20px;
+}
+
+.form-add-edit .submit-part > *:not(:last-child) {
+    margin-right: 10px;
+}
+
+.form-add-edit .submit-part {
+    display: flex;
+}

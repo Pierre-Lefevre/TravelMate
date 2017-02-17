@@ -4,6 +4,9 @@ namespace TM\PlatformBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\Intl\Collator\Collator;
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -390,6 +393,9 @@ class Travel
      */
     public function getCountries()
     {
+        if (is_array($this->countries)) {
+            sort($this->countries);
+        }
         return $this->countries;
     }
 

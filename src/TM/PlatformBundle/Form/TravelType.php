@@ -20,21 +20,31 @@ class TravelType extends AbstractType
         ))->add('content', TextareaType::class, array(
             'label' => 'Description :'
         ))->add('nbMate', IntegerType::class, array(
-            'label' => 'Nombre de compagnons :'
+            'label' => 'Nombre de compagnons :',
+            'attr' => array(
+                'min' => '1',
+                'value' => '1'
+            )
         ))->add('cost', CostType::class)
         ->add('startDate', MyDateType::class, array(
             'label' => 'Date de départ :'
         ))->add('categories', CategoryType::class, array(
             'multiple' => true
         ))->add('nbDuration', IntegerType::class, array(
-            'label' => 'Durée estimée :'
+            'label' => 'Durée estimée :',
+            'attr' => array(
+                'min' => '1',
+                'value' => '1'
+            )
         ))->add('typeDuration', DurationType::class, array(
             'label' => 'Durée estimée :',
         ))->add('countries', CountryType::class, array(
             'label'    => 'Pays :',
             'multiple' => true
         ))->add('submit', SubmitType::class, array(
-            'label' => 'Ajouter'
+            'attr' => array(
+                'class' => 'button success'
+            )
         ));
     }
 

@@ -23,10 +23,3 @@ tm_platform_edit:
         _controller: TMPlatformBundle:Travel:edit
     requirements:
         id: \d+
-
-tm_platform_delete:
-    path:      /delete/{id}
-    defaults:
-        _controller: TMPlatformBundle:Travel:delete
-    requirements:
-        id: \d+

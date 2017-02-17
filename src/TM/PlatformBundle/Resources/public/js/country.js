@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 	var options = document.querySelectorAll
-	("#travel_countries option");
+	(".form-add-edit .second-column select:nth-of-type(2) option");
 	for (var i = 0; i < options.length; i++){
 		var div = document.createElement("div");
 		div.classList.add("flag");

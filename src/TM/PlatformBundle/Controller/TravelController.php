@@ -5,6 +5,7 @@ namespace TM\PlatformBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Intl;
 use TM\PlatformBundle\Entity\Travel;
 use TM\PlatformBundle\Form\TravelEditType;
 use TM\PlatformBundle\Form\TravelSearchType;
@@ -43,12 +44,22 @@ class TravelController extends Controller
         ));
     }
 
-    public function viewAction(Travel $travel)
+    public function viewAction(Request $request, Travel $travel)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $form = $this->get('form.factory')->create();
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em->remove($travel);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', "Le voyage a bien été supprimée.");
+            return $this->redirectToRoute('tm_platform_home');
+        }
+
         return $this->render('TMPlatformBundle:Travel:view.html.twig', array(
-            'travel' => $travel
+            'travel' => $travel,
+            'form'   => $form->createView()
         ));
     }
 
@@ -92,30 +103,6 @@ class TravelController extends Controller
         }
 
         return $this->render('TMPlatformBundle:Travel:edit.html.twig', array(
-            'travel' => $travel,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    public function deleteAction(Travel $travel, Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-        // Cela permet de protéger la suppression d'annonce contre cette faille
-        $form = $this->get('form.factory')->create();
-
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->remove($travel);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('info',
-                "Le voyage a bien été supprimée.");
-
-            return $this->redirectToRoute('tm_platform_homepage');
-        }
-
-        return $this->render('TMPlatformBundle:Travel:delete.html.twig', array(
             'travel' => $travel,
             'form'   => $form->createView(),
         ));

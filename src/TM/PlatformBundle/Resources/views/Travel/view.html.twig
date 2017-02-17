@@ -1,30 +1,82 @@
 {% extends "TMPlatformBundle::layout.html.twig" %}
 
 {% block title %}
-	Lecture d'une annonce - {{ parent() }}
+	{{ travel.title }} - {{ parent() }}
 {% endblock %}
 
 {% block tmplatform_body %}
-		<h2>{{ travel.title }}</h2>
-
-		<div class="well">
-			{{ travel.content }}
+	<div class="detail">
+		<div class="first-line">
+			<div>
+				<figure>
+					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
+					<figcaption>Pierre - 21 ans</figcaption>
+				</figure>
+				<div class="action">
+					<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>
+					<button id="open-modal-button" class="button danger">Supprimer</button>
+				</div>
+				<div class="countries">
+					<p>Destinations :</p>
+					<ul>
+						{% for country in travel.countries %}
+							<li>
+								<div class="flag flag-{{ country|lower }}"></div>
+								<p>{{ country|country(app.request.locale) }}</p>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="categories">
+					<p>Types de voyage :</p>
+					<ul>
+						{% for category in travel.categories %}
+							<li>
+								{{ category.name }}
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div>
+				<h2>{{ travel.title }}</h2>
+				<p>{{ travel.content|nl2br }}</p>
+			</div>
 		</div>
-
-		<p>
-			<a href="{{ path('tm_platform_home') }}" class="btn btn-default">
-				<i class="glyphicon glyphicon-chevron-left"></i>
-				Retour à la liste
-			</a>
-			<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="btn
-		btn-default">
-				<i class="glyphicon glyphicon-edit"></i>
-				Modifier
-			</a>
-			<a href="{{ path('tm_platform_delete', {'id': travel.id}) }}" class="btn
-		btn-danger">
-				<i class="glyphicon glyphicon-trash"></i>
-				Supprimer
-			</a>
-		</p>
+		<div class="second-line">
+			<p>
+				Nombre de compagnons recherchés : <span class="value">{{ travel.nbMate }}</span>
+			</p>
+			<p>
+				Coût estimé :
+				{% for cost in range(1, 5) %}
+					<img class="dollar" src="
+						{% if cost <= travel.cost %}
+							{{ asset('bundles/tmplatform/img/dollar-full.png') }}
+						{% else %}
+							{{ asset('bundles/tmplatform/img/dollar-empty.png') }}
+						{% endif %}
+					">
+				{% endfor %}
+			</p>
+			<p>
+				Départ le : <span class="value">{{ travel.startDate|date('d/m/Y') }}</span>
+			</p>
+			<p>
+				Durée estimée : <span class="value">{{ travel.nbDuration }} {{ travel.typeDuration }}</span>
+			</p>
+		</div>
+	</div>
+	<div class="modal">
+		<div>
+			<h2 class="title">Êtes-vous certain de vouloir supprimer ce voyage ?</h2>
+			<div class="action">
+				<form action="{{ path('tm_platform_view', {'id': travel.id}) }}" method="post">
+					<input type="submit" class="button danger" value="Oui">
+					{{ form_rest(form) }}
+				</form>
+				<button id="close-modal-button" class="button neutral">Non</button>
+			</div>
+		</div>
+	</div>
 {% endblock %}

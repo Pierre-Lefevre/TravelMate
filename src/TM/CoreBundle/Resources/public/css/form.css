@@ -8,11 +8,45 @@ input, select, textarea {
     padding: 5px;
 }
 
-input.date {
-    width: 86px;
+textarea {
+    resize: vertical;
 }
 
-button[type="submit"] {
+.button {
     border: 0;
+    padding: 10px;
     border-radius: 4px;
+}
+
+.button.success {
+    color: #fff;
+    border: 1px solid #5CB85C;
+    background-color: #5CB85C;
+    transition: background-color 0.5s;
+}
+
+.button.success:hover {
+    background-color: #449D44;
+}
+
+.button.neutral {
+    color: #292B2C;
+    border: 1px solid #CCCCCC;
+    background-color: #FFFFFF;
+    transition: background-color 0.5s;
+}
+
+.button.neutral:hover {
+    background-color: #E6E6E6;
+}
+
+.button.danger {
+    color: #FFFFFF;
+    border-color: #D9534F;
+    background-color: #D9534F;
+    transition: background-color 0.5s;
+}
+
+.button.danger:hover {
+    background-color: #C9302C;
 }

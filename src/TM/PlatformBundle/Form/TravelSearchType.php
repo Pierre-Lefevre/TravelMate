@@ -37,7 +37,10 @@ class TravelSearchType extends AbstractType
             'placeholder' => 'Coût',
             'required'    => false
         ))->add('submit', SubmitType::class, array(
-            'label' => 'Rechercher'
+            'label' => 'Rechercher',
+            'attr' => array(
+                'class' => 'button'
+            )
         ));
     }
 }

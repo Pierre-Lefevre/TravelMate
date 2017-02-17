@@ -4,7 +4,8 @@
     background: url('../img/flags.png') no-repeat;
     margin-right: 10px;
 }
-#tm_platformbundle_travel_countries option {
+
+.form-add-edit .second-column select:nth-of-type(2) option {
     display: flex;
     align-items: center;
 }

@@ -1,0 +1,87 @@
+.detail {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    width: 1200px;
+}
+
+.detail > div, .detail .action, .detail .second-line {
+    display: flex;
+}
+
+.detail .first-line, .detail .first-line > div:first-child > *:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.detail .first-line > div:first-child, .detail .action .button:first-child {
+    margin-right: 20px;
+}
+
+.detail figure {
+    color: #FFFFFF;
+    border-radius: 4px;
+    padding: 10px 10px 3px 10px;
+    background-color: #FF690F;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail figure img {
+    width: 200px;
+    border-radius: 4px;
+}
+
+.detail .action .button {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.detail .countries, .detail .categories, .detail .second-line {
+    border: 1px solid #C6C6C6;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.detail .countries > p, .detail .categories > p {
+    margin-bottom: 10px;
+}
+
+.detail .countries ul li {
+    display: flex;
+    align-items: center;
+}
+
+.detail .first-line > div:last-child h2 {
+    margin-bottom: 10px;
+    color: #FF690F;
+}
+
+.detail .first-line > div:last-child p {
+    text-align: justify;
+}
+
+.detail .second-line p {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail .dollar {
+    width: 8px;
+    margin-left: 2px;
+}
+
+.detail .dollar:first-child {
+    margin-left: 5px;
+}
+
+.detail .value {
+    color: #FF690F;
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 5px;
+}

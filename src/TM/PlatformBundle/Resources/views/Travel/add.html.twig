@@ -1,5 +1,10 @@
 {% extends "TMPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+	Ajout d'un voyage - {{ parent() }}
+{% endblock %}
+
 {% block main %}
-	<h2>Ajouter un voyage</h2>
-	{{ include("TMPlatformBundle:Travel:form.html.twig") }}
+	<h2 class="title-form">Ajouter un voyage</h2>
+	{{ include("TMPlatformBundle:Travel:form_add_edit.html.twig") }}
 {% endblock %}
