@@ -1,11 +1,12 @@
 {% extends "TMPlatformBundle::layout.html.twig" %}
+
 {% block title %}
-	Accueil - {{ parent() }}
+	Recherche d'un voyage - {{ parent() }}
 {% endblock %}
+
 {% block tmplatform_body %}
 	{{ include("TMPlatformBundle:Travel:form_search.html.twig") }}
-	<p class="nb-results">{{ nbResults }} voyages correspondent à votre recherche
-		.</p>
+	<p class="nb-results">{{ nbResults }} voyages correspondent à votre recherche.</p>
 	{{ include("TMPlatformBundle:Travel:list.html.twig") }}
 	<ul class="paging">
 		{# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
