@@ -25,7 +25,7 @@ class TravelController extends Controller
             $request->getSession()->set("form_search_data", $request->request->get($form->getName()));
         }
         $nbResults = 0;
-        $nbPerPage = 1;
+        $nbPerPage = 10;
         $parameters = $request->getSession()->has("form_search_data") ? $request->getSession()->get("form_search_data") : array();
         $travels    = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getTravelsByParameters($parameters,
                 $page, $nbPerPage, $nbResults);

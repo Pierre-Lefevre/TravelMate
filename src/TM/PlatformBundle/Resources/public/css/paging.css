@@ -28,6 +28,11 @@
     border-right: 1px solid #C6C6C6;
 }
 
+.paging > li:only-child > a {
+    border-radius: 4px;
+    border-color: #FF690F;
+}
+
 .paging > .active > a {
     background-color: #FF690F;
     border-color: #FF690F;

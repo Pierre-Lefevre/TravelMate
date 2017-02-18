@@ -1,0 +1,61 @@
+.list-travel {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 20px 0 20px;
+    justify-content: center;
+}
+
+.list-travel > li {
+    width: 450px;
+    height: 164px;
+    margin-bottom: 20px;
+}
+
+.list-travel > li:not(:nth-child(3n+3)) {
+    margin-right: 20px;
+}
+
+.list-travel a {
+    border: 2px solid #FF690F;
+    color: #000000;
+    border-radius: 100px 0 0 100px;
+    background-color: #FFFFFF;
+    padding: 10px;
+    display: flex;
+    height: 100%;
+    transition: box-shadow 0.5s;
+}
+
+.list-travel a:hover {
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.4);
+}
+
+.list-travel figure {
+    height: 100%;
+    margin-right: 10px;
+}
+
+.list-travel img {
+    height: 100%;
+    border-radius: 100px;
+    border: 2px solid #FF690F;
+}
+
+.list-travel .description {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-travel .description .value, .list-travel .countries ul {
+    color: #FF690F;
+    font-weight: bold;
+}
+
+.list-travel .countries, .list-travel .countries ul {
+    display: flex;
+}
+
+.list-travel .countries p {
+    margin-right: 5px;
+}

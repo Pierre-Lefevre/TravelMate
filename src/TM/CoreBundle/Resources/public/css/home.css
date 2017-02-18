@@ -35,37 +35,3 @@
     color: #000000;
     margin: 20px 0;
 }
-
-.list-travel {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20px 20px 0 20px;
-}
-
-.list-travel li {
-    width: calc((100% - 40px) / 3);
-    margin-bottom: 20px;
-}
-
-.list-travel li:not(:nth-child(3n+3)) {
-    margin-right: 20px;
-}
-
-.list-travel a {
-    border: 2px solid #FF690F;
-    color: #000000;
-    border-radius: 100px 0 0 100px;
-    background-color: #FFFFFF;
-    padding: 10px;
-    display: flex;
-}
-
-.list-travel figure {
-    height: 100px;
-}
-
-.list-travel img {
-    height: 100%;
-    border-radius: 100px;
-    border: 2px solid #FF690F;
-}

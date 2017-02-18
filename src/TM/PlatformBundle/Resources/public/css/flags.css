@@ -5,7 +5,11 @@
     margin-right: 10px;
 }
 
-.form-add-edit .second-column select:nth-of-type(2) option {
+.list-travel .countries .flag {
+    margin-right: 5px;
+}
+
+.form-add-edit .second-column select:nth-of-type(2) option, .list-travel .countries li {
     display: flex;
     align-items: center;
 }
