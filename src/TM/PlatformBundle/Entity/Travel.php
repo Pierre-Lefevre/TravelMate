@@ -4,9 +4,6 @@ namespace TM\PlatformBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\BrowserKit\Request;
-use Symfony\Component\Intl\Collator\Collator;
-use Symfony\Component\Intl\Intl;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -124,6 +121,11 @@ class Travel
      * @Assert\Count(min = 1)
      */
     private $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TM\PlatformBundle\Entity\Comment", mappedBy="travel", cascade={"persist"})
+     */
+    private $comments;
 
     public function __construct()
     {
@@ -431,5 +433,39 @@ class Travel
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \TM\PlatformBundle\Entity\Comment $comment
+     *
+     * @return Travel
+     */
+    public function addComment(\TM\PlatformBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \TM\PlatformBundle\Entity\Comment $comment
+     */
+    public function removeComment(\TM\PlatformBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
