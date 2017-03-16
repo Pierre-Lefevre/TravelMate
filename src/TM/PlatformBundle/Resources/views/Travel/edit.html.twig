@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block tmplatform_body %}
+	{{ wo_render_breadcrumbs() }}
 	<h2 class="title-form">Modifier un voyage</h2>
 	{{ include("TMPlatformBundle:Travel:form_add_edit.html.twig") }}
 {% endblock %}

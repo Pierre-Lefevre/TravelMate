@@ -3,7 +3,7 @@
     font-family: "Calibri", sans-serif;
 }
 
-h1, h2, p, ul {
+body, h1, h2, p, ul, figure {
     margin: 0;
 }
 

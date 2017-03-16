@@ -46,6 +46,8 @@ class TravelController extends Controller
 
     public function viewAction(Request $request, Travel $travel)
     {
+        $this->get('app.breadcrumb')->viewTravel($travel->getId());
+
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->get('form.factory')->create();
@@ -65,6 +67,8 @@ class TravelController extends Controller
 
     public function addAction(Request $request)
     {
+        $this->get('app.breadcrumb')->addTravel();
+
         $travel = new Travel();
         $form   = $this->createForm(TravelType::class, $travel);
 
@@ -90,6 +94,8 @@ class TravelController extends Controller
 
     public function editAction(Travel $travel, Request $request)
     {
+        $this->get('app.breadcrumb')->editTravel($travel->getId());
+
         $em   = $this->getDoctrine()->getManager();
         $form = $this->get('form.factory')->create(TravelEditType::class, $travel);
 

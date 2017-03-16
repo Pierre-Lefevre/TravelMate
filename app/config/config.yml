@@ -82,7 +82,15 @@ assetic:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
 
 services:
- twig.extension.text:
-     class: Twig_Extensions_Extension_Text
-     tags:
-         - { name: twig.extension }
+  twig.extension.text:
+    class: Twig_Extensions_Extension_Text
+    tags:
+      - { name: twig.extension }
+  app.breadcrumb:
+    class: TM\CoreBundle\Controller\Breadcrumb
+    arguments:
+      - "@white_october_breadcrumbs"
+
+white_october_breadcrumbs:
+  viewTemplate: 'WhiteOctoberBreadcrumbsBundle::breadcrumbs.html.twig'
+  listId: 'breadcrumb'

@@ -14,7 +14,7 @@ class MyDateType extends AbstractType
             'html5'  => false,
             'format' => 'dd/MM/yyyy',
             'attr'   => array(
-                'class'       => 'date',
+                'class'       => 'datepicker',
                 'placeholder' => 'dd/mm/yyyy'
             )
         ));

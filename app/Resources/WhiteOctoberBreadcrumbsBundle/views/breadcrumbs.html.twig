@@ -1,0 +1,14 @@
+{% if wo_breadcrumbs()|length %}
+	{%- spaceless -%}
+		<ul id="{{ listId }}">
+			{% for b in breadcrumbs %}
+				<li>
+					<a href="{{ b.url }}">{{- b.text | trans(b.translationParameters, translation_domain, locale) -}}</a>
+					{% if separator is not null and not loop.last %}
+						<span class="{{ separatorClass }}">{{- separator -}}</span>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	{%- endspaceless -%}
+{% endif %}
