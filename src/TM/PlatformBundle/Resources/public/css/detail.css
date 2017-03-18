@@ -1,4 +1,4 @@
-.detail {
+.detail, .comments {
     display: flex;
     flex-direction: column;
     margin: 20px auto;
@@ -84,4 +84,91 @@
     font-weight: bold;
     font-size: 17px;
     margin-left: 5px;
+}
+
+.comments .form-add-comment, .comments .form-edit-comment {
+    display: flex;
+}
+
+.comments .form-add-comment {
+    margin-bottom: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #C6C6C6;
+    border-top: 1px solid #C6C6C6;
+}
+
+.comments .form-edit-comment {
+    display: none;
+}
+
+.comments .form-add-comment textarea, .comments .form-edit-comment textarea {
+    flex: 1;
+    margin: 0 10px 0 0;
+}
+
+.comments .comment {
+    border: 1px solid #C6C6C6;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+}
+
+.comments .comment:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.comments .comment figure {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.comments .comment img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.comments .comment .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.comments .comment .by {
+    display: flex;
+    justify-content: space-between;
+    color: #FF690F;
+}
+
+.comments .comment .action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comments .comment .action > *:not(:last-child) {
+    margin-right: 10px;
+}
+
+.comments .comment .action form {
+    height: 15px;
+}
+
+.comments .delete {
+    border-radius: 0;
+    background: transparent url("../img/delete.png") no-repeat center center;
+    background-size: cover;
+    border: none;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.comments .edit {
+    border-radius: 0;
+    background: transparent url("../img/edit.png") no-repeat center center;
+    background-size: cover;
+    border: none;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }

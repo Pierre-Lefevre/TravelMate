@@ -123,19 +123,20 @@ class Travel
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="TM\PlatformBundle\Entity\Comment", mappedBy="travel", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="TM\PlatformBundle\Entity\Comment", mappedBy="travel", cascade={"persist", "remove"})
      */
     private $comments;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function creationDate()
+    public function preCreationDate()
     {
         $this->setCreationDate(new \Datetime());
     }
@@ -143,7 +144,7 @@ class Travel
     /**
      * @ORM\PreUpdate
      */
-    public function updateDate()
+    public function preUpdateDate()
     {
         $this->setUpdateDate(new \Datetime());
     }
@@ -445,6 +446,8 @@ class Travel
     public function addComment(\TM\PlatformBundle\Entity\Comment $comment)
     {
         $this->comments[] = $comment;
+
+        $comment->setTravel($this);
 
         return $this;
     }

@@ -15,7 +15,7 @@
 				</figure>
 				<div class="action">
 					<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>
-					<button id="open-modal-button" class="button danger">Supprimer</button>
+					<button data-modal="delete-travel" class="button danger open-modal-button">Supprimer</button>
 				</div>
 				<div class="countries">
 					<p>Destinations :</p>
@@ -69,17 +69,69 @@
 		</div>
 	</div>
 	<div class="comments">
-		a
+
+		{{ include("TMPlatformBundle:Travel:form_add_edit_comment.html.twig") }}
+
+		{% for comment in travel.comments %}
+			<div class="comment">
+				<figure>
+					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
+				</figure>
+				<div class="content">
+					<div class="by"><span>Pierre Lefèvre</span><span>le {{ comment.creationDate|date('d/m/Y')
+							}} à {{ comment.creationDate|date('H:i:s') }}</span></div>
+					<p>{{ comment.content|nl2br }}</p>
+
+
+						{{ form_start(formsEditComment[comment.id], {'attr': {'class': 'form-edit-comment'}}) }}
+						{{ form_errors(formsEditComment[comment.id]) }}
+
+						{{ form_errors(formsEditComment[comment.id].content) }}
+						{{ form_widget(formsEditComment[comment.id].content)  }}
+
+						{{ form_widget(formsEditComment[comment.id].submit) }}
+
+						{{ form_rest(formsEditComment[comment.id]) }}
+						{{ form_end(formsEditComment[comment.id]) }}
+
+
+					<div class="action">
+						<input type="submit" class="edit" value="">
+						<form action="{{ path('tm_platform_remove_comment', {'id_travel': travel.id, 'id_comment': comment.id})
+						}}" method="post">
+							<input type="submit" class="delete" value="">
+							{{ form_rest(formDeleteComment) }}
+						</form>
+
+					</div>
+				</div>
+			</div>
+		{% endfor %}
 	</div>
-	<div class="modal">
+	<script>
+        document.addEventListener("DOMContentLoaded", function () {
+			var edit = document.querySelectorAll(".edit");
+            for (var i = 0; i <  edit.length; i++) {
+                (function () {
+                    var content = edit[i].closest(".content");
+                    edit[i].addEventListener("click", function() {
+                        content.querySelector("p").style.display = "none";
+                        content.querySelector(".action").style.display = "none";
+                        content.querySelector(".form-edit-comment").style.display = "flex";
+					})
+                }());
+            }
+        });
+	</script>
+	<div class="modal" data-modal="delete-travel">
 		<div>
 			<h2 class="title">Êtes-vous certain de vouloir supprimer ce voyage ?</h2>
 			<div class="action">
 				<form action="{{ path('tm_platform_view', {'id': travel.id}) }}" method="post">
 					<input type="submit" class="button danger" value="Oui">
-					{{ form_rest(form) }}
+					{{ form_rest(formDeleteTravel) }}
 				</form>
-				<button id="close-modal-button" class="button neutral">Non</button>
+				<button data-modal="delete-travel" class="button neutral close-modal-button">Non</button>
 			</div>
 		</div>
 	</div>

@@ -1,0 +1,10 @@
+{{ form_start(formAddComment, {'attr': {'class': 'form-add-comment'}}) }}
+{{ form_errors(formAddComment) }}
+
+{{ form_errors(formAddComment.content) }}
+{{ form_widget(formAddComment.content)  }}
+
+{{ form_widget(formAddComment.submit) }}
+
+{{ form_rest(formAddComment) }}
+{{ form_end(formAddComment) }}

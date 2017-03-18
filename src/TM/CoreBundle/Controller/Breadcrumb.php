@@ -31,7 +31,7 @@ class Breadcrumb
 
     public function editTravel($id)
     {
-        $this->view($id);
+        $this->viewTravel($id);
         $this->breadcrumbs->addRouteItem("Modifier un voyage", "tm_platform_edit", [
             'id' => $id
         ]);

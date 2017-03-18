@@ -23,3 +23,19 @@ tm_platform_edit:
         _controller: TMPlatformBundle:Travel:edit
     requirements:
         id: \d+
+
+tm_platform_edit_comment:
+    path:      /edit/{id_travel}/{id_comment}
+    defaults:
+        _controller: TMPlatformBundle:Travel:editComment
+    requirements:
+        id_travel: \d+
+        id_comment: \d+
+
+tm_platform_remove_comment:
+    path:      /remove/{id_travel}/{id_comment}
+    defaults:
+        _controller: TMPlatformBundle:Travel:removeComment
+    requirements:
+        id_travel: \d+
+        id_comment: \d+

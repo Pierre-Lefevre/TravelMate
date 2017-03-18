@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="TM\PlatformBundle\Repository\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Comment
 {
@@ -53,6 +54,21 @@ class Comment
      */
     private $travel;
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function preCreationDate()
+    {
+        $this->setCreationDate(new \Datetime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdateDate()
+    {
+        $this->setUpdateDate(new \Datetime());
+    }
 
     /**
      * Get id
