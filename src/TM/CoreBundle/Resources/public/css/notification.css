@@ -1,3 +1,8 @@
+.alert {
+    border: 1px solid transparent;
+    padding: 5px;
+}
+
 .flashbag-container {
     display: flex;
     flex-direction: column;
@@ -30,25 +35,25 @@
     }
 }
 
-.flashbag-success {
+.notification-success {
     color: #3C763D;
     background-color: #DFF0D8;
     border-color: #D6E9C6;
 }
 
-.flashbag-info {
+.notification-info {
     color: #31708F;
     background-color: #D9EDF7;
     border-color: #BCE8F1;
 }
 
-.flashbag-warning {
+.notification-warning {
     color: #8A6D3B;
     background-color: #FCF8E3;
     border-color: #FaEBCC;
 }
 
-.flashbag-danger {
+.notification-danger {
     color: #A94442;
     background-color: #F2DEDE;
     border-color: #EBCCD1;

@@ -23,6 +23,12 @@ class Breadcrumb
         ]);
     }
 
+    public function listTravel()
+    {
+        $this->home();
+        $this->breadcrumbs->addRouteItem("Liste des voyages", "tm_platform_home");
+    }
+
     public function addTravel()
     {
         $this->home();

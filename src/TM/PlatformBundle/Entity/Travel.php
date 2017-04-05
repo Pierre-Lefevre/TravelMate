@@ -127,6 +127,12 @@ class Travel
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="TM\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     **/
+    private $user;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -470,5 +476,29 @@ class Travel
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \TM\UserBundle\Entity\User $user
+     *
+     * @return Travel
+     */
+    public function setUser(\TM\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \TM\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

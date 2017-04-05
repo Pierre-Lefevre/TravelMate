@@ -6,7 +6,7 @@
 					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
 				</figure>
 				<div class="description">
-					<p class="value">Pierre - 21 ans</p>
+					<p class="value">{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize }} - {{ travel.user.age }} ans</p>
 					<div class="countries">
 						<p>Pays :</p>
 						<ul>

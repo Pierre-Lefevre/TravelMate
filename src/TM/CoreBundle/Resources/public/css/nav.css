@@ -4,21 +4,8 @@ nav {
     color: #FFFFFF;
 }
 
-nav.background {
-    background: url("../img/home.jpg") no-repeat fixed center;
-    background-size: cover;
-}
-
-nav:not(.background) {
-    background-color: #F1F1F1;
-}
-
 nav ul {
     display: flex;
-}
-
-nav.background ul {
-    background-color: rgba(0, 0, 0, 0.4);
 }
 
 nav li {
@@ -30,10 +17,12 @@ nav a {
     display: block;
     background-color: #FF690F;
     border-radius: 0 0 4px 4px;
+    transition: .3s all linear;
 }
 
 nav li:not(.active) a:hover {
     background-color: #FF4900;
+    transition: .3s all linear;
 }
 
 nav li.active a {

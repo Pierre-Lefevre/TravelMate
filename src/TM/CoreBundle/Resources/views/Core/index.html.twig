@@ -4,15 +4,19 @@
 	Accueil - {{ parent() }}
 {% endblock %}
 
+{% block classBody %}with-background{% endblock %}
+
 {% block main %}
 	<div id="first-home-img">
-		<h2 class="grey-filter">Trouvez le compagnon de voyage qui<br>vous
-			correspond !</h2>
+		<h2>Trouvez le compagnon de voyage qui<br>vous correspond !</h2>
 	</div>
-	{{ include("TMPlatformBundle:Travel:form_search.html.twig") }}
+	<div class="opaque">
+		{{ include("TMPlatformBundle:Travel:form_search.html.twig") }}
+	</div>
 	<div id="second-home-img">
-		<div class="grey-filter"></div>
 	</div>
-	<h3 class="home-h3">Derniers voyages ajoutés</h3>
-	{{ render(controller("TMPlatformBundle:Travel:last", {'limit': 9})) }}
+	<div class="opaque">
+		<h3 class="home-h3">Derniers voyages ajoutés</h3>
+		{{ render(controller("TMPlatformBundle:Travel:last", {'limit': 9})) }}
+	</div>
 {% endblock %}

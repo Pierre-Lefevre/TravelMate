@@ -1,0 +1,10 @@
+{% set flashbag = app.session.flashbag.all %}
+{% if flashbag is not empty %}
+	<div class="flashbag-container">
+		{% for type, messages in flashbag %}
+			{% for message in messages %}
+				<div class="flashbag notification-{{ type }}">{{ message }}</div>
+			{% endfor %}
+		{% endfor %}
+	</div>
+{% endif %}

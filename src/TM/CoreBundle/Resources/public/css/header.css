@@ -5,4 +5,33 @@ body > header {
     min-height: 50px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
     position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-action {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.auth-action > span, .auth-action > a {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    color: #FFFFFF;
+}
+
+.auth-action > a {
+    background-color: inherit;
+    transition: .3s all linear;
+}
+
+.auth-action > a:hover {
+    transition: .3s all linear;
+    background-color: #FF4900;
 }

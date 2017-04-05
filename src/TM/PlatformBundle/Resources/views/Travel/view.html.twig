@@ -11,7 +11,8 @@
 			<div>
 				<figure>
 					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
-					<figcaption>Pierre - 21 ans</figcaption>
+					<figcaption>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize
+						}} - {{ travel.user.age }} ans</figcaption>
 				</figure>
 				<div class="action">
 					<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>

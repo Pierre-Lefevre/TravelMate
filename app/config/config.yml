@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@TMCoreBundle/Resources/config/services.yml" }
+    - { resource: "@TMUserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -41,6 +42,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes:
         #- 'bootstrap_3_layout.html.twig'
+        - 'TMCoreBundle:Form:form_errors.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -73,8 +75,10 @@ swiftmailer:
     spool:     { type: memory }
 
 assetic:
-    debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
+    #debug:          '%kernel.debug%'
+    #use_controller: '%kernel.debug%'
+    debug:          false
+    use_controller: false
     filters:
         cssrewrite: ~
         jsqueeze:   ~
@@ -82,15 +86,26 @@ assetic:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
 
 services:
-  twig.extension.text:
-    class: Twig_Extensions_Extension_Text
-    tags:
-      - { name: twig.extension }
-  app.breadcrumb:
-    class: TM\CoreBundle\Controller\Breadcrumb
-    arguments:
-      - "@white_october_breadcrumbs"
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+    app.breadcrumb:
+        class: TM\CoreBundle\Controller\Breadcrumb
+        arguments:
+            - "@white_october_breadcrumbs"
 
 white_october_breadcrumbs:
-  viewTemplate: 'WhiteOctoberBreadcrumbsBundle::breadcrumbs.html.twig'
-  listId: 'breadcrumb'
+    viewTemplate: 'WhiteOctoberBreadcrumbsBundle::breadcrumbs.html.twig'
+    listId: 'breadcrumb'
+
+fos_user:
+    db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
+    firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    user_class:    TM\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    from_email:
+        address: lefevre.pierre.m.d@gmail.com
+        sender_name: PierreLefevre
+    registration:
+        form:
+            type: TM\UserBundle\Form\RegistrationFormType

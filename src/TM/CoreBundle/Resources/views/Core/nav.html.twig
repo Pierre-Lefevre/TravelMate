@@ -1,0 +1,15 @@
+<nav {% if app.request.get('_route') == 'tm_core_home' %}class="background"{% endif %}>
+	<ul>
+		<li {% if app.request.get('_route') == 'tm_core_home' %}class="active"{% endif %}>
+			<a href="{{ path('tm_core_home') }}">Accueil</a>
+		</li>
+		<li {% if app.request.get('_route') == 'tm_platform_home' %}class="active"{% endif %}>
+			<a href="{{ path('tm_platform_home') }}">Liste des voyages</a>
+		</li>
+		{% if is_granted('ROLE_USER') %}
+			<li {% if app.request.get('_route') == 'tm_platform_add' %}class="active"{% endif %}>
+				<a href="{{ path('tm_platform_add') }}">Ajouter un voyage</a>
+			</li>
+		{% endif %}
+	</ul>
+</nav>

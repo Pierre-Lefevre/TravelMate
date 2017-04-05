@@ -1,3 +1,6 @@
 tm_core:
     resource: "@TMCoreBundle/Resources/config/routing.yml"
     prefix:   /
+
+fos_user:
+    resource: "@TMUserBundle/Resources/config/routing.yml"

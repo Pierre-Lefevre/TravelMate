@@ -1,0 +1,11 @@
+services:
+    tm_user.registration_success_listener:
+        class: TM\UserBundle\EventListener\RegistrationSuccessListener
+        arguments: ["@router"]
+        tags:
+            - { name: kernel.event_subscriber }
+    tm_user.registration.form.type:
+        class: TM\UserBundle\Form\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: tm_user_registration }

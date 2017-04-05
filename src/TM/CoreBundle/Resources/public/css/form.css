@@ -4,7 +4,6 @@ label {
 
 input, select, textarea {
     border: 1px solid #C6C6C6;
-    border-radius: 4px;
     padding: 5px;
 }
 
@@ -15,7 +14,6 @@ textarea {
 .button {
     border: 0;
     padding: 10px;
-    border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
 }

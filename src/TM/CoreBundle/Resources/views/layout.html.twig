@@ -5,7 +5,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>{% block title %}Travel Mate{% endblock %}</title>
 		{% block stylesheets %}
-			<link rel="stylesheet" href="bundles/tmcore/css/datepicker.min.css">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
 
@@ -18,37 +17,11 @@
 			{% endstylesheets %}
 		{% endblock %}
 	</head>
-	<body>
-		{% set flashbag = app.session.flashbag.all %}
-		{% if flashbag is not empty %}
-			<div class="flashbag-container">
-				{% for type, messages in flashbag %}
-					{% for message in messages %}
-						<div class="flashbag flashbag-{{ type }}">{{ message }}</div>
-					{% endfor %}
-				{% endfor %}
-			</div>
-		{% endif %}
-		<header>
-			<h1><a href="{{ path('tm_core_home') }}">Travel Mate</a></h1>
-		</header>
-		<nav {% if app.request.get('_route') == 'tm_core_home'
-			 %}class="background"{% endif
-		%}>
-			<ul>
-				<li {% if app.request.get('_route') == 'tm_core_home' %}class="active"{% endif %}>
-					<a href="{{ path('tm_core_home') }}">Accueil</a>
-				</li>
-				<li {% if app.request.get('_route') == 'tm_platform_home' %}class="active"{% endif %}>
-					<a href="{{ path('tm_platform_home') }}">Liste des
-						voyages</a>
-				</li>
-				<li {% if app.request.get('_route') == 'tm_platform_add' %}class="active"{% endif %}>
-					<a href="{{ path('tm_platform_add') }}">Ajouter un voyage</a>
-				</li>
-			</ul>
-		</nav>
-		<main>
+	<body class="{% block classBody %}{% endblock %}">
+		{% include("TMCoreBundle:Core:flashbag.html.twig") %}
+		{% include("TMCoreBundle:Core:header.html.twig") %}
+		{% include("TMCoreBundle:Core:nav.html.twig") %}
+		<main class="{% block classMain %}{% endblock %}">
 			{% block main %}
 			{% endblock %}
 		</main>

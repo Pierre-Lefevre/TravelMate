@@ -16,11 +16,14 @@ use TM\PlatformBundle\Form\TravelSearchType;
 use TM\PlatformBundle\Form\TravelType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TravelController extends Controller
 {
     public function indexAction(Request $request, $page)
     {
+        $this->get('app.breadcrumb')->listTravel();
+
         if ($page < 1) {
             throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
         }
@@ -35,11 +38,8 @@ class TravelController extends Controller
         $parameters = $request->getSession()->has("form_search_data") ? $request->getSession()->get("form_search_data") : array();
         $travels    = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getTravelsByParameters($parameters,
                 $page, $nbPerPage, $nbResults);
-        $nbPages = ceil(count($travels) / $nbPerPage);
 
-        if ($page > $nbPages) {
-            throw $this->createNotFoundException("La page " . $page . " n'existe pas.");
-        }
+        $nbPages = ceil(count($travels) / $nbPerPage);
 
         return $this->render('TMPlatformBundle:Travel:index.html.twig', array(
             'form' => $form->createView(),
@@ -159,6 +159,9 @@ class TravelController extends Controller
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     */
     public function addAction(Request $request)
     {
         $this->get('app.breadcrumb')->addTravel();
@@ -168,6 +171,10 @@ class TravelController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $travel->setUser($user);
+
             $em->persist($travel);
             $em->flush();
 

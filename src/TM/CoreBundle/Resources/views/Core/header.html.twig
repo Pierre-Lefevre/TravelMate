@@ -1,0 +1,12 @@
+<header>
+	<h1><a href="{{ path('tm_core_home') }}">Travel Mate</a></h1>
+	<div class="auth-action">
+		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+			<span>{{ app.user.firstname|capitalize }} {{ app.user.lastname|capitalize }}</span>
+			<a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+		{% else %}
+			<a href="{{ path('fos_user_security_login') }}">Connexion</a>
+			<a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+		{% endif %}
+	</div>
+</header>
