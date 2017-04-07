@@ -55,6 +55,12 @@ class Comment
     private $travel;
 
     /**
+     * @ORM\ManyToOne(targetEntity="TM\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     **/
+    private $user;
+
+    /**
      * @ORM\PrePersist
      */
     public function preCreationDate()
@@ -174,5 +180,29 @@ class Comment
     public function getTravel()
     {
         return $this->travel;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \TM\UserBundle\Entity\User $user
+     *
+     * @return Comment
+     */
+    public function setUser(\TM\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \TM\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

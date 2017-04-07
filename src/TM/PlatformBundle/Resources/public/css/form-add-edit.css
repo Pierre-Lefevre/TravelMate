@@ -12,6 +12,10 @@
     display: flex;
 }
 
+.form-add-edit .first-column .first-line select {
+    border-left: 0;
+}
+
 .form-add-edit .first-column, .form-add-edit .second-column, .form-add-edit .first-line > div, .form-add-edit .second-line > div {
     display: flex;
     flex-direction: column;

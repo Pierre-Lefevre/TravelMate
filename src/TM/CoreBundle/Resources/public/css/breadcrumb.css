@@ -1,6 +1,7 @@
 #breadcrumb {
     list-style: none;
     display: flex;
+    margin: 20px 10px;
 }
 
 #breadcrumb li:first-child::before {
@@ -11,7 +12,6 @@
     border-color: transparent transparent transparent #FF690F;
     border-style: solid;
     border-width: 5px 6px;
-    margin-left: 11px;
 }
 
 #breadcrumb .separator {

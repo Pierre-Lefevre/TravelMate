@@ -3,48 +3,50 @@
     flex-wrap: wrap;
     margin: 20px 20px 0 20px;
     justify-content: center;
+    flex-direction: column;
 }
 
 .list-travel > li {
-    width: 450px;
-    height: 164px;
     margin-bottom: 20px;
 }
 
-.list-travel > li:not(:nth-child(3n+3)) {
-    margin-right: 20px;
-}
-
 .list-travel a {
-    border: 2px solid #FF690F;
-    color: #000000;
-    border-radius: 100px 0 0 100px;
-    background-color: #FFFFFF;
-    padding: 10px;
     display: flex;
-    height: 100%;
-    transition: box-shadow 0.5s;
+    align-items: center;
 }
 
-.list-travel a:hover {
+.list-travel a:hover figure img, .list-travel a:hover .description {
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.4);
 }
 
 .list-travel figure {
     height: 100%;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .list-travel img {
-    height: 100%;
+    height: 130px;
     border-radius: 100px;
     border: 2px solid #FF690F;
+    transition: box-shadow 0.5s;
 }
 
 .list-travel .description {
-    flex: 1;
+    border: 2px solid #FF690F;
+    color: #000000;
+    background-color: #FFFFFF;
+    padding: 10px;
     display: flex;
+    height: 100%;
+    transition: box-shadow 0.5s;
+    flex: 1;
     flex-direction: column;
+}
+
+.list-travel .description > p:last-child {
+    margin-top: 5px;
+    border-top: 1px solid #C6C6C6;
+    padding-top: 5px;
 }
 
 .list-travel .description .value, .list-travel .countries ul {

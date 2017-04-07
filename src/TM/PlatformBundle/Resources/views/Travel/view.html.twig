@@ -14,10 +14,12 @@
 					<figcaption>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize
 						}} - {{ travel.user.age }} ans</figcaption>
 				</figure>
-				<div class="action">
-					<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>
-					<button data-modal="delete-travel" class="button danger open-modal-button">Supprimer</button>
-				</div>
+				{% if app.user.id == travel.user.id or is_granted("ROLE_ADMIN") %}
+					<div class="action">
+						<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>
+						<button data-modal="delete-travel" class="button danger open-modal-button">Supprimer</button>
+					</div>
+				{% endif %}
 				<div class="countries">
 					<p>Destinations :</p>
 					<ul>
@@ -79,10 +81,11 @@
 					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
 				</figure>
 				<div class="content">
-					<div class="by"><span>Pierre Lefèvre</span><span>le {{ comment.creationDate|date('d/m/Y')
-							}} à {{ comment.creationDate|date('H:i:s') }}</span></div>
+					<div class="by">
+						<span>{{ comment.user.firstname|capitalize }} {{ comment.user.lastname|capitalize }}</span>
+						<span>le {{ comment.creationDate|date('d/m/Y') }} à {{ comment.creationDate|date('H:i:s') }}</span>
+					</div>
 					<p>{{ comment.content|nl2br }}</p>
-
 
 						{{ form_start(formsEditComment[comment.id], {'attr': {'class': 'form-edit-comment'}}) }}
 						{{ form_errors(formsEditComment[comment.id]) }}
@@ -95,16 +98,16 @@
 						{{ form_rest(formsEditComment[comment.id]) }}
 						{{ form_end(formsEditComment[comment.id]) }}
 
-
-					<div class="action">
-						<input type="submit" class="edit" value="">
-						<form action="{{ path('tm_platform_remove_comment', {'id_travel': travel.id, 'id_comment': comment.id})
-						}}" method="post">
-							<input type="submit" class="delete" value="">
-							{{ form_rest(formDeleteComment) }}
-						</form>
-
-					</div>
+					{% if app.user.id == comment.user.id or is_granted("ROLE_ADMIN") %}
+						<div class="action">
+							<input type="submit" class="edit" value="">
+							<form action="{{ path('tm_platform_remove_comment', {'id_travel': travel.id, 'id_comment': comment.id})
+							}}" method="post">
+								<input type="submit" class="delete" value="">
+								{{ form_rest(formDeleteComment) }}
+							</form>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		{% endfor %}

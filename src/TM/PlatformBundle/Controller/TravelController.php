@@ -96,6 +96,10 @@ class TravelController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST') && $formAddComment->handleRequest($request)->isValid()) {
+
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $comment->setUser($user);
+
             $travel->addComment($comment);
             $em->persist($travel);
             $em->flush();

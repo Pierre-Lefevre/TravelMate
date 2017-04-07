@@ -6,19 +6,16 @@
 					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
 				</figure>
 				<div class="description">
-					<p class="value">{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize }} - {{ travel.user.age }} ans</p>
+					<p class="value">{{ travel.title }}</p>
 					<div class="countries">
 						<p>Pays :</p>
 						<ul>
-							{% for country in travel.countries|slice(0, 2) %}
+							{% for country in travel.countries %}
 								<li>
 									<div class="flag flag-{{ country|lower }}"></div>
 									<p>{{ country|country(app.request.locale) }}</p>
 								</li>
 							{% endfor %}
-							{% if travel.countries|length > 2 %}
-								<li>...</li>
-							{% endif %}
 						</ul>
 					</div>
 					<p>
@@ -33,22 +30,20 @@
 					</p>
 					<p>
 						Type de voyage : <span class="value">
-							{% for category in travel.categories|slice(0, 2) %}
+							{% for category in travel.categories %}
 								{{ category.name }}
 								{% if not loop.last %}
 									 -
 								{% endif %}
 							{% endfor %}
-							{% if travel.categories|length > 2 %}
-								...
-							{% endif %}
 						</span>
 					</p>
 					<p>
 						Description : <span class="value">
-							{{ travel.content|truncate(65, false, '...') }}
+							{{ travel.content|truncate(350, false, '...') }}
 						</span>
 					</p>
+					<p class="value">{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize }} - {{ travel.user.age }} ans</p>
 				</div>
 			</a>
 		</li>

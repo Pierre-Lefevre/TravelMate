@@ -1,6 +1,6 @@
 nav {
     width: 100%;
-    min-height: 40px;
+    height: 40px;
     color: #FFFFFF;
 }
 
@@ -16,7 +16,6 @@ nav a {
     padding: 10px 10px 10px 10px;
     display: block;
     background-color: #FF690F;
-    border-radius: 0 0 4px 4px;
     transition: .3s all linear;
 }
 

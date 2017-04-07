@@ -11,6 +11,12 @@ textarea {
     resize: vertical;
 }
 
+.title-form {
+    text-align: center;
+    color: #FF690F;
+    margin-top: 20px;
+}
+
 .button {
     border: 0;
     padding: 10px;

@@ -1,5 +1,5 @@
 #first-home-img {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 90px);
     border-bottom: 5px solid #FF690F;
 }
 
@@ -23,8 +23,8 @@
 
 .home-h3 {
     text-align: center;
-    color: #000000;
-    margin: 20px 0;
+    color: #FF690F;
+    margin: 20px 0 0 0;
 }
 
 .opaque {
