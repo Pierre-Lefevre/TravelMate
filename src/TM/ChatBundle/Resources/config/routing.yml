@@ -1,0 +1,18 @@
+tm_chat_list:
+    path:      /chat
+    defaults:
+        _controller: TMChatBundle:Chat:list
+
+tm_chat_user:
+    path:      /chat/{id}
+    defaults:
+        _controller: TMChatBundle:Chat:user
+    requirements:
+        id: \d+
+
+tm_chat_new_message:
+    path:      /new-message/{id}
+    defaults:
+        _controller: TMChatBundle:Chat:newMessage
+    requirements:
+        id: \d+

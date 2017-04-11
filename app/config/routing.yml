@@ -4,3 +4,6 @@ tm_core:
 
 fos_user:
     resource: "@TMUserBundle/Resources/config/routing.yml"
+
+tm_chat:
+    resource: "@TMChatBundle/Resources/config/routing.yml"

@@ -1,0 +1,88 @@
+#conversation {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin: auto;
+}
+
+#list-message-container {
+    overflow-y: auto;
+    height: 400px;
+    margin-bottom: 10px;
+    border: 1px solid #C6C6C6;
+}
+
+#list-message {
+    background-color: #FFFFFF;
+    border-right: 1px solid #C6C6C6;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#list-message li {
+    display: flex;
+}
+
+#list-message li:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+#list-message li .profile-picture {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border: 2px solid #ff690f;
+}
+
+#list-message li:not(.me) .profile-picture {
+    order: 1;
+    margin-right: 5px;
+}
+
+#list-message li.me .profile-picture {
+    order: 2;
+    margin-left: 5px;
+}
+
+#list-message li .content {
+    flex: 1;
+    display: flex;
+}
+
+#list-message li:not(.me) .content {
+    order: 2;
+    justify-content: flex-start;
+}
+
+#list-message li.me .content {
+    order: 1;
+    justify-content: flex-end;
+}
+
+#list-message li .content p {
+    border-radius: 5px;
+    padding: 5px;
+    word-break: break-all;
+}
+
+#list-message li:not(.me) .content p {
+    background-color: #F1F0F0;
+}
+
+#list-message li.me .content p {
+    background-color: #4080FF;
+    color: #FFFFFF;
+}
+
+#send-message-form {
+    display: flex;
+}
+
+#send-message-form textarea {
+    flex: 1;
+    margin-right: 10px;
+}

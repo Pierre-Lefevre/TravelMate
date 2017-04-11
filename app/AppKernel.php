@@ -20,7 +20,8 @@ class AppKernel extends Kernel
 			new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
             new TM\UserBundle\TMUserBundle(),
-            new FOS\UserBundle\FOSUserBundle()
+            new FOS\UserBundle\FOSUserBundle(),
+            new TM\ChatBundle\TMChatBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
