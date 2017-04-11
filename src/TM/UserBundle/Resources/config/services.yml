@@ -9,3 +9,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: tm_user_registration }
+    tm_user.profile.form.type:
+            class: TM\UserBundle\Form\ProfileFormType
+            arguments: [%fos_user.model.user.class%]
+            tags:
+                - { name: form.type, alias: tm_user_profile }

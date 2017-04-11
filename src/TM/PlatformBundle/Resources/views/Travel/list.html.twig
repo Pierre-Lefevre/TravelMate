@@ -1,11 +1,16 @@
 <ul class="list-travel">
 	{% for travel in travels %}
 		<li>
+			<a href="{{ path('tm_user_profile_show', {'id': travel.user.id}) }}">
+				<div class="profile-picture" style="background-image: url({{ asset('uploads/user/profilepics/' ~
+				travel.user.getProfilePicturePath) }})"></div>
+			</a>
 			<a href="{{ path('tm_platform_view', {'id': travel.id}) }}">
-				<figure>
-					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
-				</figure>
 				<div class="description">
+					<div class="sheet-effect">
+						<div class="bottom-curve"></div>
+						<div class="left-curve"></div>
+					</div>
 					<p class="value">{{ travel.title }}</p>
 					<div class="countries">
 						<p>Pays :</p>

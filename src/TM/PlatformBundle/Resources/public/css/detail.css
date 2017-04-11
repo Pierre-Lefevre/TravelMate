@@ -17,21 +17,24 @@
     margin-right: 20px;
 }
 
-.detail figure {
-    color: #FFFFFF;
-    padding: 10px 10px 10px 10px;
+.detail .first-line > div:first-child > a:first-child {
+    padding: 10px;
     background-color: #FF690F;
+    color: #FFFFFF;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.detail figure img {
+.detail .profile-picture {
     width: 200px;
-}
-
-.detail figure figcaption {
-    margin-top: 10px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    display: block;
+    margin-bottom: 10px;
+    background-color: #F1F1F1;
 }
 
 .detail .action .button {
@@ -114,13 +117,20 @@
     display: flex;
 }
 
-.comments .comment figure {
-    width: 50px;
+.comments .comment > div:first-child {
     margin-right: 10px;
 }
 
-.comments .comment img {
-    width: 100%;
+.comments .profile-link {
+    display: block;
+}
+
+.comment .profile-link .profile-picture {
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
 .comments .comment .content {
@@ -145,7 +155,7 @@
 }
 
 .comments .comment .action form {
-    height: 15px;
+    display: flex;
 }
 
 .comments .delete {

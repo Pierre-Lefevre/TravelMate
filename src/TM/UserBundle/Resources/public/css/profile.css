@@ -1,0 +1,85 @@
+.profile .profile-picture {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border: 3px solid #ff690f;
+    background-color: #F1F1F1;
+}
+
+.profile-show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-show .profile-picture {
+    margin: 20px 0;
+}
+
+.profile-show > div {
+    display: flex;
+    flex-direction: column;
+    background-color: #F1F1F1;
+    padding: 10px;
+    border: 3px solid #ff690f;
+}
+
+.profile-show > div > h2 {
+    text-align: center;
+    color: #ff690f;
+    margin-bottom: 10px;
+}
+
+.profile-show .button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+
+
+
+
+.profile-edit {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-edit > div > div {
+    background-color: #F1F1F1;
+    padding: 10px;
+    border: 3px solid #ff690f;
+}
+
+.profile-edit > div:first-child {
+    margin-right: 20px;
+}
+
+.profile-edit .profile-picture {
+    margin-bottom: 10px;
+}
+
+.profile-edit input[type="file"] {
+    max-width: 150px;
+}
+
+.profile-edit > div:nth-of-type(2) {
+    width: 400px;
+}
+
+.profile-edit form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-edit form > * {
+    width: 100%;
+}
+
+.profile-edit form > label:not(:first-child), .profile-edit form > div, .profile-edit form > input[type="submit"] {
+    margin-top: 10px;
+}

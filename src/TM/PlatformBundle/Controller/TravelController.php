@@ -1,5 +1,4 @@
 <?php
-
 namespace TM\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

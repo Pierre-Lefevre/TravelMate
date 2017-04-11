@@ -1,0 +1,61 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="profile profile-edit">
+	<div>
+		<div class="picture-profile">
+			<div class="profile-picture" style="background-image: url({{ asset('uploads/user/profilepics/' ~ user.getProfilePicturePath) }})"></div>
+			{{ form_start(formProfilePicture, { 'action': path('tm_user_profile_edit', {'id' : user.id}), 'attr': { 'class':
+				'fos_user_profile_edit' } }) }}
+
+			{{ form_errors(formProfilePicture) }}
+
+			{{ form_widget(formProfilePicture.profilePictureFile) }}
+			{{ form_errors(formProfilePicture.profilePictureFile) }}
+
+			{{ form_rest(formProfilePicture) }}
+
+			<input type="submit" class="button success" value="{{ 'profile.edit.submit'|trans }}">
+
+			{{ form_end(formProfilePicture) }}
+		</div>
+	</div>
+	<div>
+		<div class="data-profile">
+			{{ form_start(form, { 'action': path('tm_user_profile_edit', {'id' : user.id}), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+
+			{{ form_errors(form) }}
+
+			{{ form_label(form.username) }}
+			{{ form_widget(form.username) }}
+			{{ form_errors(form.username) }}
+
+			{{ form_label(form.email) }}
+			{{ form_widget(form.email) }}
+			{{ form_errors(form.email) }}
+
+			{{ form_label(form.current_password) }}
+			{{ form_widget(form.current_password) }}
+			{{ form_errors(form.current_password) }}
+
+			{{ form_label(form.firstname) }}
+			{{ form_widget(form.firstname) }}
+			{{ form_errors(form.firstname) }}
+
+			{{ form_label(form.lastname) }}
+			{{ form_widget(form.lastname) }}
+			{{ form_errors(form.lastname) }}
+
+			{{ form_label(form.age) }}
+			{{ form_widget(form.age) }}
+			{{ form_errors(form.age) }}
+
+			{{ form_rest(form) }}
+
+			<input type="submit" class="button success" value="{{ 'profile.edit.submit'|trans }}">
+
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+
+

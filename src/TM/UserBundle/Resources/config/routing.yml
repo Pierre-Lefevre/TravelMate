@@ -16,3 +16,17 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+tm_user_profile_show:
+    path:  /profile/{id}
+    defaults:
+        _controller: TMUserBundle:Profile:show
+    requirements:
+        id: \d+
+
+tm_user_profile_edit:
+    path:  /profile/edit/{id}
+    defaults:
+        _controller: TMUserBundle:Profile:edit
+    requirements:
+        id: \d+

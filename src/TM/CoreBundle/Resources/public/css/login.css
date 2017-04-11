@@ -2,11 +2,13 @@
     background-color: #F1F1F1;
     width: 400px;
     padding: 10px;
+    border: 3px solid #ff690f;
 }
 
 #login > h2 {
     margin-bottom: 10px;
     text-align: center;
+    color: #ff690f;
 }
 
 #login > div {

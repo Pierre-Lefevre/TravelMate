@@ -9,12 +9,13 @@
 	<div class="detail">
 		<div class="first-line">
 			<div>
-				<figure>
-					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
-					<figcaption>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize
-						}} - {{ travel.user.age }} ans</figcaption>
-				</figure>
-				{% if app.user.id == travel.user.id or is_granted("ROLE_ADMIN") %}
+				<a href="{{ path('tm_user_profile_show', {'id': travel.user.id}) }}">
+					<div class="profile-picture" style="background-image: url({{ asset('uploads/user/profilepics/' ~
+					travel.user.getProfilePicturePath) }})"></div>
+					<span>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize
+						}} - {{ travel.user.age }} ans</span>
+				</a>
+				{% if (app.user.id is defined and app.user.id == travel.user.id) or is_granted("ROLE_ADMIN") %}
 					<div class="action">
 						<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>
 						<button data-modal="delete-travel" class="button danger open-modal-button">Supprimer</button>
@@ -77,12 +78,16 @@
 
 		{% for comment in travel.comments %}
 			<div class="comment">
-				<figure>
-					<img src="{{ asset('bundles/tmcore/img/default.jpg') }}">
-				</figure>
+				<div>
+					<a href="{{ path('tm_user_profile_show', {'id': comment.user.id}) }}" class="profile-link">
+						<div class="profile-picture" style="background-image: url({{ asset('uploads/user/profilepics/' ~
+						comment.user.getProfilePicturePath) }})"></div>
+					</a>
+				</div>
 				<div class="content">
 					<div class="by">
-						<span>{{ comment.user.firstname|capitalize }} {{ comment.user.lastname|capitalize }}</span>
+						<a href="{{ path('tm_user_profile_show', {'id': comment.user.id}) }}">{{ comment.user
+							.firstname|capitalize }} {{ comment.user.lastname|capitalize }}</a>
 						<span>le {{ comment.creationDate|date('d/m/Y') }} à {{ comment.creationDate|date('H:i:s') }}</span>
 					</div>
 					<p>{{ comment.content|nl2br }}</p>
@@ -98,7 +103,7 @@
 						{{ form_rest(formsEditComment[comment.id]) }}
 						{{ form_end(formsEditComment[comment.id]) }}
 
-					{% if app.user.id == comment.user.id or is_granted("ROLE_ADMIN") %}
+					{% if (app.user.id is defined and app.user.id == comment.user.id) or is_granted("ROLE_ADMIN") %}
 						<div class="action">
 							<input type="submit" class="edit" value="">
 							<form action="{{ path('tm_platform_remove_comment', {'id_travel': travel.id, 'id_comment': comment.id})

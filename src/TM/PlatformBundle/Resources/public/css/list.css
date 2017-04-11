@@ -8,26 +8,23 @@
 
 .list-travel > li {
     margin-bottom: 20px;
-}
-
-.list-travel a {
     display: flex;
     align-items: center;
 }
 
-.list-travel a:hover figure img, .list-travel a:hover .description {
-    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.4);
-}
-
-.list-travel figure {
-    height: 100%;
+.list-travel > li > a:first-child {
     margin-right: 20px;
 }
 
-.list-travel img {
+.list-travel .profile-picture {
+    width: 130px;
     height: 130px;
-    border-radius: 100px;
-    border: 2px solid #FF690F;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border: 2px solid #ff690f;
+    display: block;
     transition: box-shadow 0.5s;
 }
 
@@ -38,9 +35,55 @@
     padding: 10px;
     display: flex;
     height: 100%;
-    transition: box-shadow 0.5s;
     flex: 1;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: border-radius 0.3s;
+}
+
+.list-travel .description:hover {
+    border-top-right-radius: 65px;
+}
+
+.list-travel .description .sheet-effect {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 50px;
+    height: 50px;
+    transition: top 0.3s, right 0.3s;
+}
+
+.list-travel .description:hover .sheet-effect {
+    top: 0;
+    right: 0;
+}
+
+.list-travel .description .bottom-curve {
+    transform: rotate(20deg);
+    position: absolute;
+    background: transparent;
+    height: 40px;
+    width: 70px;
+    bottom: -35px;
+    right: -16px;
+    border-top: 2px solid #FF690F;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%
+}
+
+.list-travel .description .left-curve {
+    transform: rotate(-20deg);
+    position: absolute;
+    background: transparent;
+    height: 70px;
+    width: 40px;
+    left: -35px;
+    top: -16px;
+    border-right: 2px solid #FF690F;
+    border-bottom-right-radius: 100%;
+    border-top-right-radius: 100%;
 }
 
 .list-travel .description > p:last-child {
@@ -56,6 +99,7 @@
 
 .list-travel .countries, .list-travel .countries ul {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .list-travel .countries p {

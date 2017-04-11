@@ -109,3 +109,6 @@ fos_user:
     registration:
         form:
             type: TM\UserBundle\Form\RegistrationFormType
+    profile:
+        form:
+            type: TM\UserBundle\Form\ProfileFormType

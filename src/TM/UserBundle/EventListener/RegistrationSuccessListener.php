@@ -27,6 +27,7 @@ class RegistrationSuccessListener implements EventSubscriberInterface
     {
         $user = $event->getForm()->getData();
         $user->setRoles(array('ROLE_USER'));
+        $user->setProfilePicturePath("default.jpg");
         $event->setResponse(new RedirectResponse($this->router->generate('tm_core_home')));
     }
 }
