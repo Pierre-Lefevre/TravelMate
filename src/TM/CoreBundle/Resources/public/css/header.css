@@ -35,3 +35,11 @@ body > header {
     transition: .3s all linear;
     background-color: #FF4900;
 }
+
+.auth-action .chat {
+    width: 70px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30px;
+    background-image: url("/TravelMate/web/bundles/tmchat/img/chat.png");
+}

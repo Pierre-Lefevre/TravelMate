@@ -13,6 +13,45 @@ use Doctrine\DBAL\Types\Type;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getDistinctReceiver($idUser)
+    {
+        $query = $this->createQueryBuilder('m')
+            ->select('distinct r.id')
+            ->join('m.receiver', 'r')
+            ->where('m.sender = :id_sender')
+            ->setParameter('id_sender', $idUser)
+            ->orderBy('m.date', 'DESC')
+            ->getQuery();
+
+        $result      = $query->getResult();
+        $idsReceiver = array_column($result, 'id');
+
+        $query = $this->createQueryBuilder('m')
+            ->select('distinct s.id')
+            ->join('m.sender', 's')
+            ->where('m.receiver = :id_receiver')
+            ->setParameter('id_receiver', $idUser)
+            ->orderBy('m.date', 'DESC')
+            ->getQuery();
+
+        $result    = $query->getResult();
+        $idsSender = array_column($result, 'id');
+
+        $ids = array_unique(array_merge($idsReceiver, $idsSender));
+
+        $receivers = array();
+
+        if (!empty($ids)) {
+            $query = $this->_em->createQueryBuilder();
+            $query->select('u')
+                ->from('TM\UserBundle\Entity\User', 'u')
+                ->where($query->expr()->in('u.id', $ids));
+            $receivers = $query->getQuery()->getResult();
+        }
+
+        return $receivers;
+    }
+
     public function findMessagesOfConversation($idUser1, $idUser2)
     {
         $query = $this->createQueryBuilder('m')

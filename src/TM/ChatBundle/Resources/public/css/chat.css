@@ -1,20 +1,78 @@
+#chat {
+    display: flex;
+    justify-content: center;
+}
+
+#list-user-container {
+    width: 350px;
+    overflow-y: auto;
+    border: 1px solid #C6C6C6;
+    background-color: #FFFFFF;
+    margin-right: 10px;
+}
+
+#list-user-container.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#list-user-container > p, #list-message-container > p {
+    color: #ff690f;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 0 20px;
+}
+
+#list-user {
+    display: flex;
+    flex-direction: column;
+}
+
+#list-user li.current {
+    background-color: #F2F2F2;
+}
+
+#list-user li a {
+    display: flex;
+    padding: 5px;
+    align-items: center;
+}
+
+#list-user li .profile-picture {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #ff690f;
+}
+
+#list-user li p {
+    margin-left: 10px;
+    color: #ff690f;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
 #conversation {
     display: flex;
     flex-direction: column;
     width: 350px;
-    margin: auto;
 }
 
 #list-message-container {
     overflow-y: auto;
     height: 400px;
-    margin-bottom: 10px;
     border: 1px solid #C6C6C6;
+    background-color: #FFFFFF;
+}
+
+#list-message-container.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #list-message {
-    background-color: #FFFFFF;
-    border-right: 1px solid #C6C6C6;
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -22,6 +80,10 @@
 
 #list-message li {
     display: flex;
+}
+
+#list-message li.me {
+    justify-content: flex-end;
 }
 
 #list-message li:not(:last-child) {
@@ -32,9 +94,6 @@
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
     border: 2px solid #ff690f;
 }
 
@@ -48,41 +107,32 @@
     margin-left: 5px;
 }
 
-#list-message li .content {
-    flex: 1;
-    display: flex;
-}
-
-#list-message li:not(.me) .content {
-    order: 2;
-    justify-content: flex-start;
-}
-
-#list-message li.me .content {
-    order: 1;
-    justify-content: flex-end;
-}
-
-#list-message li .content p {
+#list-message li p {
     border-radius: 5px;
     padding: 5px;
     word-break: break-all;
 }
 
-#list-message li:not(.me) .content p {
+#list-message li:not(.me) p {
+    order: 2;
     background-color: #F1F0F0;
 }
 
-#list-message li.me .content p {
+#list-message li.me p {
+    order: 1;
     background-color: #4080FF;
     color: #FFFFFF;
 }
 
 #send-message-form {
     display: flex;
+    margin-top: 10px;
 }
 
 #send-message-form textarea {
     flex: 1;
     margin-right: 10px;
+    box-shadow: none;
+    align-self: center;
+    height: 100%;
 }

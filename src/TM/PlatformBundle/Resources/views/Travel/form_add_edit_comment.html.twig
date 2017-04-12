@@ -1,4 +1,7 @@
-{{ form_start(formAddComment, {'attr': {'class': 'form-add-comment'}}) }}
+{% set formClass = travel.comments|length > 0 ? "form-add-comment" : "form-add-comment empty" %}
+
+{{ form_start(formAddComment, {'attr': {'class': formClass}}) }}
+
 {{ form_errors(formAddComment) }}
 
 {{ form_errors(formAddComment.content) }}

@@ -24,11 +24,7 @@
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
     border: 2px solid #ff690f;
-    display: block;
     transition: box-shadow 0.5s;
 }
 

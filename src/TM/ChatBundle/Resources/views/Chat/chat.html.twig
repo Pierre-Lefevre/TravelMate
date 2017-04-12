@@ -1,0 +1,77 @@
+{% extends "TMPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+	Chat - {{ parent() }}
+{% endblock %}
+
+{% block classBody %}with-background{% endblock %}
+
+{% block classMain %}center-content{% endblock %}
+
+{% block tmplatform_body %}
+	<span id="my-profile-picture" data-path="{{ asset('uploads/user/profilepics/' ~ app.user.getProfilePicturePath) }}" style="display: none"></span>
+	{% if userReceiver is defined and userReceiver != null %}
+		<span id="new-message" data-path="{{ path('tm_chat_new_message', {'id' : userReceiver.id}) }}" style="display: none"></span>
+	{% endif %}
+
+
+	<div id="chat">
+
+		<div id="list-user-container" {{ receivers|length > 0 ? '' : 'class="empty"' }}>
+			{% if receivers|length > 0 %}
+				<ul id="list-user">
+					{% for receiver in receivers %}
+						<li {{ userReceiver is defined and userReceiver != null and userReceiver.id == receiver.id ?
+						'class="current"' : '' }}>
+							<a href="{{ path('tm_chat', {'id' : receiver.id}) }}">
+								<div class="profile-picture" style="background-image: url({{ asset
+								('uploads/user/profilepics/' ~ receiver.getProfilePicturePath) }})"></div>
+								<p>{{ receiver.firstname }} {{ receiver.lastname }}</p>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p>Aucune conversation en cours</p>
+			{% endif %}
+		</div>
+
+		<div id="conversation">
+			<div id="list-message-container"  {{ userReceiver is defined and userReceiver != null ? '' : 'class="empty"' }}>
+				{% if userReceiver is defined and userReceiver != null %}
+				<ul id="list-message">
+					{% if messages is defined %}
+						{% for message in messages %}
+							<li {{ message.sender.id == app.user.id ? 'class="me"' : null }}>
+								<div class="profile-picture" style="background-image: url({{ asset
+								('uploads/user/profilepics/' ~ message.sender.getProfilePicturePath) }})"></div>
+
+									<p>{{ message.content }}</p>
+
+							</li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+				{% else %}
+					<p>Aucun message</p>
+				{% endif %}
+			</div>
+			{% if userReceiver is defined and userReceiver != null %}
+				{{ form_start(form, { 'action': path('tm_chat', {'id' : userReceiver.id}),
+					'attr':{'id':"send-message-form"} }) }}
+
+				{{ form_errors(form) }}
+
+				{{ form_widget(form.content) }}
+				{{ form_errors(form.content) }}
+
+				{{ form_rest(form) }}
+
+				<input type="submit" id="send-button" class="button success" value="{{ messages|length > 0 ?
+				'Répondre' : 'Envoyer' }}">
+
+				{{ form_end(form) }}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

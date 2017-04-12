@@ -1,8 +1,15 @@
 .detail, .comments {
     display: flex;
     flex-direction: column;
-    margin: 20px auto;
     width: 1200px;
+}
+
+.detail {
+    margin: 20px auto;
+}
+
+.comments {
+    margin: 0 auto 20px auto;
 }
 
 .detail > div, .detail .action, .detail .second-line {
@@ -29,12 +36,7 @@
 .detail .profile-picture {
     width: 200px;
     height: 200px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    display: block;
     margin-bottom: 10px;
-    background-color: #F1F1F1;
 }
 
 .detail .action .button {
@@ -95,9 +97,13 @@
 }
 
 .comments .form-add-comment {
-    padding: 20px 0;
-    border-bottom: 1px solid #C6C6C6;
+    padding-top: 20px;
     border-top: 1px solid #C6C6C6;
+}
+
+.comments .form-add-comment:not(.empty) {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #C6C6C6;
 }
 
 .comments .form-edit-comment {
@@ -128,9 +134,6 @@
 .comment .profile-link .profile-picture {
     width: 50px;
     height: 50px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
 }
 
 .comments .comment .content {

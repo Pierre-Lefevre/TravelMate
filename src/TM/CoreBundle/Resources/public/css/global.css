@@ -28,8 +28,9 @@ body.with-background {
 }
 
 main {
-    overflow: auto;
     min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
 }
 
 main.center-content {

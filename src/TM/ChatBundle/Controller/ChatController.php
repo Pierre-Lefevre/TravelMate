@@ -12,12 +12,7 @@ use TM\UserBundle\Entity\User;
 
 class ChatController extends Controller
 {
-    public function listAction(Request $request)
-    {
-        return $this->render('TMChatBundle:Chat:chat_list.html.twig', array());
-    }
-
-    public function userAction(Request $request, User $userReceiver)
+    public function userAction(Request $request, User $userReceiver = null)
     {
         $message = new Message();
         $form    = $this->get('form.factory')->create(MessageType::class, $message);
@@ -35,12 +30,25 @@ class ChatController extends Controller
 
         $em         = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TMChatBundle:Message');
-        $messages   = $repository->findMessagesOfConversation($this->getUser()->getId(), $userReceiver->getId());
 
-        return $this->render('TMChatBundle:Chat:chat_user.html.twig', array(
+        $receivers  = $repository->getDistinctReceiver($this->getUser()->getId());
+        if ($userReceiver !== null && !in_array($userReceiver, $receivers)) {
+            $receivers[] = $userReceiver;
+        }
+        if ($userReceiver === null && count($receivers) > 0) {
+            $userReceiver = $receivers[0];
+        }
+
+        $messages = array();
+        if ($userReceiver !== null) {
+            $messages = $repository->findMessagesOfConversation($this->getUser()->getId(), $userReceiver->getId());
+        }
+
+        return $this->render('TMChatBundle:Chat:chat.html.twig', array(
             "form"         => $form->createView(),
             "messages"     => $messages,
-            "userReceiver" => $userReceiver
+            "userReceiver" => $userReceiver,
+            "receivers"    => $receivers
         ));
     }
 
@@ -51,7 +59,8 @@ class ChatController extends Controller
 
         $em          = $this->getDoctrine()->getManager();
         $repository  = $em->getRepository('TMChatBundle:Message');
-        $newMessages = $repository->findNewMessage($this->getUser()->getId(), $userReceiver->getId(), $dateMin, $dateMax);
+        $newMessages = $repository->findNewMessage($this->getUser()->getId(), $userReceiver->getId(), $dateMin,
+            $dateMax);
 
         $messages = array();
         foreach ($newMessages as $newMessage) {

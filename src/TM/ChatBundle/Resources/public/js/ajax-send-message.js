@@ -20,9 +20,7 @@ $(function () {
                 for (i = 0; i < resultat.messages.length; i++) {
                     $("#list-message").append('<li ' + (resultat.messages[i].me ? 'class="me"' : '') + '>' +
                         '<div class="profile-picture" style="background-image: url(' + resultat.messages[i].profilePicture + ')"></div>' +
-                        '<div class="content">' +
                         '<p>' + resultat.messages[i].content + '</p>' +
-                        '</div>' +
                         '</li>');
                 }
                 if (resultat.messages.length > 0) {
@@ -64,11 +62,13 @@ $(function () {
                 var $message = $this.find("textarea").val();
                 $("#list-message").append('<li class="me">' +
                     '<div class="profile-picture" style="background-image: url(' + $("#my-profile-picture").attr("data-path") + ')"></div>' +
-                    '<div class="content">' +
                     '<p>' + $message + '</p>' +
-                    '</div>' +
                     '</li>');
                 $this.find("textarea").val('');
+                $this.find("input[type='submit']").blur();
+                if ($this.find("input[type='submit']").val() === "Envoyer") {
+                    $this.find("input[type='submit']").val("Répondre");
+                }
                 scrollSmooth.call($overflowElement, $overflowElement[0].scrollHeight);
             },
             error: function (resultat, statut, erreur) {
