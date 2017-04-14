@@ -5,8 +5,8 @@ namespace TM\PlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
- *
+ * Class Category
+ * @package TM\PlatformBundle\Entity
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="TM\PlatformBundle\Repository\CategoryRepository")
  */

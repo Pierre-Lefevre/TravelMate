@@ -1,0 +1,23 @@
+#sprite {
+    display: none;
+}
+
+path, polygon {
+    fill: #FFFFFF;
+}
+
+.dollar.full #dollar-svg path, #dollar-svg polygon {
+    fill: #FF690F;
+}
+
+.dollar.empty #dollar-svg path, #dollar-svg polygon {
+    fill: #FFC965;
+}
+
+#edit-svg path, #edit-svg polygon {
+    fill: #025AA5;
+}
+
+#delete-svg path, #delete-svg polygon {
+    fill: #C9302C;
+}

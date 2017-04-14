@@ -1,9 +1,12 @@
+tm_chat:
+    resource: "@TMChatBundle/Resources/config/routing.yml"
+
 tm_core:
     resource: "@TMCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
+tm_platform:
+    resource: "@TMPlatformBundle/Resources/config/routing.yml"
+
 fos_user:
     resource: "@TMUserBundle/Resources/config/routing.yml"
-
-tm_chat:
-    resource: "@TMChatBundle/Resources/config/routing.yml"

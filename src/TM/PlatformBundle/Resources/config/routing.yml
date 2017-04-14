@@ -1,7 +1,7 @@
-tm_platform_home:
+tm_platform_search:
     path:      /page/{page}
     defaults:
-        _controller: TMPlatformBundle:Travel:index
+        _controller: TMPlatformBundle:Travel:search
         page:        1
     requirements:
         page: \d*
@@ -15,7 +15,8 @@ tm_platform_view:
 
 tm_platform_add:
     path:     /add
-    defaults: { _controller: TMPlatformBundle:Travel:add }
+    defaults:
+        _controller: TMPlatformBundle:Travel:add
 
 tm_platform_edit:
     path:      /edit/{id}
@@ -24,18 +25,10 @@ tm_platform_edit:
     requirements:
         id: \d+
 
-tm_platform_edit_comment:
-    path:      /edit/{id_travel}/{id_comment}
-    defaults:
-        _controller: TMPlatformBundle:Travel:editComment
-    requirements:
-        id_travel: \d+
-        id_comment: \d+
-
 tm_platform_remove_comment:
     path:      /remove/{id_travel}/{id_comment}
     defaults:
-        _controller: TMPlatformBundle:Travel:removeComment
+        _controller: TMPlatformBundle:Comment:removeComment
     requirements:
         id_travel: \d+
         id_comment: \d+

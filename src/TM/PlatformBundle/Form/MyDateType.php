@@ -5,8 +5,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class MyDateType
+ * @package TM\PlatformBundle\Form
+ */
 class MyDateType extends AbstractType
 {
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -20,6 +27,9 @@ class MyDateType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return DateType::class;

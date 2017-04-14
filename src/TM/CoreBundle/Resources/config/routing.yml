@@ -1,10 +1,9 @@
-tm_core_home:
+tm_core_index:
     path: /
-    defaults: { _controller: TMCoreBundle:Core:index }
+    defaults:
+        _controller: TMCoreBundle:Core:index
 
 tm_core_contact:
     path: /contact
-    defaults: { _controller: TMCoreBundle:Core:contact }
-
-tm_platform:
-    resource: "@TMPlatformBundle/Resources/config/routing.yml"
+    defaults:
+        _controller: TMCoreBundle:Core:contact

@@ -39,6 +39,11 @@
     margin-bottom: 10px;
 }
 
+.detail .first-line .contact-button {
+    display: block;
+    text-align: center;
+}
+
 .detail .action .button {
     flex: 1;
     display: flex;
@@ -76,12 +81,13 @@
     align-items: center;
 }
 
-.detail .dollar {
-    width: 8px;
-    margin-left: 2px;
+.detail svg.dollar {
+    width: 12px;
+    height: 21px;
+    margin-right: 2px;
 }
 
-.detail .dollar:first-child {
+.detail svg.dollar:first-child {
     margin-left: 5px;
 }
 
@@ -162,20 +168,27 @@
 }
 
 .comments .delete {
-    background: transparent url("../img/delete.png") no-repeat center center;
-    background-size: cover;
     border: none;
     width: 15px;
     height: 15px;
     cursor: pointer;
     padding: 0;
+    background-color: transparent;
+}
+
+.comments .delete svg {
+    width: 15px;
+    height: 15px;
 }
 
 .comments .edit {
-    background: transparent url("../img/edit.png") no-repeat center center;
-    background-size: cover;
     border: none;
     width: 15px;
     height: 15px;
     cursor: pointer;
+}
+
+.comments .edit svg {
+    width: 15px;
+    height: 15px;
 }

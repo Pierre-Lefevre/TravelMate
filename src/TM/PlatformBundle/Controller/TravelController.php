@@ -1,11 +1,11 @@
 <?php
+
 namespace TM\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Intl\Intl;
 use TM\PlatformBundle\Entity\Comment;
 use TM\PlatformBundle\Entity\Travel;
 use TM\PlatformBundle\Form\CommentEditType;
@@ -17,9 +17,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * Class TravelController
+ * @package TM\PlatformBundle\Controller
+ */
 class TravelController extends Controller
 {
-    public function indexAction(Request $request, $page)
+    /**
+     * @param Request $request
+     * @param $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchAction(Request $request, $page)
     {
         $this->get('app.breadcrumb')->listTravel();
 
@@ -32,23 +41,28 @@ class TravelController extends Controller
         if ($request->getMethod() == 'POST' && $form->handleRequest($request)->isValid()) {
             $request->getSession()->set("form_search_data", $request->request->get($form->getName()));
         }
-        $nbResults = 0;
-        $nbPerPage = 10;
+        $nbResults  = 0;
+        $nbPerPage  = 10;
         $parameters = $request->getSession()->has("form_search_data") ? $request->getSession()->get("form_search_data") : array();
         $travels    = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getTravelsByParameters($parameters,
-                $page, $nbPerPage, $nbResults);
+            $page, $nbPerPage, $nbResults);
 
         $nbPages = ceil(count($travels) / $nbPerPage);
 
-        return $this->render('TMPlatformBundle:Travel:index.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('TMPlatformBundle:Travel:search.html.twig', array(
+            'form'      => $form->createView(),
             'nbResults' => $nbResults,
-            'travels' => $travels,
-            'nbPages' => $nbPages,
-            'page'    => $page,
+            'travels'   => $travels,
+            'nbPages'   => $nbPages,
+            'page'      => $page,
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param Travel $travel
+     * @return array|\Symfony\Component\Form\Form|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function viewAction(Request $request, Travel $travel)
     {
         $this->get('app.breadcrumb')->viewTravel($travel->getId());
@@ -73,6 +87,11 @@ class TravelController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param Travel $travel
+     * @return RedirectResponse
+     */
     public function getAndCheckRemoveTravelForm(Request $request, Travel $travel)
     {
         $formDeleteTravel = $this->get('form.factory')->create();
@@ -82,12 +101,17 @@ class TravelController extends Controller
             $em->remove($travel);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', "Le voyage a bien été supprimée.");
-            return $this->redirectToRoute('tm_core_home');
+            return $this->redirectToRoute('tm_core_index');
         }
 
         return $formDeleteTravel;
     }
 
+    /**
+     * @param Request $request
+     * @param Travel $travel
+     * @return \Symfony\Component\Form\Form|RedirectResponse
+     */
     public function getAndCheckAddCommentForm(Request $request, Travel $travel)
     {
         $comment        = new Comment();
@@ -110,7 +134,11 @@ class TravelController extends Controller
         return $formAddComment;
     }
 
-
+    /**
+     * @param Request $request
+     * @param Travel $travel
+     * @return array|RedirectResponse
+     */
     public function getAndCheckEditCommentForm(Request $request, Travel $travel)
     {
         $formsEditComment = array();
@@ -138,32 +166,9 @@ class TravelController extends Controller
     }
 
     /**
-     * @Route("/remove/{id_travel}/{id_comment}")
-     * @ParamConverter("travel", class="TMPlatformBundle:Travel", options={"id" = "id_travel"})
-     * @ParamConverter("comment", class="TMPlatformBundle:Comment", options={"id" = "id_comment"})
-     * @param Request $request
-     * @param Travel $travel
-     * @param Comment $comment
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function removeCommentAction(Request $request, Travel $travel, Comment $comment)
-    {
-        $formDeleteComment = $this->get('form.factory')->create();
-
-        $em = $this->getDoctrine()->getManager();
-        if ($request->isMethod('POST') && $formDeleteComment->handleRequest($request)->isValid()) {
-            $em->remove($comment);
-            $em->flush();
-            $request->getSession()->getFlashBag()->add('info', "Le commentaire a bien été supprimée.");
-        }
-
-        return $this->redirectToRoute('tm_platform_view', array(
-            'id' => $travel->getId()
-        ));
-    }
-
-    /**
      * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function addAction(Request $request)
     {
@@ -181,21 +186,24 @@ class TravelController extends Controller
             $em->persist($travel);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info',
-                'Voyage bien enregistrée.');
+            $request->getSession()->getFlashBag()->add('info', 'Voyage bien enregistrée.');
 
             return $this->redirectToRoute('tm_platform_view', array(
                 'id' => $travel->getId()
             ));
         }
 
-        // On passe la méthode createView() du formulaire à la vue
-        // afin qu'elle puisse afficher le formulaire toute seule
         return $this->render('TMPlatformBundle:Travel:add.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @param Travel $travel
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function editAction(Travel $travel, Request $request)
     {
         $this->get('app.breadcrumb')->editTravel($travel->getId());
@@ -205,8 +213,7 @@ class TravelController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->flush();
-            $request->getSession()->getFlashBag()->add('notice',
-                'Voyage bien modifiée.');
+            $request->getSession()->getFlashBag()->add('notice', 'Voyage bien modifiée.');
             return $this->redirectToRoute('tm_platform_view', array(
                 'id' => $travel->getId()
             ));
@@ -218,11 +225,15 @@ class TravelController extends Controller
         ));
     }
 
+    /**
+     * @param $limit
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function lastAction($limit)
     {
         $em      = $this->getDoctrine()->getManager();
-        $travels = $em->getRepository('TMPlatformBundle:Travel')->findBy(array(),
-            array('creationDate' => 'desc'), $limit, 0);
+        $travels = $em->getRepository('TMPlatformBundle:Travel')->findBy(array(), array('creationDate' => 'desc'),
+            $limit, 0);
         return $this->render('TMPlatformBundle:Travel:list.html.twig', array(
             'travels' => $travels
         ));

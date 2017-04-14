@@ -1,7 +1,7 @@
 {% extends "TMPlatformBundle::layout.html.twig" %}
 
 {% block title %}
-	Recherche d'un voyage - {{ parent() }}
+	Rechercher un voyage
 {% endblock %}
 
 {% block tmplatform_body %}
@@ -13,7 +13,7 @@
 		<ul class="paging">
 			{% for p in range(1, nbPages) %}
 				<li{% if p == page %} class="active"{% endif %}>
-					<a href="{{ path('tm_platform_home', {'page': p}) }}">{{ p }}</a>
+					<a href="{{ path('tm_platform_search', {'page': p}) }}">{{ p }}</a>
 				</li>
 			{% endfor %}
 		</ul>

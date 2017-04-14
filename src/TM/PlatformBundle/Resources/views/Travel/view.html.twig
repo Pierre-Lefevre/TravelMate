@@ -1,7 +1,7 @@
 {% extends "TMPlatformBundle::layout.html.twig" %}
 
 {% block title %}
-	{{ travel.title }} - {{ parent() }}
+	{{ travel.title }}
 {% endblock %}
 
 {% block tmplatform_body %}
@@ -15,6 +15,9 @@
 					<span>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize
 						}} - {{ travel.user.age }} ans</span>
 				</a>
+				{% if app.user.id != travel.user.id %}
+					<a href="{{ path('tm_chat', {'id': travel.user.id}) }}" class="button primary contact-button">Contacter</a>
+				{% endif %}
 				{% if (app.user.id is defined and app.user.id == travel.user.id) or is_granted("ROLE_ADMIN") %}
 					<div class="action">
 						<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>
@@ -55,13 +58,11 @@
 			<p>
 				Coût estimé :
 				{% for cost in range(1, 5) %}
-					<img class="dollar" src="
-						{% if cost <= travel.cost %}
-							{{ asset('bundles/tmplatform/img/dollar-full.png') }}
-						{% else %}
-							{{ asset('bundles/tmplatform/img/dollar-empty.png') }}
-						{% endif %}
-					">
+					{% if cost <= travel.cost %}
+						<svg class="dollar full"><use xlink:href="#dollar-svg"></use></svg>
+					{% else %}
+						<svg class="dollar empty"><use xlink:href="#dollar-svg"></use></svg>
+					{% endif %}
 				{% endfor %}
 			</p>
 			<p>
@@ -105,10 +106,14 @@
 
 					{% if (app.user.id is defined and app.user.id == comment.user.id) or is_granted("ROLE_ADMIN") %}
 						<div class="action">
-							<input type="submit" class="edit" value="">
+							<div class="edit" value="">
+								<svg><use xlink:href="#edit-svg"></use></svg>
+							</div>
 							<form action="{{ path('tm_platform_remove_comment', {'id_travel': travel.id, 'id_comment': comment.id})
 							}}" method="post">
-								<input type="submit" class="delete" value="">
+								<button type="submit" class="delete">
+									<svg><use xlink:href="#delete-svg"></use></svg>
+								</button>
 								{{ form_rest(formDeleteComment) }}
 							</form>
 						</div>
@@ -117,21 +122,6 @@
 			</div>
 		{% endfor %}
 	</div>
-	<script>
-        document.addEventListener("DOMContentLoaded", function () {
-			var edit = document.querySelectorAll(".edit");
-            for (var i = 0; i <  edit.length; i++) {
-                (function () {
-                    var content = edit[i].closest(".content");
-                    edit[i].addEventListener("click", function() {
-                        content.querySelector("p").style.display = "none";
-                        content.querySelector(".action").style.display = "none";
-                        content.querySelector(".form-edit-comment").style.display = "flex";
-					})
-                }());
-            }
-        });
-	</script>
 	<div class="modal" data-modal="delete-travel">
 		<div>
 			<h2 class="title">Êtes-vous certain de vouloir supprimer ce voyage ?</h2>

@@ -27,3 +27,11 @@ nav li:not(.active) a:hover {
 nav li.active a {
     background-color: #FF4900;
 }
+
+nav li:first-child a {
+    border-bottom-left-radius: 5px;
+}
+
+nav li:last-child a {
+    border-bottom-right-radius: 5px;
+}

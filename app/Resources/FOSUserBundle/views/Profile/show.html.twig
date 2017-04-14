@@ -1,5 +1,9 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
+{% block title %}
+	Profil - {{ user.firstname }} {{ user.lastname }}
+{% endblock %}
+
 {% block classBody %}with-background{% endblock %}
 
 {% block fos_user_content %}

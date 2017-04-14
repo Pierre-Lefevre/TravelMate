@@ -1,4 +1,5 @@
 <?php
+
 namespace TM\UserBundle\Controller;
 
 use FOS\UserBundle\Event\FilterUserResponseEvent;
@@ -8,7 +9,6 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +17,18 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\Controller\ProfileController as BaseController;
 use TM\UserBundle\Entity\User;
 use TM\UserBundle\Form\ProfilePictureType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * Class ProfileController
+ * @package TM\UserBundle\Controller
+ */
 class ProfileController extends BaseController
 {
+    /**
+     * @param User|null $user
+     * @return Response
+     */
     public function showAction(User $user = null)
     {
         if ($user == null) {
@@ -34,6 +43,12 @@ class ProfileController extends BaseController
         ));
     }
 
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @param User|null $user
+     * @return null|RedirectResponse|Response
+     */
     public function editAction(Request $request, User $user = null)
     {
         if ($user == null) {
@@ -60,7 +75,7 @@ class ProfileController extends BaseController
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('tm_user_profile_show', array('id' => $user->getId()));
+                $url      = $this->generateUrl('tm_user_profile_show', array('id' => $user->getId()));
                 $response = new RedirectResponse($url);
             }
             return $response;
@@ -84,19 +99,20 @@ class ProfileController extends BaseController
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('tm_user_profile_show', array('id' => $user->getId()));
+                $url      = $this->generateUrl('tm_user_profile_show', array('id' => $user->getId()));
                 $response = new RedirectResponse($url);
             }
 
-            $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+            $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED,
+                new FilterUserResponseEvent($user, $request, $response));
 
             return $response;
         }
 
         return $this->render('@FOSUser/Profile/edit.html.twig', array(
-            'form' => $form->createView(),
+            'form'               => $form->createView(),
             'formProfilePicture' => $formProfilePicture->createView(),
-            'user' => $user
+            'user'               => $user
         ));
     }
 }

@@ -3,19 +3,21 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>{% block title %}Travel Mate{% endblock %}</title>
+		<title>{% block title %}{% endblock %} - Travel Mate</title>
+		<link rel="icon" type="image/png" href="{{ asset("bundles/tmcore/img/favicon.png") }}">
 		{% block stylesheets %}
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-			{% stylesheets filter='cssrewrite, scssphp' output="css/style.css"
-			'bundles/tmchat/css/*'
-			'bundles/tmcore/css/*'
-			'bundles/tmplatform/css/*'
-			'bundles/tmuser/css/*'%}
+			{% stylesheets filter='cssrewrite, scssphp' output='css/style.css'
+				'bundles/tmchat/css/*'
+				'bundles/tmcore/css/*'
+				'bundles/tmplatform/css/*'
+				'bundles/tmuser/css/*' %}
 				<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 			{% endstylesheets %}
 		{% endblock %}
 	</head>
 	<body class="{% block classBody %}{% endblock %}">
+		{% include("TMCoreBundle:Core:sprite.svg.twig") %}
 		{% include("TMCoreBundle:Core:flashbag.html.twig") %}
 		{% include("TMCoreBundle:Core:header.html.twig") %}
 		{% include("TMCoreBundle:Core:nav.html.twig") %}
@@ -23,25 +25,15 @@
 			{% block main %}
 			{% endblock %}
 		</main>
-		<footer>
-			<p>© {{ 'now'|date('Y') }} P. Lefèvre - Tout droit réservé</p>
-		</footer>
+		{% include("TMCoreBundle:Core:footer.html.twig") %}
 		{% block javascripts %}
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-			{% javascripts
-				'bundles/tmplatform/js/*'
+			{% javascripts filter='jsqueeze' output='js/script.js'
 				'bundles/tmchat/js/*'
-				filter='jsqueeze'
-				output="js/script.js"
-			%}
+				'bundles/tmplatform/js/*' %}
 				<script type="text/javascript" src="{{ asset_url }}"></script>
 			{% endjavascripts %}
-			<script  type="text/javascript">
-                $(function() {
-                    $(".datepicker").datepicker();
-                });
-			</script>
 		{% endblock %}
 	</body>
 </html>

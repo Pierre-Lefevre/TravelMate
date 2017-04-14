@@ -1,20 +1,24 @@
 <?php
 namespace TM\UserBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * User
- *
+ * Class User
+ * @package TM\UserBundle\Entity
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="TM\UserBundle\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class User extends BaseUser
 {
+    /**
+     *
+     */
     const ROLE_DEFAULT = 'ROLE_DEFAULT';
 
     /**
@@ -43,13 +47,13 @@ class User extends BaseUser
     private $lastname;
 
     /**
-     * @var int
+     * @var \DateTime
      *
-     * @ORM\Column(name="age", type="integer")
-     * @Assert\Type(type="integer")
-     * @Assert\Range(min = 1)
+     * @ORM\Column(name="birth_date", type="date")
+     * @Assert\Date()
+     * @Assert\Range(max = "now")
      */
-    protected $age;
+    protected $birthDate;
 
     /**
      * @Assert\File(maxSize="2048k")
@@ -65,30 +69,6 @@ class User extends BaseUser
      * @Assert\Type(type="string")
      */
     protected $profilePicturePath;
-
-    /**
-     * Set age
-     *
-     * @param integer $age
-     *
-     * @return User
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    /**
-     * Get age
-     *
-     * @return integer
-     */
-    public function getAge()
-    {
-        return $this->age;
-    }
 
     /**
      * Set firstname
@@ -300,5 +280,34 @@ class User extends BaseUser
             )) {
             unlink($file);
         }
+    }
+
+    /**
+     * Set birthDate
+     *
+     * @param \DateTime $birthDate
+     *
+     * @return User
+     */
+    public function setBirthDate($birthDate)
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthDate
+     *
+     * @return \DateTime
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
+
+    public function getAge()
+    {
+        return $this->birthDate->diff(new DateTime('now'))->y;
     }
 }

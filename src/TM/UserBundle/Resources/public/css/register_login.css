@@ -1,4 +1,4 @@
-#login {
+#register-login {
     background-color: #F1F1F1;
     width: 400px;
     padding: 10px;
@@ -6,25 +6,25 @@
     border: 3px solid #ff690f;
 }
 
-#login > h2 {
+#register-login > h2 {
     margin-bottom: 10px;
     text-align: center;
     color: #ff690f;
 }
 
-#login > div {
+#register-login > div {
     margin-bottom: 10px;
 }
 
-#login form {
+#register-login form {
     display: flex;
     flex-direction: column;
 }
 
-#login form > * {
+#register-login form > * {
     width: 100%;
 }
 
-#login form > label:not(:first-child), #login form > div, #login form > input[type="submit"] {
+#register-login form > label:not(:first-child), #register-login form > div, #register-login form > input[type="submit"] {
     margin-top: 10px;
 }

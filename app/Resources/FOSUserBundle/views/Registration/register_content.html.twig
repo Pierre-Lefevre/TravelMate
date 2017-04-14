@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div id="login">
+<div id="register-login">
 	<h2>Inscription</h2>
 
 	{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
@@ -30,9 +30,9 @@
 	{{ form_widget(form.lastname) }}
 	{{ form_errors(form.lastname) }}
 
-	{{ form_label(form.age) }}
-	{{ form_widget(form.age) }}
-	{{ form_errors(form.age) }}
+	{{ form_label(form.birthDate) }}
+	{{ form_widget(form.birthDate) }}
+	{{ form_errors(form.birthDate) }}
 
 	{{ form_rest(form) }}
 

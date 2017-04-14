@@ -3,15 +3,25 @@
 namespace TM\ChatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TM\ChatBundle\Entity\Message;
 use TM\ChatBundle\Form\MessageType;
 use TM\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * Class ChatController
+ * @package TM\ChatBundle\Controller
+ */
 class ChatController extends Controller
 {
+    /**
+     * @Security("has_role('ROLE_USER')")
+     * @param Request $request
+     * @param User|null $userReceiver
+     * @return Response
+     */
     public function userAction(Request $request, User $userReceiver = null)
     {
         $message = new Message();
@@ -31,7 +41,7 @@ class ChatController extends Controller
         $em         = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TMChatBundle:Message');
 
-        $receivers  = $repository->getDistinctReceiver($this->getUser()->getId());
+        $receivers = $repository->getDistinctReceiver($this->getUser()->getId());
         if ($userReceiver !== null && !in_array($userReceiver, $receivers)) {
             $receivers[] = $userReceiver;
         }
@@ -52,6 +62,11 @@ class ChatController extends Controller
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param User $userReceiver
+     * @return Response
+     */
     public function newMessageAction(Request $request, User $userReceiver)
     {
         $dateMin = $request->request->get("dateMin");

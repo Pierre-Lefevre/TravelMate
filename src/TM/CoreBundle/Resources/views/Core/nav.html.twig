@@ -1,10 +1,10 @@
-<nav {% if app.request.get('_route') == 'tm_core_home' %}class="background"{% endif %}>
+<nav {% if app.request.get('_route') == 'tm_core_index' %}class="background"{% endif %}>
 	<ul>
-		<li {% if app.request.get('_route') == 'tm_core_home' %}class="active"{% endif %}>
-			<a href="{{ path('tm_core_home') }}">Accueil</a>
+		<li {% if app.request.get('_route') == 'tm_core_index' %}class="active"{% endif %}>
+			<a href="{{ path('tm_core_index') }}">Accueil</a>
 		</li>
-		<li {% if app.request.get('_route') == 'tm_platform_home' %}class="active"{% endif %}>
-			<a href="{{ path('tm_platform_home') }}">Liste des voyages</a>
+		<li {% if app.request.get('_route') == 'tm_platform_search' %}class="active"{% endif %}>
+			<a href="{{ path('tm_platform_search') }}">Rechercher un voyage</a>
 		</li>
 		{% if is_granted('ROLE_USER') %}
 			<li {% if app.request.get('_route') == 'tm_platform_add' %}class="active"{% endif %}>

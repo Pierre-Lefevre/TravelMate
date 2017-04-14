@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Travel
- *
+ * Class Travel
+ * @package TM\PlatformBundle\Entity
  * @ORM\Table(name="travel")
  * @ORM\Entity(repositoryClass="TM\PlatformBundle\Repository\TravelRepository")
  * @ORM\HasLifecycleCallbacks()
@@ -133,6 +133,9 @@ class Travel
      **/
     private $user;
 
+    /**
+     * Travel constructor.
+     */
     public function __construct()
     {
         $this->categories = new ArrayCollection();

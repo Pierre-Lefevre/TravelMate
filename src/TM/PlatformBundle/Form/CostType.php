@@ -5,8 +5,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class CostType
+ * @package TM\PlatformBundle\Form
+ */
 class CostType extends AbstractType
 {
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -21,6 +28,9 @@ class CostType extends AbstractType
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return ChoiceType::class;
