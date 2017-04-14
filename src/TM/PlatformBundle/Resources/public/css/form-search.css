@@ -70,7 +70,7 @@
 
 .form-search button[type="submit"] {
     color: transparent;
-    background: #FF690F url("../img/magnifying-glass.png") no-repeat center center;
+    background: #FF690F url("../img/magnifier.png") no-repeat center center;
     background-size: 60%;
     width: 60px;
     transition: background-color 0.5s;

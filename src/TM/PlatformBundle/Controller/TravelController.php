@@ -213,7 +213,7 @@ class TravelController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->flush();
-            $request->getSession()->getFlashBag()->add('notice', 'Voyage bien modifiée.');
+            $request->getSession()->getFlashBag()->add('info', 'Voyage bien modifiée.');
             return $this->redirectToRoute('tm_platform_view', array(
                 'id' => $travel->getId()
             ));

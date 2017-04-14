@@ -336,6 +336,20 @@ class Travel
         return $this->typeDuration;
     }
 
+    public function getFrTypeDuration()
+    {
+        if ($this->typeDuration === "day") {
+            return "jour(s)";
+        } else if ($this->typeDuration === "week") {
+            return "semaine(s)";
+        } else if ($this->typeDuration === "month") {
+            return "mois";
+        } else if ($this->typeDuration === "year") {
+            return "année(s)";
+        }
+        return $this->typeDuration;
+    }
+
     /**
      * Set creationDate
      *
