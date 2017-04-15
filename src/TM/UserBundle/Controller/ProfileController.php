@@ -58,6 +58,8 @@ class ProfileController extends BaseController
             }
         }
 
+        $this->denyAccessUnlessGranted('edit', $user);
+
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 

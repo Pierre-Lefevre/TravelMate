@@ -27,6 +27,8 @@ class CommentController extends Controller
      */
     public function removeCommentAction(Request $request, Travel $travel, Comment $comment)
     {
+        $this->denyAccessUnlessGranted('delete', $comment);
+
         $formDeleteComment = $this->get('form.factory')->create();
 
         $em = $this->getDoctrine()->getManager();

@@ -8,3 +8,21 @@ services:
         class: TM\PlatformBundle\Twig\CountryExtension
         tags:
             - { name: twig.extension }
+    tm.comment_voter:
+        class:  TM\PlatformBundle\Security\CommentVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }
+    tm.travel_voter:
+        class:  TM\PlatformBundle\Security\TravelVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }
+    tm.user_voter:
+            class:  TM\UserBundle\Security\UserVoter
+            arguments: ['@security.access.decision_manager']
+            public: false
+            tags:
+                - { name: security.voter }

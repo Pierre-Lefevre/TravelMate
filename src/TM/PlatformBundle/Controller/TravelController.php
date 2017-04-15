@@ -98,6 +98,9 @@ class TravelController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST') && $formDeleteTravel->handleRequest($request)->isValid()) {
+
+            $this->denyAccessUnlessGranted('delete', $travel);
+
             $em->remove($travel);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', "Le voyage a bien été supprimée.");
@@ -149,7 +152,11 @@ class TravelController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         foreach ($formsEditComment as $key => $formEditComment) {
+            $comment = $em->getRepository('TMPlatformBundle:Comment')->find($key);
+
             if ($request->isMethod('POST') && $formEditComment->handleRequest($request)->isValid()) {
+                $this->denyAccessUnlessGranted('edit', $comment);
+
                 $em->flush();
                 $request->getSession()->getFlashBag()->add('info', "Le commentaire a bien été modifié.");
                 return $this->redirectToRoute('tm_platform_view', array(
@@ -206,6 +213,8 @@ class TravelController extends Controller
      */
     public function editAction(Travel $travel, Request $request)
     {
+        $this->denyAccessUnlessGranted('edit', $travel);
+
         $this->get('app.breadcrumb')->editTravel($travel->getId());
 
         $em   = $this->getDoctrine()->getManager();
