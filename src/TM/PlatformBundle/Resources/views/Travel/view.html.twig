@@ -15,7 +15,7 @@
 					<span>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize
 						}} - {{ travel.user.age }} ans</span>
 				</a>
-				{% if app.user.id != travel.user.id %}
+				{% if app.user.id is defined and app.user.id != travel.user.id %}
 					<a href="{{ path('tm_chat', {'id': travel.user.id}) }}" class="button primary contact-button">Contacter</a>
 				{% endif %}
 				{% if (app.user.id is defined and app.user.id == travel.user.id) or is_granted("ROLE_ADMIN") %}

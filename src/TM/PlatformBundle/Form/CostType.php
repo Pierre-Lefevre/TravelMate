@@ -17,7 +17,7 @@ class CostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'label'   => 'Coût :',
+            'label'   => 'Coût',
             'choices' => array(
                 'Faible'     => 1,
                 'Accessible' => 2,

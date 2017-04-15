@@ -17,7 +17,7 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'label'        => 'Type(s) de voyage :',
+            'label'        => 'Type(s) de voyage',
             'class'        => 'TMPlatformBundle:Category',
             'choice_label' => 'name',
         ));

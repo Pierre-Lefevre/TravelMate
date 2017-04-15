@@ -67,3 +67,34 @@ textarea {
 .button.danger:hover {
     background-color: #C9302C;
 }
+
+#bloc-form {
+    background-color: #F1F1F1;
+    width: 400px;
+    padding: 10px;
+    margin: 20px 0;
+    border: 3px solid #ff690f;
+}
+
+#bloc-form > h2 {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ff690f;
+}
+
+#bloc-form > div {
+    margin-bottom: 10px;
+}
+
+#bloc-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+#bloc-form form > * {
+    width: 100%;
+}
+
+#bloc-form form > label:not(:first-child), #bloc-form form > div, #bloc-form form > input[type="submit"] {
+    margin-top: 10px;
+}

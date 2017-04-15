@@ -14,7 +14,6 @@
 		<span id="new-message" data-path="{{ path('tm_chat_new_message', {'id' : userReceiver.id}) }}" style="display: none"></span>
 	{% endif %}
 
-
 	<div id="chat">
 
 		<div id="list-user-container" {{ receivers|length > 0 ? '' : 'class="empty"' }}>

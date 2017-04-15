@@ -20,7 +20,7 @@ class TravelSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('countries', CountryType::class, array(
-            'label'    => 'Pays :',
+            'label'    => 'Pays',
             'required' => false
         ))->add('begin', MyDateType::class, array(
             'label'    => 'Départ entre le',
@@ -29,13 +29,13 @@ class TravelSearchType extends AbstractType
             'label'    => 'et le',
             'required' => false
         ))->add('nbDuration', IntegerType::class, array(
-            'label'    => 'Durée :',
+            'label'    => 'Durée',
             'attr'     => array(
                 'placeholder' => 'Durée'
             ),
             'required' => false,
         ))->add('typeDuration', DurationType::class, array(
-            'label'       => 'Durée :',
+            'label'       => 'Durée',
             'placeholder' => 'estimée',
             'required'    => false,
         ))->add('categories', CategoryType::class, array(

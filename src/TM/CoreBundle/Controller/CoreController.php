@@ -4,6 +4,8 @@ namespace TM\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use TM\CoreBundle\Form\ConnectedContactType;
+use TM\CoreBundle\Form\NotConnectedContactType;
 use TM\PlatformBundle\Form\TravelSearchType;
 
 /**
@@ -32,15 +34,36 @@ class CoreController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function contactAction(Request $request)
     {
-        $session = $request->getSession();
+        $type = NotConnectedContactType::class;
+        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $type = ConnectedContactType::class;
+        }
 
-        $session->getFlashBag()->add('info',
-            'La page de contact n’est pas encore disponible, merci de revenir plus tard.');
+        $form = $this->createForm($type, null, array(
+            'action' => $this->generateUrl('tm_core_contact'),
+            'method' => 'POST'
+        ));
 
-        return $this->redirectToRoute('tm_core_index');
+        if ($request->getMethod() == 'POST' && $form->handleRequest($request)->isValid()) {
+            $data = $form->getData();
+
+            if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+                $data["name"] = $this->getUser()->getFirstName() . " " . $this->getUser()->getLastname();
+                $data["email"] = $this->getUser()->getEmail();
+            }
+
+            if ($this->get('tm_core_mailer')->sendContactMessage($data)) {
+                $request->getSession()->getFlashBag()->add('info', 'Message envoyé.');
+                return $this->redirectToRoute('tm_core_index');
+            }
+        }
+
+        return $this->render('TMCoreBundle:Core:contact.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

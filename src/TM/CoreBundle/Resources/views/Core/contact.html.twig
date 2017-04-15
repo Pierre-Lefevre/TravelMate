@@ -1,0 +1,42 @@
+{% extends "TMCoreBundle::layout.html.twig" %}
+
+{% block title %}
+	Contact
+{% endblock %}
+
+{% block classBody %}with-background{% endblock %}
+
+{% block classMain %}center-content{% endblock %}
+
+{% block main %}
+	<div id="bloc-form">
+		<h2>Contact</h2>
+		{{ form_start(form) }}
+
+		{% if not is_granted("IS_AUTHENTICATED_FULLY") %}
+			{{ form_label(form.name) }}
+			{{ form_widget(form.name) }}
+			{{ form_errors(form.name) }}
+
+			{{ form_label(form.email) }}
+			{{ form_widget(form.email) }}
+			{{ form_errors(form.email) }}
+		{% endif %}
+
+		{{ form_label(form.subject) }}
+		{{ form_widget(form.subject) }}
+		{{ form_errors(form.subject) }}
+
+		{{ form_label(form.message) }}
+		{{ form_widget(form.message) }}
+		{{ form_errors(form.message) }}
+
+		<div style="display:none">
+			{{ form_rest(form) }}
+		</div>
+
+		<input type="submit" class="button success" value="Envoyer">
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

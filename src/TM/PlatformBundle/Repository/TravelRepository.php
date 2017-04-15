@@ -12,21 +12,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class TravelRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * @param $page
-     * @param $nbPerPage
-     * @return Paginator
-     */
-    public function getTravels($page, $nbPerPage)
-    {
-        $query = $this->createQueryBuilder('t')
-            ->orderBy('t.creationDate', 'DESC')
-            ->setFirstResult(($page - 1) * $nbPerPage)
-            ->setMaxResults($nbPerPage)
-            ->getQuery();
-        return new Paginator($query, true);
-    }
-
-    /**
      * @param $data
      * @param $page
      * @param $nbPerPage
@@ -88,6 +73,7 @@ class TravelRepository extends \Doctrine\ORM\EntityRepository
 
         $query->setFirstResult(($page - 1) * $nbPerPage)
             ->setMaxResults($nbPerPage)
+            ->orderBy('t.creationDate', 'DESC')
             ->getQuery();
 
         return new Paginator($query, true);

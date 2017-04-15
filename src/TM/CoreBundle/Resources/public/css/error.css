@@ -1,0 +1,21 @@
+.error {
+    background-color: #F1F1F1;
+    border: 5px solid #FF690F;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error > * {
+    text-align: center;
+}
+
+.error > *:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.error > h1, .error > h2 {
+    color: #FF690F;
+}
