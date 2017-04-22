@@ -1,13 +1,3 @@
 <header>
 	<h1><a href="{{ path('tm_core_index') }}">Travel<svg><use xlink:href="#logo-svg"></use></svg>Mate</a></h1>
-	<div class="auth-action">
-		{% if is_granted("IS_AUTHENTICATED_FULLY") %}
-			<a class="chat" href="{{ path('tm_chat') }}"><svg><use xlink:href="#chat-svg"></use></svg></a>
-			<a href="{{ path('fos_user_profile_show') }}">{{ app.user.firstname|capitalize }} {{ app.user.lastname|capitalize }}</a>
-			<a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-		{% else %}
-			<a href="{{ path('fos_user_security_login') }}">Connexion</a>
-			<a href="{{ path('fos_user_registration_register') }}">Inscription</a>
-		{% endif %}
-	</div>
 </header>

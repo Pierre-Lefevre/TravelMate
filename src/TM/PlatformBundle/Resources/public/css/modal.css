@@ -16,10 +16,12 @@
     background-color: #FFFFFF;
     padding: 20px;
     border: 1px solid #C6C6C6;
+    margin: 20px;
 }
 
 .modal .title {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .modal .action {

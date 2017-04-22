@@ -6,9 +6,9 @@
 
 {% block tmplatform_body %}
 	{{ wo_render_breadcrumbs() }}
-	{{ include("TMPlatformBundle:Travel:form_search.html.twig") }}
+	{{ include("TMPlatformBundle:Travel:form_search_travel.html.twig") }}
 	<p class="nb-results">{{ nbResults }} voyages correspondent à votre recherche.</p>
-	{{ include("TMPlatformBundle:Travel:list.html.twig") }}
+	{{ include("TMPlatformBundle:Travel:list_travel.html.twig") }}
 	{% if nbPages > 1 %}
 		<ul class="paging">
 			{% for p in range(1, nbPages) %}

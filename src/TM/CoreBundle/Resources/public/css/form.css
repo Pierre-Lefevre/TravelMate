@@ -98,3 +98,10 @@ textarea {
 #bloc-form form > label:not(:first-child), #bloc-form form > div, #bloc-form form > input[type="submit"] {
     margin-top: 10px;
 }
+
+@media screen and (max-width: 440px) {
+    #bloc-form {
+        width: calc(100% - 40px);
+        margin: 20px;
+    }
+}

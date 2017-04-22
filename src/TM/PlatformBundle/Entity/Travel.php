@@ -116,8 +116,7 @@ class Travel
     private $countries;
 
     /**
-     * @ORM\ManyToMany(targetEntity="TM\PlatformBundle\Entity\Category",
-     *     cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="TM\PlatformBundle\Entity\Category", cascade={"persist"})
      * @Assert\Count(min = 1)
      */
     private $categories;
@@ -129,7 +128,7 @@ class Travel
 
     /**
      * @ORM\ManyToOne(targetEntity="TM\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      **/
     private $user;
 

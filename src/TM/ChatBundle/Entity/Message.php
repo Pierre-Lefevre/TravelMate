@@ -6,8 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Message
- *
+ * Class Comment
+ * @package TM\ChatBundle\Entity
  * @ORM\Table(name="message")
  * @ORM\Entity(repositoryClass="TM\ChatBundle\Repository\MessageRepository")
  * @ORM\HasLifecycleCallbacks()
@@ -25,13 +25,13 @@ class Message
 
     /**
      * @ORM\ManyToOne(targetEntity="TM\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="id_sender", referencedColumnName="id")
+     * @ORM\JoinColumn(name="sender_id", referencedColumnName="id", nullable=false)
      **/
     private $sender;
 
     /**
      * @ORM\ManyToOne(targetEntity="TM\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="id_receiver", referencedColumnName="id")
+     * @ORM\JoinColumn(name="receiver_id", referencedColumnName="id", nullable=false)
      **/
     private $receiver;
 

@@ -35,7 +35,7 @@ class CommentController extends Controller
         if ($request->isMethod('POST') && $formDeleteComment->handleRequest($request)->isValid()) {
             $em->remove($comment);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('info', "Le commentaire a bien été supprimée.");
+            $request->getSession()->getFlashBag()->add('info', "Commentaire supprimé.");
         }
 
         return $this->redirectToRoute('tm_platform_view', array(

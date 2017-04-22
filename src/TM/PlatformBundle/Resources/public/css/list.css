@@ -105,3 +105,9 @@
 .list-travel .countries p {
     margin-right: 5px;
 }
+
+@media screen and (max-width: 500px) {
+    .list-travel > li > a:first-child {
+        display: none;
+    }
+}

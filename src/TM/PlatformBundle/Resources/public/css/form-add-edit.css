@@ -74,3 +74,21 @@
 .form-add-edit .submit-part {
     display: flex;
 }
+
+@media screen and (max-width: 660px) {
+    .form-add-edit > div {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .form-add-edit .input-part {
+        flex-direction: column;
+    }
+    .form-add-edit .first-column {
+        margin-right: 0;
+    }
+
+    .form-add-edit .second-column {
+        margin-top: 10px;
+    }
+}

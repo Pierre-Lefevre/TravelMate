@@ -50,13 +50,13 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="TM\PlatformBundle\Entity\Travel")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      */
     private $travel;
 
     /**
      * @ORM\ManyToOne(targetEntity="TM\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * @ORM\JoinColumn(referencedColumnName="id", nullable=false)
      **/
     private $user;
 

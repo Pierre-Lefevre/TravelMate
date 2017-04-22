@@ -49,7 +49,7 @@ class TravelController extends Controller
 
         $nbPages = ceil(count($travels) / $nbPerPage);
 
-        return $this->render('TMPlatformBundle:Travel:search.html.twig', array(
+        return $this->render('TMPlatformBundle:Travel:search_travel.html.twig', array(
             'form'      => $form->createView(),
             'nbResults' => $nbResults,
             'travels'   => $travels,
@@ -76,14 +76,18 @@ class TravelController extends Controller
         if (($formsEditComment = $this->getAndCheckEditCommentForm($request, $travel)) instanceof RedirectResponse) {
             return $formsEditComment;
         }
+        if (($formsDeleteComment = $this->getAndCheckDeleteCommentForm($request, $travel)) instanceof RedirectResponse) {
+            return $formsDeleteComment;
+        }
+
         $formDeleteComment = $this->get('form.factory')->create();
 
-        return $this->render('TMPlatformBundle:Travel:view.html.twig', array(
+        return $this->render('TMPlatformBundle:Travel:view_travel.html.twig', array(
             'travel'            => $travel,
             'formDeleteTravel'  => $formDeleteTravel->createView(),
             'formAddComment'    => $formAddComment->createView(),
             'formsEditComment'  => $formsEditComment,
-            'formDeleteComment' => $formDeleteComment->createView(),
+            'formsDeleteComment' => $formsDeleteComment,
         ));
     }
 
@@ -103,7 +107,7 @@ class TravelController extends Controller
 
             $em->remove($travel);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('info', "Le voyage a bien été supprimée.");
+            $request->getSession()->getFlashBag()->add('info', "Voyage supprimé.");
             return $this->redirectToRoute('tm_core_index');
         }
 
@@ -129,6 +133,7 @@ class TravelController extends Controller
             $travel->addComment($comment);
             $em->persist($travel);
             $em->flush();
+            $request->getSession()->getFlashBag()->add('info', "Commentaire ajouté.");
             return $this->redirectToRoute('tm_platform_view', array(
                 'id' => $travel->getId()
             ));
@@ -158,7 +163,7 @@ class TravelController extends Controller
                 $this->denyAccessUnlessGranted('edit', $comment);
 
                 $em->flush();
-                $request->getSession()->getFlashBag()->add('info', "Le commentaire a bien été modifié.");
+                $request->getSession()->getFlashBag()->add('info', "Commentaire modifié.");
                 return $this->redirectToRoute('tm_platform_view', array(
                     'id' => $travel->getId()
                 ));
@@ -170,6 +175,40 @@ class TravelController extends Controller
         }
 
         return $formsEditComment;
+    }
+
+    /**
+     * @param Request $request
+     * @param Travel $travel
+     * @return array|RedirectResponse
+     */
+    public function getAndCheckDeleteCommentForm(Request $request, Travel $travel)
+    {
+        $formsDeleteComment = array();
+        foreach ($travel->getComments() as $comment) {
+            $formsDeleteComment[$comment->getId()] = $this->get('form.factory')->createNamed('comment_delete_' .
+                    $comment->getId());
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($formsDeleteComment as $key => $formDeleteComment) {
+            $comment = $em->getRepository('TMPlatformBundle:Comment')->find($key);
+
+            if ($request->isMethod('POST') && $formDeleteComment->handleRequest($request)->isValid()) {
+                $em->remove($comment);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('info', "Commentaire supprimé.");
+                return $this->redirectToRoute('tm_platform_view', array(
+                    'id' => $travel->getId()
+                ));
+            }
+        }
+
+        foreach ($formsDeleteComment as $key => $formDeleteComment) {
+            $formsDeleteComment[$key] = $formDeleteComment->createView();
+        }
+
+        return $formsDeleteComment;
     }
 
     /**
@@ -193,14 +232,14 @@ class TravelController extends Controller
             $em->persist($travel);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Voyage bien enregistrée.');
+            $request->getSession()->getFlashBag()->add('info', 'Voyage ajouté.');
 
             return $this->redirectToRoute('tm_platform_view', array(
                 'id' => $travel->getId()
             ));
         }
 
-        return $this->render('TMPlatformBundle:Travel:add.html.twig', array(
+        return $this->render('TMPlatformBundle:Travel:add_travel.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -222,13 +261,13 @@ class TravelController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->flush();
-            $request->getSession()->getFlashBag()->add('info', 'Voyage bien modifiée.');
+            $request->getSession()->getFlashBag()->add('info', 'Voyage modifié.');
             return $this->redirectToRoute('tm_platform_view', array(
                 'id' => $travel->getId()
             ));
         }
 
-        return $this->render('TMPlatformBundle:Travel:edit.html.twig', array(
+        return $this->render('TMPlatformBundle:Travel:edit_travel.html.twig', array(
             'travel' => $travel,
             'form'   => $form->createView(),
         ));
@@ -243,7 +282,7 @@ class TravelController extends Controller
         $em      = $this->getDoctrine()->getManager();
         $travels = $em->getRepository('TMPlatformBundle:Travel')->findBy(array(), array('creationDate' => 'desc'),
             $limit, 0);
-        return $this->render('TMPlatformBundle:Travel:list.html.twig', array(
+        return $this->render('TMPlatformBundle:Travel:list_travel.html.twig', array(
             'travels' => $travels
         ));
     }

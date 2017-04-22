@@ -1,30 +1,28 @@
-.detail, .comments {
+.detail {
     display: flex;
     flex-direction: column;
     width: 1200px;
-}
-
-.detail {
     margin: 20px auto;
 }
 
-.comments {
-    margin: 0 auto 20px auto;
+.presentation, .comments {
+    display: flex;
+    flex-direction: column;
 }
 
-.detail > div, .detail .action, .detail .second-line {
+.presentation > div, .presentation .action, .presentation .second-line {
     display: flex;
 }
 
-.detail .first-line, .detail .first-line > div:first-child > *:not(:last-child) {
+.presentation .first-line, .presentation .first-line > div:first-child > *:not(:last-child) {
     margin-bottom: 20px;
 }
 
-.detail .first-line > div:first-child, .detail .action .button:first-child {
+.presentation .first-line > div:first-child, .presentation .action .button:first-child {
     margin-right: 20px;
 }
 
-.detail .first-line > div:first-child > a:first-child {
+.presentation .first-line > div:first-child > a:first-child {
     padding: 10px;
     background-color: #FF690F;
     color: #FFFFFF;
@@ -33,65 +31,78 @@
     align-items: center;
 }
 
-.detail .profile-picture {
+.presentation figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.presentation figure img {
     width: 200px;
-    height: 200px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.presentation .profile-picture {
+    width: 200px;
     margin-bottom: 10px;
 }
 
-.detail .first-line .contact-button {
+.presentation .first-line .contact-button {
     display: block;
     text-align: center;
 }
 
-.detail .action .button {
+.presentation .action .button {
     flex: 1;
     display: flex;
     justify-content: center;
 }
 
-.detail .countries, .detail .categories, .detail .second-line {
+.presentation .countries, .presentation .categories, .presentation .second-line {
     border: 1px solid #C6C6C6;
     background-color: #FFFFFF;
     padding: 10px;
 }
 
-.detail .countries > p, .detail .categories > p {
+.presentation .countries > p, .presentation .categories > p {
     margin-bottom: 10px;
 }
 
-.detail .countries ul li {
+.presentation .countries ul li {
     display: flex;
     align-items: center;
 }
 
-.detail .first-line > div:last-child h2 {
+.presentation .first-line > div:last-child h2 {
     margin-bottom: 10px;
     color: #FF690F;
 }
 
-.detail .first-line > div:last-child p {
+.presentation .first-line > div:last-child p {
     text-align: justify;
 }
 
-.detail .second-line p {
-    flex: 1;
+.presentation .second-line {
+    justify-content: space-between;
+}
+
+.presentation .second-line p {
     display: flex;
-    justify-content: center;
     align-items: center;
 }
 
-.detail svg.dollar {
-    width: 12px;
-    height: 21px;
+.presentation svg.dollar {
+    width: 9px;
+    height: 16px;
     margin-right: 2px;
 }
 
-.detail svg.dollar:first-child {
+.presentation svg.dollar:first-child {
     margin-left: 5px;
 }
 
-.detail .value {
+.presentation .value {
     color: #FF690F;
     font-weight: bold;
     font-size: 17px;
@@ -103,6 +114,7 @@
 }
 
 .comments .form-add-comment {
+    margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid #C6C6C6;
 }
@@ -191,4 +203,32 @@
 .comments .edit svg {
     width: 15px;
     height: 15px;
+}
+
+@media screen and (max-width: 1240px) {
+    .detail {
+        margin: 20px;
+        width: calc(100% - 40px);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .presentation .second-line {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .presentation .first-line {
+        flex-direction: column;
+    }
+
+    .presentation .first-line > div:first-child {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .presentation figure img {
+        width: 100%;
+    }
 }

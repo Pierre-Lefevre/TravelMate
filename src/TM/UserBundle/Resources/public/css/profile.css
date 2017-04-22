@@ -60,17 +60,14 @@
 
 .profile-edit > div:first-child {
     margin-right: 20px;
+    width: 176px;
 }
 
 .profile-edit .profile-picture {
     margin-bottom: 10px;
 }
 
-.profile-edit input[type="file"] {
-    max-width: 150px;
-}
-
-.profile-edit > div:nth-of-type(2) {
+.profile-edit > div:last-child {
     width: 400px;
 }
 
@@ -85,4 +82,39 @@
 
 .profile-edit form > label:not(:first-child), .profile-edit form > div, .profile-edit form > input[type="submit"] {
     margin-top: 10px;
+}
+
+@media screen and (max-width: 636px) {
+    .profile-edit > div:first-child {
+        margin: 0 20px;
+    }
+
+    .profile-edit > div:last-child {
+        width: 100%;
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width: 412px) {
+    .profile-edit {
+        flex-direction: column;
+    }
+
+    .profile-edit > div > div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .profile-edit .profile-picture {
+        align-self: center;
+    }
+
+    .profile-edit > div:first-child, .profile-edit > div:last-child {
+        width: calc(100% - 40px);
+        margin: 0 20px;
+    }
+
+    .profile-edit > div:first-child {
+        margin-bottom: 20px;
+    }
 }

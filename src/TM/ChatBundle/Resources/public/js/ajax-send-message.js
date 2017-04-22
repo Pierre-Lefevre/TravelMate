@@ -34,18 +34,17 @@ $(function () {
         });
     }
 
+    var $overflowElement = $("#list-message-container");
     var $dateMin;
     var $dateMax;
-
     $dateMin = Date.now();
 
-    setInterval(function () {
-        getNewMessage($dateMin);
-        $dateMin = $dateMax;
-    }, 5000);
-
-    var $overflowElement = $("#list-message-container");
-    $overflowElement.scrollTop($overflowElement[0].scrollHeight);
+    if ($overflowElement[0] !== null) {
+        setInterval(function () {
+            getNewMessage($dateMin);
+            $dateMin = $dateMax;
+        }, 5000);
+    }
 
     $("#send-message-form").submit(function (e) {
         e.preventDefault();

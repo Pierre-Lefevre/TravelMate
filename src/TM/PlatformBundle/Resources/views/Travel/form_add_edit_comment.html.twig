@@ -1,13 +1,12 @@
-{% set formClass = travel.comments|length > 0 ? "form-add-comment" : "form-add-comment empty" %}
-
-{{ form_start(formAddComment, {'attr': {'class': formClass}}) }}
-
-{{ form_errors(formAddComment) }}
-
-{{ form_errors(formAddComment.content) }}
-{{ form_widget(formAddComment.content)  }}
-
-{{ form_widget(formAddComment.submit) }}
-
-{{ form_rest(formAddComment) }}
-{{ form_end(formAddComment) }}
+{% if type == 'add' %}
+	{% set formClass = travel.comments|length > 0 ? "form-add-comment" : "form-add-comment empty" %}
+{% elseif type == 'edit' %}
+	{% set formClass = 'form-edit-comment' %}
+{% endif %}
+{{ form_start(form, {'attr': {'class': formClass}}) }}
+{{ form_errors(form) }}
+{{ form_errors(form.content) }}
+{{ form_widget(form.content)  }}
+{{ form_widget(form.submit) }}
+{{ form_rest(form) }}
+{{ form_end(form) }}

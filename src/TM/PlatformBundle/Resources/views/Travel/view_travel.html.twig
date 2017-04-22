@@ -1,0 +1,136 @@
+{% extends "TMPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+	{{ travel.title }}
+{% endblock %}
+
+{% block tmplatform_body %}
+	{{ wo_render_breadcrumbs() }}
+	<div class="detail">
+		<div class="presentation">
+			<div class="first-line">
+				<div>
+					<a href="{{ path('tm_user_profile_show', {'id': travel.user.id}) }}">
+						<!--<div class="profile-picture" style="background-image: url({{ asset
+						('uploads/user/profilepics/' ~
+						travel.user.getProfilePicturePath) }})"></div>-->
+						<figure>
+							<img src="{{ asset('uploads/user/profilepics/' ~
+							travel.user.getProfilePicturePath) }}" alt="{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize }}">
+							<figcaption><span>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize }} - {{ travel.user.age }} ans</span></figcaption>
+						</figure>
+
+					</a>
+					{% if app.user.id is defined and app.user.id != travel.user.id %}
+						<a href="{{ path('tm_chat', {'id': travel.user.id}) }}" class="button primary contact-button">Contacter</a>
+					{% endif %}
+					{% if (app.user.id is defined and app.user.id == travel.user.id) or is_granted("ROLE_ADMIN") %}
+						<div class="action">
+							<a href="{{ path('tm_platform_edit', {'id': travel.id}) }}" class="button neutral">Modifier</a>
+							<button data-modal="delete-travel" class="button danger open-modal-button">Supprimer</button>
+						</div>
+					{% endif %}
+					<div class="countries">
+						<p>Destinations :</p>
+						<ul>
+							{% for country in travel.countries %}
+								<li>
+									<div class="flag flag-{{ country|lower }}"></div>
+									<p>{{ country|country(app.request.locale) }}</p>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="categories">
+						<p>Types de voyage :</p>
+						<ul>
+							{% for category in travel.categories %}
+								<li>
+									{{ category.name }}
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div>
+					<h2>{{ travel.title }}</h2>
+					<p>{{ travel.content|nl2br }}</p>
+				</div>
+			</div>
+			<div class="second-line">
+				<p>
+					Nombre de compagnons recherchés : <span class="value">{{ travel.nbMate }}</span>
+				</p>
+				<p>
+					Coût estimé :
+					{% for cost in range(1, 5) %}
+						{% if cost <= travel.cost %}
+							<svg class="dollar full">
+								<use xlink:href="#dollar-svg"></use>
+							</svg>
+						{% else %}
+							<svg class="dollar empty">
+								<use xlink:href="#dollar-svg"></use>
+							</svg>
+						{% endif %}
+					{% endfor %}
+				</p>
+				<p>
+					Départ le : <span class="value">{{ travel.startDate|date('d/m/Y') }}</span>
+				</p>
+				<p>
+					Durée estimée : <span class="value">{{ travel.nbDuration }} {{ travel.frTypeDuration }}</span>
+				</p>
+			</div>
+		</div>
+		<div class="comments">
+			{% if app.user.id is defined %}
+				{{ include("TMPlatformBundle:Travel:form_add_edit_comment.html.twig", { 'form': formAddComment, 'type':
+					'add' }) }}
+			{% endif %}
+			{% for comment in travel.comments %}
+				<div class="comment">
+					<div>
+						<a href="{{ path('tm_user_profile_show', {'id': comment.user.id}) }}" class="profile-link">
+							<div class="profile-picture" style="background-image: url({{ asset('uploads/user/profilepics/' ~
+							comment.user.getProfilePicturePath) }})"></div>
+						</a>
+					</div>
+					<div class="content">
+						<div class="by">
+							<a href="{{ path('tm_user_profile_show', {'id': comment.user.id}) }}">{{ comment.user
+								.firstname|capitalize }} {{ comment.user.lastname|capitalize }}</a>
+							<span>le {{ comment.creationDate|date('d/m/Y') }} à {{ comment.creationDate|date('H:i:s') }}</span>
+						</div>
+						<p>{{ comment.content|nl2br }}</p>
+						{{ include("TMPlatformBundle:Travel:form_add_edit_comment.html.twig", { 'form': formsEditComment[comment.id], 'type':
+							'edit' }) }}
+						{% if (app.user.id is defined and app.user.id == comment.user.id) or is_granted("ROLE_ADMIN") %}
+							<div class="action">
+								<div class="edit">
+									<svg>
+										<use xlink:href="#edit-svg"></use>
+									</svg>
+								</div>
+								{{ include("TMPlatformBundle:Travel:form_delete_comment.html.twig", { 'form':
+									formsDeleteComment[comment.id] }) }}
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="modal" data-modal="delete-travel">
+			<div>
+				<h2 class="title">Êtes-vous certain de vouloir supprimer ce voyage ?</h2>
+				<div class="action">
+					<form action="{{ path('tm_platform_view', {'id': travel.id}) }}" method="post">
+						<input type="submit" class="button danger" value="Oui">
+						{{ form_rest(formDeleteTravel) }}
+					</form>
+					<button data-modal="delete-travel" class="button neutral close-modal-button">Non</button>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

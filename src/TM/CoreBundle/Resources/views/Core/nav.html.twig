@@ -1,15 +1,37 @@
 <nav {% if app.request.get('_route') == 'tm_core_index' %}class="background"{% endif %}>
 	<ul>
-		<li {% if app.request.get('_route') == 'tm_core_index' %}class="active"{% endif %}>
+		<li class="left {% if app.request.get('_route') == 'tm_core_index' %} active {% endif %}">
 			<a href="{{ path('tm_core_index') }}">Accueil</a>
 		</li>
-		<li {% if app.request.get('_route') == 'tm_platform_search' %}class="active"{% endif %}>
+		<li class="left {% if not is_granted('ROLE_USER') %} last {% endif %}{% if app.request.get('_route') ==
+		'tm_platform_search' %}
+		active {% endif %}">
 			<a href="{{ path('tm_platform_search') }}">Rechercher un voyage</a>
 		</li>
 		{% if is_granted('ROLE_USER') %}
-			<li {% if app.request.get('_route') == 'tm_platform_add' %}class="active"{% endif %}>
+			<li class="left last {% if app.request.get('_route') == 'tm_platform_add' %} active {% endif %}">
 				<a href="{{ path('tm_platform_add') }}">Ajouter un voyage</a>
 			</li>
 		{% endif %}
+
+		{% if is_granted("IS_AUTHENTICATED_FULLY") %}
+			<li class="right {% if app.request.get('_route') == 'tm_chat' %} active {% endif %}">
+				<a class="chat" href="{{ path('tm_chat') }}">Messagerie</a>
+			</li>
+			<li class="right {% if app.request.get('_route') == 'fos_user_profile_show' %} active {% endif %}">
+				<a href="{{ path('fos_user_profile_show') }}">{{ app.user.firstname|capitalize }} {{ app.user.lastname|capitalize }}</a>
+			</li>
+			<li class="right last">
+				<a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+			</li>
+		{% else %}
+			<li class="right {% if app.request.get('_route') == 'fos_user_security_login' %} active {% endif %}">
+				<a href="{{ path('fos_user_security_login') }}">Connexion</a>
+			</li>
+			<li class="right last {% if app.request.get('_route') == 'fos_user_registration_register' %} active {% endif %}">
+				<a href="{{ path('fos_user_registration_register') }}">Inscription</a>
+			</li>
+		{% endif %}
+		<li><a href="#">&#9776;</a></li>
 	</ul>
 </nav>
