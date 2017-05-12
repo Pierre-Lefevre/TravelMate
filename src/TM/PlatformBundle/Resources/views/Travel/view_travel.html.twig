@@ -1,5 +1,12 @@
 {% extends "TMPlatformBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/view.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/modal.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmuser/css/profile-picture.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/flags.css') }}">
+{% endblock %}
+
 {% block title %}
 	{{ travel.title }}
 {% endblock %}
@@ -133,4 +140,9 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('bundles/tmplatform/js/edit-comment.js') }}"></script>
+	<script src="{{ asset('bundles/tmplatform/js/modal.js') }}"></script>
 {% endblock %}

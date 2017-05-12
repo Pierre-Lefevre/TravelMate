@@ -3,10 +3,10 @@
 		<ul id="{{ listId }}">
 			{% for b in breadcrumbs %}
 				<li>
-					<a href="{{ b.url }}">{{- b.text | trans(b.translationParameters, translation_domain, locale) -}}</a>
-					{% if separator is not null and not loop.last %}
+					{% if separator is not null and not loop.first %}
 						<span class="{{ separatorClass }}">{{- separator -}}</span>
 					{% endif %}
+					<a href="{{ b.url }}">{{- b.text | trans(b.translationParameters, translation_domain, locale) -}}</a>
 				</li>
 			{% endfor %}
 		</ul>

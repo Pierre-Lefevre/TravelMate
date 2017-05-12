@@ -3,9 +3,16 @@
 namespace TM\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Intl;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use TM\PlatformBundle\Entity\Comment;
 use TM\PlatformBundle\Entity\Travel;
 use TM\PlatformBundle\Form\CommentEditType;
@@ -36,25 +43,36 @@ class TravelController extends Controller
             throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
         }
 
-        $form = $this->createForm(TravelSearchType::class);
-
-        if ($request->getMethod() == 'POST' && $form->handleRequest($request)->isValid()) {
-            $request->getSession()->set("form_search_data", $request->request->get($form->getName()));
+        $code = null;
+        if ($request->getSession()->has("country_code_from_map")) {
+            $code = $request->getSession()->get("country_code_from_map");
+            $request->getSession()->remove("country_code_from_map");
         }
-        $nbResults  = 0;
-        $nbPerPage  = 10;
-        $parameters = $request->getSession()->has("form_search_data") ? $request->getSession()->get("form_search_data") : array();
-        $travels    = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getTravelsByParameters($parameters,
-            $page, $nbPerPage, $nbResults);
 
-        $nbPages = ceil(count($travels) / $nbPerPage);
+        $form = $this->createForm(TravelSearchType::class, null, array(
+            "code" => $code
+        ));
+
+        $parameters = array();
+        if ($request->getMethod() == 'GET' && $form->handleRequest($request)->isValid()) {
+            $parameters = $form->getData();
+        }
+
+        if ($code !== null) {
+            $parameters['countries'] = $code;
+        }
+
+        $nbResults = 0;
+        $nbPerPage = 10;
+        $travels   = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getTravelsByParameters($parameters, $page, $nbPerPage, $nbResults);
+        $nbPages   = ceil(count($travels) / $nbPerPage);
 
         return $this->render('TMPlatformBundle:Travel:search_travel.html.twig', array(
             'form'      => $form->createView(),
             'nbResults' => $nbResults,
             'travels'   => $travels,
             'nbPages'   => $nbPages,
-            'page'      => $page,
+            'page'      => $page
         ));
     }
 
@@ -282,8 +300,57 @@ class TravelController extends Controller
         $em      = $this->getDoctrine()->getManager();
         $travels = $em->getRepository('TMPlatformBundle:Travel')->findBy(array(), array('creationDate' => 'desc'),
             $limit, 0);
+
         return $this->render('TMPlatformBundle:Travel:list_travel.html.twig', array(
             'travels' => $travels
         ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function mapAction(Request $request)
+    {
+        $results = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getAllTravelCountryCode();
+
+        $countryCodes = array();
+        foreach ($results as $result) {
+            $countryCodes = array_merge($countryCodes, $result["countries"]);
+        }
+
+        $countCountryCodes = array();
+        foreach ($countryCodes as $countryCode) {
+            if (isset($countCountryCodes[$countryCode])) {
+                $countCountryCodes[$countryCode]["nb"]++;
+            } else {
+                $countCountryCodes[$countryCode]["nb"]  = 1;
+                $country                                = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Country')->getAllTravelCountryCode($countryCode);
+                $countCountryCodes[$countryCode]["lat"] = $country[0]->getLatitude();
+                $countCountryCodes[$countryCode]["lng"] = $country[0]->getLongitude();
+            }
+        }
+
+        $this->get('app.breadcrumb')->map();
+        return $this->render('TMPlatformBundle:Travel:map.html.twig', array(
+            'countCountryCodes' => $countCountryCodes
+        ));
+    }
+
+    public function ajaxLastTravelAction(Request $request, $code)
+    {
+        $em      = $this->getDoctrine()->getManager();
+        $travels = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getLastTravelByCode($code, 2);
+
+        return $this->render('TMPlatformBundle:Travel:list_travel_map.html.twig', array(
+            'code' => $code,
+            'travels' => $travels
+        ));
+
+    }
+
+    public function ajaxSetSessionCountryCodeAction(Request $request, $code)
+    {
+        $request->getSession()->set("country_code_from_map", $code);
+        return new Response();
     }
 }

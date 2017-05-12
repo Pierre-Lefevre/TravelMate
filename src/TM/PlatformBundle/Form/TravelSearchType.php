@@ -6,6 +6,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class TravelSearchType
@@ -19,9 +20,12 @@ class TravelSearchType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('countries', CountryType::class, array(
+        $builder->setMethod('GET')
+        ->add('countries', CountryType::class, array(
+            'placeholder' => 'Pays',
             'label'    => 'Pays',
-            'required' => false
+            'required' => false,
+            'data' => $options["code"]
         ))->add('begin', MyDateType::class, array(
             'label'    => 'Départ entre le',
             'required' => false
@@ -49,6 +53,16 @@ class TravelSearchType extends AbstractType
             'attr' => array(
                 'class' => 'button'
             )
+        ));
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'code' => null,
         ));
     }
 }

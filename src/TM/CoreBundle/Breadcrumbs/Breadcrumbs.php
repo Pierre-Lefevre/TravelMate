@@ -69,4 +69,10 @@ class Breadcrumbs
             'id' => $id
         ]);
     }
+
+    public function map()
+    {
+        $this->home();
+        $this->breadcrumbs->addRouteItem("Carte du monde", "tm_platform_map");
+    }
 }

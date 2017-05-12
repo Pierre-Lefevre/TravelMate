@@ -17,11 +17,12 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new TM\PlatformBundle\TMPlatformBundle(),
             new TM\CoreBundle\TMCoreBundle(),
-			new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
             new TM\UserBundle\TMUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new TM\ChatBundle\TMChatBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

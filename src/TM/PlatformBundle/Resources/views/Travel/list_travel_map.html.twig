@@ -1,0 +1,55 @@
+<div id="iw-container">
+	<div class="iw-title">
+		{{ code|country(app.request.locale) }}
+		<a href="{{ path("tm_platform_search") }}" data-code="{{ code }}">Voir tous les voyages pour ce pays...</a>
+	</div>
+	<div class="iw-content">
+		<ul class="list-travel map">
+			{% for travel in travels %}
+				<li>
+					<a href="{{ path('tm_platform_view', {'id': travel.id}) }}">
+						<div class="description">
+							<p class="value">{{ travel.title }}</p>
+							<div class="countries">
+								<p>Pays :</p>
+								<ul>
+									{% for country in travel.countries %}
+										<li>
+											<div class="flag flag-{{ country|lower }}"></div>
+											<p>{{ country|country(app.request.locale) }}</p>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<p>
+								Départ le : <span class="value">
+							{{ travel.startDate|date('d/m/Y') }}
+						</span>
+							</p>
+							<p>
+								Durée : <span class="value">
+							{{ travel.nbDuration }} {{ travel.frTypeDuration }}
+						</span>
+							</p>
+							<p>
+								Type de voyage : <span class="value">
+							{% for category in travel.categories %}
+								{{ category.name }}
+								{% if not loop.last %}
+									-
+								{% endif %}
+							{% endfor %}
+						</span>
+							</p>
+							<p>
+								Description : <span class="value">
+							{{ travel.content|truncate(350, false, '...') }}
+						</span>
+							</p>
+						</div>
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

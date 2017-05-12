@@ -2,6 +2,7 @@
     list-style: none;
     display: flex;
     margin: 20px 20px 0 20px;
+    flex-wrap: wrap;
 }
 
 #breadcrumb li:first-child::before {

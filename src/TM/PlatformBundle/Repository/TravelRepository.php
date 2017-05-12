@@ -78,4 +78,25 @@ class TravelRepository extends \Doctrine\ORM\EntityRepository
 
         return new Paginator($query, true);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAllTravelCountryCode()
+    {
+        $query = $this->createQueryBuilder('t');
+        $query->select('t.countries');
+        return $query->getQuery()->getResult();
+    }
+
+    public function getLastTravelByCode($code, $limit)
+    {
+        $query = $this->createQueryBuilder('t');
+        $query->select('t')
+            ->where('t.countries LIKE :code')
+            ->setParameter('code', "%" . $code . "%")
+            ->setMaxResults($limit)
+            ->orderBy('t.creationDate', 'DESC');
+        return $query->getQuery()->getResult();
+    }
 }

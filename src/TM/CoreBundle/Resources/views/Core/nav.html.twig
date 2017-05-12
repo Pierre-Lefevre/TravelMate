@@ -3,6 +3,9 @@
 		<li class="left {% if app.request.get('_route') == 'tm_core_index' %} active {% endif %}">
 			<a href="{{ path('tm_core_index') }}">Accueil</a>
 		</li>
+		<li class="left {% if app.request.get('_route') == 'tm_platform_map' %} active {% endif %}">
+			<a href="{{ path('tm_platform_map') }}">Carte du monde</a>
+		</li>
 		<li class="left {% if not is_granted('ROLE_USER') %} last {% endif %}{% if app.request.get('_route') ==
 		'tm_platform_search' %}
 		active {% endif %}">

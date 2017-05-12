@@ -10,3 +10,6 @@ tm_platform:
 
 fos_user:
     resource: "@TMUserBundle/Resources/config/routing.yml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

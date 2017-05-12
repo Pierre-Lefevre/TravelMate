@@ -1,5 +1,13 @@
 {% extends "TMCoreBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/tmcore/css/home.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/form-search.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/list.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmuser/css/profile-picture.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/flags.css') }}">
+{% endblock %}
+
 {% block title %}
 	Accueil
 {% endblock %}

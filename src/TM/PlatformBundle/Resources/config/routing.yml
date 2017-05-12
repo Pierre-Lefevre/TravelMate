@@ -13,6 +13,29 @@ tm_platform_view:
     requirements:
         id: \d+
 
+tm_platform_map:
+    path:     /map
+    defaults:
+        _controller: TMPlatformBundle:Travel:map
+
+tm_platform_ajax_last_travel:
+    path:     /ajaxLastTravel/{code}
+    defaults:
+        _controller: TMPlatformBundle:Travel:ajaxLastTravel
+    options:
+        expose: true
+    requirements:
+        code: "[A-Z]{2}"
+
+tm_platform_ajax_set_session_country_code:
+    path:     /ajaxSetSessionCountryCode/{code}
+    defaults:
+        _controller: TMPlatformBundle:Travel:ajaxSetSessionCountryCode
+    options:
+        expose: true
+    requirements:
+        code: "[A-Z]{2}"
+
 tm_platform_add:
     path:     /add
     defaults:

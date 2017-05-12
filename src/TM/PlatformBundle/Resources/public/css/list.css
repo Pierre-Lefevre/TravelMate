@@ -1,18 +1,36 @@
 .list-travel {
     display: flex;
     flex-wrap: wrap;
-    margin: 20px 20px 0 20px;
     justify-content: center;
     flex-direction: column;
 }
 
+.list-travel:not(.map) {
+    margin: 20px 20px 0 20px;
+}
+
+.list-travel.map {
+    margin: 0;
+}
+
 .list-travel > li {
-    margin-bottom: 20px;
     display: flex;
     align-items: center;
 }
 
-.list-travel > li > a:first-child {
+.list-travel:not(.map) > li {
+    margin-bottom: 20px;
+}
+
+.list-travel.map > li:not(:last-of-type) {
+    margin-bottom: 20px;
+}
+
+.list-travel.map > li:last-of-type {
+    margin-bottom: 4px;
+}
+
+.list-travel:not(.map) > li > a:first-child {
     margin-right: 20px;
 }
 
@@ -42,11 +60,11 @@
     transition: border-radius 0.3s;
 }
 
-.list-travel .description:hover {
+.list-travel:not(.map) .description:hover {
     border-top-right-radius: 65px;
 }
 
-.list-travel .description .sheet-effect {
+.list-travel:not(.map) .description .sheet-effect {
     position: absolute;
     top: -50px;
     right: -50px;
@@ -55,12 +73,12 @@
     transition: top 0.3s, right 0.3s;
 }
 
-.list-travel .description:hover .sheet-effect {
+.list-travel:not(.map) .description:hover .sheet-effect {
     top: 0;
     right: 0;
 }
 
-.list-travel .description .bottom-curve {
+.list-travel:not(.map) .description .bottom-curve {
     transform: rotate(20deg);
     position: absolute;
     background: transparent;
@@ -73,7 +91,7 @@
     border-top-right-radius: 100%
 }
 
-.list-travel .description .left-curve {
+.list-travel:not(.map) .description .left-curve {
     transform: rotate(-20deg);
     position: absolute;
     background: transparent;
@@ -104,6 +122,10 @@
 
 .list-travel .countries p {
     margin-right: 5px;
+}
+
+.nb-results {
+    margin: 0 20px;
 }
 
 @media screen and (max-width: 500px) {

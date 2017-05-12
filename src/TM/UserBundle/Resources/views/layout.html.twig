@@ -1,6 +1,11 @@
 {# On étend notre layout #}
 {% extends "TMCoreBundle::layout.html.twig" %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/tmuser/css/profile.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmuser/css/profile-picture.css') }}">
+{% endblock %}
+
 {# Dans notre layout, il faut définir le block body #}
 {% block main %}
 
