@@ -1,9 +1,9 @@
-<div id="iw-container">
-	<div class="iw-title">
-		{{ code|country(app.request.locale) }}
+<div id="infowindow-container">
+	<div class="title">
+		<h3>{{ code|country(app.request.locale) }}</h3>
 		<a href="{{ path("tm_platform_search") }}" data-code="{{ code }}">Voir tous les voyages pour ce pays...</a>
 	</div>
-	<div class="iw-content">
+	<div class="content">
 		<ul class="list-travel map">
 			{% for travel in travels %}
 				<li>

@@ -129,7 +129,7 @@
 }
 
 @media screen and (max-width: 500px) {
-    .list-travel > li > a:first-child {
+    .list-travel:not(.map) > li > a:first-child {
         display: none;
     }
 }

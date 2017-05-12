@@ -16,17 +16,13 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script>
+        var map;
+        var frenchLatLng = {lat: 46.227638, lng: 2.213749};
         var countCountryCodes = {{ countCountryCodes|json_encode|raw }};
 
-        var geocodingRequest = "https://maps.googleapis" +
-            ".com/maps/api/geocode/json?key=AIzaSyCmur4X1lZyhBj39O17cXyvGl5JGd5edrY&address=";
-
-        var map;
         function initMap() {
-            var myLatLng = {lat: 46.227638, lng: 2.213749};
-
             map = new google.maps.Map(document.getElementById('map'), {
-                center: myLatLng,
+                center: frenchLatLng,
                 zoom: 2
             });
 
@@ -45,7 +41,6 @@
                         'code': this.code
                     });
 
-
                     var that = this;
                     var xhr  = new XMLHttpRequest();
                     xhr.open('POST', url);
@@ -53,23 +48,16 @@
                     xhr.responseType = 'document';
                     xhr.onload       = function (e) {
                         var html = e.target.response;
-                        console.log(html);
-
-
-                        infowindow.setContent("<div>" + html.documentElement.innerHTML + "</div>");
+                        infowindow.setContent(html.documentElement.innerHTML);
                         infowindow.open(map, that);
 
-
                         var linkSearch = document.querySelector("a[data-code]");
-                        console.log(linkSearch);
-
                         var lots_of_stuff_already_done = false;
-
                         linkSearch.addEventListener("click", function (e) {
                             var a = this;
                             if (lots_of_stuff_already_done === true) {
-                                lots_of_stuff_already_done = false; // reset flag
-                                return; // let the event bubble away
+                                lots_of_stuff_already_done = false;
+                                return;
                             }
                             e.preventDefault();
                             var url = Routing.generate('tm_platform_ajax_set_session_country_code', {
@@ -81,75 +69,18 @@
                             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                             xhr.responseType = 'document';
                             xhr.onload       = function (e) {
-
-                                lots_of_stuff_already_done = true; // set flag
-
+                                lots_of_stuff_already_done = true;
                                 a.click();
                             };
                             xhr.send();
                         });
                     };
                     xhr.send();
-
-
                 });
-
             }
 
             google.maps.event.addListener(infowindow, 'domready', function () {
-
-                // Reference to the DIV that wraps the bottom of infowindow
-                var iwOuter = $('.gm-style-iw');
-                //display: inline-block; overflow: auto; max-height: 448px; max-width: 654px;
-                iwOuter.children(':nth-child(1)').css({
-                    'display': '', 'overflow': '', 'max-height': '300px',
-                    'max-width': ''
-                });
-                iwOuter.children(':nth-child(1)').children(':nth-child(1)').css({'overflow': ''});
-                /* Since this div is in a position prior to .gm-div style-iw.
-                 * We use jQuery and create a iwBackground variable,
-                 * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
-                 */
-                var iwBackground = iwOuter.prev();
-
-                iwBackground.css({'z-index': '2'});
-                // Removes background shadow DIV
-                iwBackground.children(':nth-child(2)').css({'display': 'none'});
-
-                // Removes white background DIV
-                iwBackground.children(':nth-child(4)').css({'display': 'none'});
-
-                // Moves the infowindow 115px to the right.
-                // iwOuter.parent().parent().css({left: '115px'});
-
-                // Moves the shadow of the arrow 76px to the left margin.
-                // iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
-
-                // Moves the arrow 76px to the left margin.
-                // iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
-
-                // Changes the desired tail shadow color.
-                // iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181,
-                // 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
-
-                // Reference to the div that groups the close button elements.
-                var iwCloseBtn = iwOuter.next();
-
-                // Apply the desired effect to the close button
-                iwCloseBtn.css({
-                    height: '21px', width: '21px', opacity: '1', right: '44px', top: '6px', border: '4px ' +
-                    'solid ' +
-                    '#FF690F',
-                    'border-radius': '13px'
-                });
-
-                // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
-
-
-                // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
-                iwCloseBtn.mouseout(function () {
-                    $(this).css({opacity: '1'});
-                });
+                $('.gm-style-iw').parent().addClass('custom-iw');
             });
         }
     </script>
