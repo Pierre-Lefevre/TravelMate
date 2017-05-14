@@ -17,71 +17,49 @@
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script>
         var map;
-        var frenchLatLng = {lat: 46.227638, lng: 2.213749};
+        var infowindow;
+        var markers           = [];
+        var frenchLatLng      = {lat: 46.227638, lng: 2.213749};
         var countCountryCodes = {{ countCountryCodes|json_encode|raw }};
 
         function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
+            map        = new google.maps.Map(document.getElementById('map'), {
                 center: frenchLatLng,
                 zoom: 2
             });
-
-            var infowindow = new google.maps.InfoWindow();
-            var markers    = [];
-            for (var key in countCountryCodes) {
-                map.setCenter({lat: countCountryCodes[key]["lat"], lng: countCountryCodes[key]["lng"]});
-                markers[key] = new google.maps.Marker({
-                    map: map,
-                    position: {lat: countCountryCodes[key]["lat"], lng: countCountryCodes[key]["lng"]},
-                    code: key
-                });
-
-                markers[key].addListener('click', function () {
-                    var url = Routing.generate('tm_platform_ajax_last_travel', {
-                        'code': this.code
-                    });
-
-                    var that = this;
-                    var xhr  = new XMLHttpRequest();
-                    xhr.open('POST', url);
-                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                    xhr.responseType = 'document';
-                    xhr.onload       = function (e) {
-                        var html = e.target.response;
-                        infowindow.setContent(html.documentElement.innerHTML);
-                        infowindow.open(map, that);
-
-                        var linkSearch = document.querySelector("a[data-code]");
-                        var lots_of_stuff_already_done = false;
-                        linkSearch.addEventListener("click", function (e) {
-                            var a = this;
-                            if (lots_of_stuff_already_done === true) {
-                                lots_of_stuff_already_done = false;
-                                return;
-                            }
-                            e.preventDefault();
-                            var url = Routing.generate('tm_platform_ajax_set_session_country_code', {
-                                'code': this.getAttribute("data-code")
-                            });
-
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('POST', url);
-                            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                            xhr.responseType = 'document';
-                            xhr.onload       = function (e) {
-                                lots_of_stuff_already_done = true;
-                                a.click();
-                            };
-                            xhr.send();
-                        });
-                    };
-                    xhr.send();
-                });
-            }
-
+            infowindow = new google.maps.InfoWindow();
+            initMarkers();
             google.maps.event.addListener(infowindow, 'domready', function () {
                 $('.gm-style-iw').parent().addClass('custom-iw');
             });
+        }
+
+        function initMarkers() {
+            for (var key in countCountryCodes) {
+                var latLng = {lat: countCountryCodes[key]["lat"], lng: countCountryCodes[key]["lng"]};
+                map.setCenter(latLng);
+                markers[key] = new google.maps.Marker({
+                    map: map,
+                    position: latLng,
+                    code: key
+                });
+                markers[key].addListener('click', clickMarker.bind(markers[key]));
+            }
+        }
+
+        function clickMarker() {
+            var marker = this;
+            var xhr    = new XMLHttpRequest();
+            xhr.open('POST', Routing.generate('tm_platform_ajax_last_travel', {
+                'code': marker.code
+            }));
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.responseType = 'document';
+            xhr.onload       = function (e) {
+                infowindow.setContent(e.target.response.documentElement.innerHTML);
+                infowindow.open(map, marker);
+            };
+            xhr.send();
         }
     </script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmur4X1lZyhBj39O17cXyvGl5JGd5edrY&callback=initMap" async defer></script>

@@ -33,20 +33,15 @@ class TravelController extends Controller
     /**
      * @param Request $request
      * @param $page
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param null $code
+     * @return Response
      */
-    public function searchAction(Request $request, $page)
+    public function searchAction(Request $request, $page, $code = null)
     {
         $this->get('app.breadcrumb')->listTravel();
 
         if ($page < 1) {
             throw new NotFoundHttpException('Page "' . $page . '" inexistante.');
-        }
-
-        $code = null;
-        if ($request->getSession()->has("country_code_from_map")) {
-            $code = $request->getSession()->get("country_code_from_map");
-            $request->getSession()->remove("country_code_from_map");
         }
 
         $form = $this->createForm(TravelSearchType::class, null, array(
@@ -346,11 +341,5 @@ class TravelController extends Controller
             'travels' => $travels
         ));
 
-    }
-
-    public function ajaxSetSessionCountryCodeAction(Request $request, $code)
-    {
-        $request->getSession()->set("country_code_from_map", $code);
-        return new Response();
     }
 }

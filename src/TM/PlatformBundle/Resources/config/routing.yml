@@ -6,6 +6,15 @@ tm_platform_search:
     requirements:
         page: \d*
 
+tm_platform_search_from_map:
+    path:      /page/{page}/{code}
+    defaults:
+        _controller: TMPlatformBundle:Travel:search
+        page:        1
+    requirements:
+        page: \d*
+        code: "[A-Z]{2}"
+
 tm_platform_view:
     path:      /travel/{id}
     defaults:
@@ -22,15 +31,6 @@ tm_platform_ajax_last_travel:
     path:     /ajaxLastTravel/{code}
     defaults:
         _controller: TMPlatformBundle:Travel:ajaxLastTravel
-    options:
-        expose: true
-    requirements:
-        code: "[A-Z]{2}"
-
-tm_platform_ajax_set_session_country_code:
-    path:     /ajaxSetSessionCountryCode/{code}
-    defaults:
-        _controller: TMPlatformBundle:Travel:ajaxSetSessionCountryCode
     options:
         expose: true
     requirements:
