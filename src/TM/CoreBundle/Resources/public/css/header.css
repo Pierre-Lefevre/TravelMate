@@ -3,10 +3,11 @@ body > header {
     background-color: #FF690F;
     height: 50px;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    z-index: 2;
 }
 
 body > header h1 {

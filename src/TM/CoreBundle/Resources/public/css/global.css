@@ -28,15 +28,20 @@ body.with-background {
 }
 
 main {
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
+    padding-top: 40px;
 }
 
 main.center-content {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+main.map {
+    padding-top: 0;
 }
 
 @media screen and (max-width: 780px) {

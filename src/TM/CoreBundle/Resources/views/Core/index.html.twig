@@ -15,16 +15,16 @@
 {% block classBody %}with-background{% endblock %}
 
 {% block main %}
-	<div id="first-home-img">
+	<div id="home-title">
 		<h2>Trouvez le compagnon de voyage qui<br>vous correspond !</h2>
 	</div>
-	<div class="opaque">
+	<div class="home-bloc">
 		{{ include("TMPlatformBundle:Travel:form_search_travel.html.twig") }}
 	</div>
-	<div id="second-home-img">
+	<div id="home-space">
 	</div>
-	<div class="opaque">
-		<h3 class="home-h3">Derniers voyages ajoutés</h3>
+	<div class="home-bloc">
+		<h2>Derniers voyages ajoutés</h2>
 		{{ render(controller("TMPlatformBundle:Travel:last", {'limit': 9})) }}
 	</div>
 {% endblock %}

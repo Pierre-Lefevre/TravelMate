@@ -302,9 +302,19 @@ class TravelController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return Response
      */
     public function mapAction(Request $request)
+    {
+        return $this->render('TMPlatformBundle:Travel:map.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function ajaxCountryCodesAction(Request $request)
     {
         $results = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getAllTravelCountryCode();
 
@@ -325,21 +335,23 @@ class TravelController extends Controller
             }
         }
 
-        $this->get('app.breadcrumb')->map();
-        return $this->render('TMPlatformBundle:Travel:map.html.twig', array(
-            'countCountryCodes' => $countCountryCodes
+        return new JsonResponse(array(
+            'code' => $countCountryCodes
         ));
     }
 
+    /**
+     * @param Request $request
+     * @param $code
+     * @return Response
+     */
     public function ajaxLastTravelAction(Request $request, $code)
     {
-        $em      = $this->getDoctrine()->getManager();
         $travels = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getLastTravelByCode($code, 2);
 
         return $this->render('TMPlatformBundle:Travel:list_travel_map.html.twig', array(
             'code' => $code,
             'travels' => $travels
         ));
-
     }
 }

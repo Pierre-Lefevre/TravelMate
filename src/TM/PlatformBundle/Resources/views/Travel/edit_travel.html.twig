@@ -1,4 +1,4 @@
-{% extends "TMPlatformBundle::layout.html.twig" %}
+{% extends "TMCoreBundle::layout.html.twig" %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/form-add-edit.css') }}">
@@ -9,7 +9,7 @@
 	Modification d'un voyage
 {% endblock %}
 
-{% block tmplatform_body %}
+{% block main %}
 	{{ wo_render_breadcrumbs() }}
 	<h2 class="title-form">Modifier un voyage</h2>
 	{{ include("TMPlatformBundle:Travel:form_add_edit_travel.html.twig") }}

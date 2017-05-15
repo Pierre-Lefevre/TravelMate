@@ -1,4 +1,4 @@
-{% extends "TMPlatformBundle::layout.html.twig" %}
+{% extends "TMCoreBundle::layout.html.twig" %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/form-search.css') }}">
@@ -11,7 +11,7 @@
 	Rechercher un voyage
 {% endblock %}
 
-{% block tmplatform_body %}
+{% block main %}
 	{{ wo_render_breadcrumbs() }}
 	{{ include("TMPlatformBundle:Travel:form_search_travel.html.twig") }}
 	<p class="nb-results">{{ nbResults }} voyages correspondent à votre recherche.</p>

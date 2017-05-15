@@ -1,5 +1,8 @@
 nav {
+    position: absolute;
+    z-index: 1;
     width: 100%;
+    top: 50px;
     height: 40px;
     color: #FFFFFF;
     justify-content: space-between;
@@ -67,19 +70,20 @@ nav li.last a {
     border-bottom-right-radius: 5px;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 910px) {
     nav li, nav li.left.last {
         display: none;
     }
 
     nav {
+        z-index: 2;
         height: inherit;
     }
 
-    nav ul li:last-child {
+    nav li:last-child {
         position: absolute;
         right: 0;
-        top: 0;
+        top: -50px;
     }
 
     nav li:last-child {
@@ -130,7 +134,7 @@ nav li.last a {
         border-bottom-right-radius: 0;
     }
 
-    nav ul li:last-child a {
+    nav li:last-child a {
         height: 50px;
         display: flex;
         justify-content: center;

@@ -27,6 +27,13 @@ tm_platform_map:
     defaults:
         _controller: TMPlatformBundle:Travel:map
 
+tm_platform_ajax_country_codes:
+    path:     /ajaxCountryCodes
+    defaults:
+        _controller: TMPlatformBundle:Travel:ajaxCountryCodes
+    options:
+        expose: true
+
 tm_platform_ajax_last_travel:
     path:     /ajaxLastTravel/{code}
     defaults:

@@ -1,6 +1,12 @@
 #map {
-    margin-top: 20px;
-    height: calc(100vh - 181px);
+    height: calc(100vh - 80px);
+}
+
+#map > div:first-child > div:first-child > div:nth-of-type(2),
+#map > div:first-child > div:first-child > div:nth-of-type(4),
+#map > div:first-child > div:first-child > div:nth-of-type(6),
+#map > div:first-child > div:first-child > div:nth-of-type(7) {
+    display: none;
 }
 
 /* Custom */

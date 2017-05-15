@@ -1,66 +1,22 @@
-{% extends "TMPlatformBundle::layout.html.twig" %}
+{% extends "TMCoreBundle::layout.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/map.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/list.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/flags.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/map.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/list.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/flags.css') }}">
 {% endblock %}
 
 {% block title %}
 	Carte du monde
 {% endblock %}
 
-{% block tmplatform_body %}
-	{{ wo_render_breadcrumbs() }}
+{% block classMain %}map{% endblock %}
+
+{% block main %}
 	<div id="map"></div>
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    <script>
-        var map;
-        var infowindow;
-        var markers           = [];
-        var frenchLatLng      = {lat: 46.227638, lng: 2.213749};
-        var countCountryCodes = {{ countCountryCodes|json_encode|raw }};
+{% endblock %}
 
-        function initMap() {
-            map        = new google.maps.Map(document.getElementById('map'), {
-                center: frenchLatLng,
-                zoom: 2
-            });
-            infowindow = new google.maps.InfoWindow();
-            initMarkers();
-            google.maps.event.addListener(infowindow, 'domready', function () {
-                $('.gm-style-iw').parent().addClass('custom-iw');
-            });
-        }
-
-        function initMarkers() {
-            for (var key in countCountryCodes) {
-                var latLng = {lat: countCountryCodes[key]["lat"], lng: countCountryCodes[key]["lng"]};
-                map.setCenter(latLng);
-                markers[key] = new google.maps.Marker({
-                    map: map,
-                    position: latLng,
-                    code: key
-                });
-                markers[key].addListener('click', clickMarker.bind(markers[key]));
-            }
-        }
-
-        function clickMarker() {
-            var marker = this;
-            var xhr    = new XMLHttpRequest();
-            xhr.open('POST', Routing.generate('tm_platform_ajax_last_travel', {
-                'code': marker.code
-            }));
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.responseType = 'document';
-            xhr.onload       = function (e) {
-                infowindow.setContent(e.target.response.documentElement.innerHTML);
-                infowindow.open(map, marker);
-            };
-            xhr.send();
-        }
-    </script>
+{% block javascripts %}
+	<script src="{{ asset('bundles/tmplatform/js/map.js') }}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmur4X1lZyhBj39O17cXyvGl5JGd5edrY&callback=initMap" async defer></script>
 {% endblock %}

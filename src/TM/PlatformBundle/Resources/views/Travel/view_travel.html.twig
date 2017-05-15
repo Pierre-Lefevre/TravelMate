@@ -1,4 +1,4 @@
-{% extends "TMPlatformBundle::layout.html.twig" %}
+{% extends "TMCoreBundle::layout.html.twig" %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('bundles/tmplatform/css/view.css') }}">
@@ -11,22 +11,18 @@
 	{{ travel.title }}
 {% endblock %}
 
-{% block tmplatform_body %}
+{% block main %}
 	{{ wo_render_breadcrumbs() }}
 	<div class="detail">
 		<div class="presentation">
 			<div class="first-line">
 				<div>
 					<a href="{{ path('tm_user_profile_show', {'id': travel.user.id}) }}">
-						<!--<div class="profile-picture" style="background-image: url({{ asset
-						('uploads/user/profilepics/' ~
-						travel.user.getProfilePicturePath) }})"></div>-->
 						<figure>
 							<img src="{{ asset('uploads/user/profilepics/' ~
 							travel.user.getProfilePicturePath) }}" alt="{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize }}">
 							<figcaption><span>{{ travel.user.firstname|capitalize }} {{ travel.user.lastname|capitalize }} - {{ travel.user.age }} ans</span></figcaption>
 						</figure>
-
 					</a>
 					{% if app.user.id is defined and app.user.id != travel.user.id %}
 						<a href="{{ path('tm_chat', {'id': travel.user.id}) }}" class="button primary contact-button">Contacter</a>
