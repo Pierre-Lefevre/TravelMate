@@ -89,6 +89,11 @@ class TravelRepository extends \Doctrine\ORM\EntityRepository
         return $query->getQuery()->getResult();
     }
 
+    /**
+     * @param $code
+     * @param $limit
+     * @return array
+     */
     public function getLastTravelByCode($code, $limit)
     {
         $query = $this->createQueryBuilder('t');
@@ -98,5 +103,18 @@ class TravelRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($limit)
             ->orderBy('t.creationDate', 'DESC');
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param $code
+     * @return array
+     */
+    public function getNumberTravelByCode($code)
+    {
+        $query = $this->createQueryBuilder('t');
+        $query->select('count(t.id)')
+            ->where('t.countries LIKE :code')
+            ->setParameter('code', "%" . $code . "%");
+        return $query->getQuery()->getSingleScalarResult();
     }
 }

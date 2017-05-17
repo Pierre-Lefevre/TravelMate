@@ -16,9 +16,13 @@
 						<p>Pays :</p>
 						<ul>
 							{% for country in travel.countries %}
-								<li>
-									<div class="flag flag-{{ country|lower }}"></div>
-									<p>{{ country|country(app.request.locale) }}</p>
+								<li data-code="{{ country|lower }}" data-flag-not-empty>
+									<p>
+										{{ country|country(app.request.locale) }}
+										{% if not loop.last %}
+											-
+										{% endif %}
+									</p>
 								</li>
 							{% endfor %}
 						</ul>

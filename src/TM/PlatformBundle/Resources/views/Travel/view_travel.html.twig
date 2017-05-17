@@ -37,8 +37,7 @@
 						<p>Destinations :</p>
 						<ul>
 							{% for country in travel.countries %}
-								<li>
-									<div class="flag flag-{{ country|lower }}"></div>
+								<li data-code="{{ country|lower }}">
 									<p>{{ country|country(app.request.locale) }}</p>
 								</li>
 							{% endfor %}

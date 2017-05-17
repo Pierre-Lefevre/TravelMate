@@ -56,6 +56,7 @@ function clickMarker() {
     xhr.onload       = function (e) {
         infowindow.setContent(e.target.response.documentElement.innerHTML);
         infowindow.open(map, marker);
+        addFlags();
     };
     xhr.send();
 }

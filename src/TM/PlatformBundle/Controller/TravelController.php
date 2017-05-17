@@ -316,23 +316,20 @@ class TravelController extends Controller
      */
     public function ajaxCountryCodesAction(Request $request)
     {
-        $results = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getAllTravelCountryCode();
+        $results = $this->getDoctrine()->getRepository('TMPlatformBundle:Travel')->getAllTravelCountryCode();
 
         $countryCodes = array();
         foreach ($results as $result) {
             $countryCodes = array_merge($countryCodes, $result["countries"]);
         }
 
+        $countryCodes = array_diff(array_unique($countryCodes), array("EZ", "UN"));
+
         $countCountryCodes = array();
         foreach ($countryCodes as $countryCode) {
-            if (isset($countCountryCodes[$countryCode])) {
-                $countCountryCodes[$countryCode]["nb"]++;
-            } else {
-                $countCountryCodes[$countryCode]["nb"]  = 1;
-                $country                                = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Country')->getAllTravelCountryCode($countryCode);
-                $countCountryCodes[$countryCode]["lat"] = $country[0]->getLatitude();
-                $countCountryCodes[$countryCode]["lng"] = $country[0]->getLongitude();
-            }
+            $country                                = $this->getDoctrine()->getRepository('TMPlatformBundle:Country')->getAllTravelCountryCode($countryCode);
+            $countCountryCodes[$countryCode]["lat"] = $country[0]->getLatitude();
+            $countCountryCodes[$countryCode]["lng"] = $country[0]->getLongitude();
         }
 
         return new JsonResponse(array(
@@ -347,11 +344,14 @@ class TravelController extends Controller
      */
     public function ajaxLastTravelAction(Request $request, $code)
     {
-        $travels = $this->getDoctrine()->getManager()->getRepository('TMPlatformBundle:Travel')->getLastTravelByCode($code, 2);
+        $travelRepository = $this->getDoctrine()->getRepository('TMPlatformBundle:Travel');
+        $travels          = $travelRepository->getLastTravelByCode($code, 2);
+        $nbTravels        = $travelRepository->getNumberTravelByCode($code);
 
         return $this->render('TMPlatformBundle:Travel:list_travel_map.html.twig', array(
-            'code' => $code,
-            'travels' => $travels
+            'code'      => $code,
+            'nbTravels' => $nbTravels,
+            'travels'   => $travels
         ));
     }
 }

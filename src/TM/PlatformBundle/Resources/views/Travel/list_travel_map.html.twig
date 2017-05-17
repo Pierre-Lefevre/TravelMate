@@ -1,7 +1,7 @@
 <div id="infowindow-container">
 	<div class="title">
 		<h3>{{ code|country(app.request.locale) }}</h3>
-		<a href="{{ path("tm_platform_search_from_map", {'code': code}) }}" data-code="{{ code }}">Voir tous les voyages pour ce pays...</a>
+		<a href="{{ path("tm_platform_search_from_map", {'code': code}) }}" data-code="{{ code }}">Voir tous les voyages pour ce pays... ({{ nbTravels }})</a>
 	</div>
 	<div class="content">
 		<ul class="list-travel map">
@@ -14,9 +14,13 @@
 								<p>Pays :</p>
 								<ul>
 									{% for country in travel.countries %}
-										<li>
-											<div class="flag flag-{{ country|lower }}"></div>
-											<p>{{ country|country(app.request.locale) }}</p>
+										<li data-code="{{ country|lower }}" data-flag-not-empty>
+											<p>
+												{{ country|country(app.request.locale) }}
+												{% if not loop.last %}
+													-
+												{% endif %}
+											</p>
 										</li>
 									{% endfor %}
 								</ul>
