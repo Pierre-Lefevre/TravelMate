@@ -21,8 +21,7 @@ class AppKernel extends Kernel
             new TM\UserBundle\TMUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new TM\ChatBundle\TMChatBundle(),
-            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle()
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

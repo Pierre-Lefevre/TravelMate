@@ -6,15 +6,15 @@ $(function () {
         }, 1000);
     }
 
-    function getNewMessage($dateMin) {
-        $dateMax = Date.now();
+    function getNewMessage(dateMin) {
+        dateMax = Date.now();
         $.ajax({
             url: $("#new-message").attr("data-path"),
             type: 'POST',
             dataType: 'json',
             data: {
-                dateMin: $dateMin,
-                dateMax: $dateMax
+                dateMin: dateMin,
+                dateMax: dateMax
             },
             success: function (resultat, statut) {
                 for (i = 0; i < resultat.messages.length; i++) {
@@ -24,7 +24,7 @@ $(function () {
                         '</li>');
                 }
                 if (resultat.messages.length > 0) {
-                    scrollSmooth.call($overflowElement, $overflowElement[0].scrollHeight);
+                    scrollSmooth.call(overflowElement, overflowElement[0].scrollHeight);
                 }
             },
             error: function (resultat, statut, erreur) {
@@ -34,41 +34,41 @@ $(function () {
         });
     }
 
-    var $overflowElement = $("#list-message-container");
-    var $dateMin;
-    var $dateMax;
-    $dateMin = Date.now();
+    var overflowElement = $("#list-message-container");
+    var dateMin;
+    var dateMax;
+    dateMin = Date.now();
 
-    if ($overflowElement[0] !== null) {
+    if (overflowElement[0] !== null) {
         setInterval(function () {
-            getNewMessage($dateMin);
-            $dateMin = $dateMax;
+            getNewMessage(dateMin);
+            dateMin = dateMax;
         }, 5000);
     }
 
     $("#send-message-form").submit(function (e) {
         e.preventDefault();
 
-        var $this          = $(this);
-        var $formSerialize = $this.serialize();
+        var that          = $(this);
+        var formSerialize = that.serialize();
 
         $.ajax({
-            url: $this.attr('action'),
+            url: that.attr('action'),
             type: 'POST',
             dataType: 'json',
-            data: $formSerialize,
+            data: formSerialize,
             success: function (resultat, statut) {
-                var $message = $this.find("textarea").val();
+                var message = that.find("textarea").val();
                 $("#list-message").append('<li class="me">' +
                     '<div class="profile-picture" style="background-image: url(' + $("#my-profile-picture").attr("data-path") + ')"></div>' +
-                    '<p>' + $message + '</p>' +
+                    '<p>' + message + '</p>' +
                     '</li>');
-                $this.find("textarea").val('');
-                $this.find("input[type='submit']").blur();
-                if ($this.find("input[type='submit']").val() === "Envoyer") {
-                    $this.find("input[type='submit']").val("Répondre");
+                that.find("textarea").val('');
+                that.find("input[type='submit']").blur();
+                if (that.find("input[type='submit']").val() === "Envoyer") {
+                    that.find("input[type='submit']").val("Répondre");
                 }
-                scrollSmooth.call($overflowElement, $overflowElement[0].scrollHeight);
+                scrollSmooth.call(overflowElement, overflowElement[0].scrollHeight);
             },
             error: function (resultat, statut, erreur) {
             },
