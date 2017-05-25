@@ -49,9 +49,9 @@
 							<li {{ message.sender.id == app.user.id ? 'class="me"' : null }}>
 								<div class="profile-picture" style="background-image: url({{ asset
 								('uploads/user/profilepics/' ~ message.sender.getProfilePicturePath) }})"></div>
-
+<div>
 									<p>{{ message.content }}</p>
-
+			</div>
 							</li>
 						{% endfor %}
 					{% endif %}

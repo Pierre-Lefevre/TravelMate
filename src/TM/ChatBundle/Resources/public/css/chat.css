@@ -108,6 +108,21 @@
     margin-left: 5px;
 }
 
+#list-message li div:last-of-type {
+    flex: 1;
+    display: flex;
+}
+
+#list-message li:not(.me) div:last-of-type {
+    order: 2;
+    justify-content: flex-start;
+}
+
+#list-message li.me div:last-of-type {
+    order: 1;
+    justify-content: flex-end;
+}
+
 #list-message li p {
     border-radius: 5px;
     padding: 5px;
@@ -115,12 +130,10 @@
 }
 
 #list-message li:not(.me) p {
-    order: 2;
     background-color: #F1F0F0;
 }
 
 #list-message li.me p {
-    order: 1;
     background-color: #4080FF;
     color: #FFFFFF;
 }

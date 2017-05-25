@@ -20,7 +20,9 @@ $(function () {
                 for (i = 0; i < resultat.messages.length; i++) {
                     $("#list-message").append('<li ' + (resultat.messages[i].me ? 'class="me"' : '') + '>' +
                         '<div class="profile-picture" style="background-image: url(' + resultat.messages[i].profilePicture + ')"></div>' +
+                        '<div>' +
                         '<p>' + resultat.messages[i].content + '</p>' +
+                        '</div>' +
                         '</li>');
                 }
                 if (resultat.messages.length > 0) {
@@ -61,7 +63,9 @@ $(function () {
                 var message = that.find("textarea").val();
                 $("#list-message").append('<li class="me">' +
                     '<div class="profile-picture" style="background-image: url(' + $("#my-profile-picture").attr("data-path") + ')"></div>' +
+                    '<div>' +
                     '<p>' + message + '</p>' +
+                    '</div>' +
                     '</li>');
                 that.find("textarea").val('');
                 that.find("input[type='submit']").blur();
