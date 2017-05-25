@@ -1,11 +1,26 @@
+OpenClassrooms, Développez votre site web avec le framework Symfony [en ligne], Alexandre Bacco, mis à jour le
+mercredi 10 mai 2017.
+License : Creative Commons Attribution-NonCommercial-ShareAlike 2.0 Generic (CC BY-NC-SA 2.0).
+Disponible sur : <https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony>
+
+Google Maps API, Google Developers [en ligne], mis à jour le jeudi 6 avril 2017.
+License : Creative Commons Attribution 3.0 Unported (CC BY 3.0).
+Disponible sur : <https://developers.google.com/maps/documentation/?hl=fr>
+
+Dataset Publishing Language, countries.csv [en ligne], mis à jour le vendredi 20 janvier 2012.
+License : Creative Commons Attribution 3.0 Unported (CC BY 3.0).
+Disponible sur : <https://developers.google.com/public-data/docs/canonical/countries_csv>
+
+Flag Sprites [en ligne].
+License : "available for free use for any purpose with no requirement for attribution".
+Disponible sur : <https://www.flag-sprites.com/fr/>
+
+Flaticon, Free vector icons - SVG, PSD, PNG, EPS & Icon Font - Thousands of free icons [en ligne].
+License : Creative Commons Attribution 3.0 Unported (CC BY 3.0).
+Disponible sur : <http://www.flaticon.com/>
 Loupe : <div>Icons made by <a href="http://www.flaticon.com/authors/simpleicon" title="SimpleIcon">SimpleIcon</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
 Crayon : <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
 Corbeille : <div>Icons made by <a href="http://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
 Terre : <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
 Avion : <div>Icons made by <a href="http://www.flaticon.com/authors/graphberry" title="GraphBerry">GraphBerry</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
 Dollar : <div>Icons made by <a href="http://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
